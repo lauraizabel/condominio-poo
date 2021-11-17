@@ -1,0 +1,17 @@
+public class Morador extends Pessoa {
+
+    Apartamento apartamento;
+
+    public Morador(Apartamento apartamento, String id, String nome, String telefone, String email, String cpf) {
+        super(id, nome, telefone, email, cpf);
+        this.apartamento = apartamento;
+    }
+
+    public Apartamento getApartamento() {
+        return apartamento;
+    }
+
+    public void setApartamento(Apartamento apartamento) {
+        this.apartamento = apartamento;
+    }
+}
