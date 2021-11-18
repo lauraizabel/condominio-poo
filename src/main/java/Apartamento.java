@@ -15,10 +15,6 @@ public class Apartamento {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getBloco() {
         return bloco;
     }
