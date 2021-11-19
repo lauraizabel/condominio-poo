@@ -1,12 +1,12 @@
 public class AcessoPermitido {
-    String id;
-    String nome;
-    String cpf;
-    Apartamento apartamento;
-    String telefone;
-    String email;
-    Morador permissor;
-    Boolean permitido;
+    private String id;
+    private String nome;
+    private String cpf;
+    private Apartamento apartamento;
+    private String telefone;
+    private String email;
+    private Morador permissor;
+    private Boolean permitido;
 
     public AcessoPermitido(String id, String nome, String cpf, Apartamento apartamento, String telefone, String email, Morador permissor, Boolean permitido){
         this.id = id;
@@ -72,7 +72,7 @@ public class AcessoPermitido {
     }
 
     public Boolean getPermitido() {
-        return this.permitido;
+        return permitido;
     }
 
     public void setPermitido(Boolean permitido) {

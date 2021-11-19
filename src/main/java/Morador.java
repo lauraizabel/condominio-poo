@@ -1,6 +1,6 @@
 public class Morador extends Pessoa {
 
-    Apartamento apartamento;
+    private Apartamento apartamento;
 
     public Morador(Apartamento apartamento, String id, String nome, String telefone, String email, String cpf) {
         super(id, nome, telefone, email, cpf);

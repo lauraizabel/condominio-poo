@@ -1,8 +1,8 @@
 public class Espaco {
-    String id;
-    String nome;
-    int capacidade;
-    boolean ocupado;
+    private String id;
+    private String nome;
+    private int capacidade;
+    private boolean ocupado;
 
     public Espaco(String id, String nome, int capacidade, boolean ocupado) {
         this.id = id;
