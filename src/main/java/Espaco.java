@@ -1,8 +1,8 @@
 public class Espaco {
-    private  String id;
-    private  String nome;
-    private  int capacidade;
-    private  boolean ocupado;
+    private String id;
+    private String nome;
+    private int capacidade;
+    private boolean ocupado;
 
     public Espaco(String id, String nome, int capacidade, boolean ocupado) {
         this.id = id;
@@ -12,11 +12,11 @@ public class Espaco {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -24,7 +24,7 @@ public class Espaco {
     }
 
     public int getCapacidade() {
-        return capacidade;
+        return this.capacidade;
     }
 
     public void setCapacidade(int capacidade) {
@@ -32,7 +32,7 @@ public class Espaco {
     }
 
     public boolean isOcupado() {
-        return ocupado;
+        return this.ocupado;
     }
 
     public void setOcupado(boolean ocupado) {

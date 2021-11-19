@@ -16,11 +16,11 @@ public class Fornecedor {
     }
 
     public Number getId() {
-        return id;
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -28,11 +28,11 @@ public class Fornecedor {
     }
 
     public String getCnpj() {
-        return cnpj;
+        return this.cnpj;
     }
 
     public String getEndereco() {
-        return endereco;
+        return this.endereco;
     }
 
     public void setEndereco(String endereco) {
@@ -40,7 +40,7 @@ public class Fornecedor {
     }
 
     public String getTelefone() {
-        return telefone;
+        return this.telefone;
     }
 
     public void setTelefone(String telefone) {
@@ -48,7 +48,7 @@ public class Fornecedor {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {

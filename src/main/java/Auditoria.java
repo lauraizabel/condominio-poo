@@ -15,15 +15,15 @@ public class Auditoria {
     }
 
     public Number getIdAlteracao() {
-        return idAlteracao;
+        return this.idAlteracao;
     }
 
     public Number getIdFuncionario() {
-        return idFuncionario;
+        return this.idFuncionario;
     }
 
     public Date getDataAlteracao() {
-        return dataAlteracao;
+        return this.dataAlteracao;
     }
 
     public void setDataAlteracao(Date dataAlteracao) {

@@ -8,7 +8,7 @@ public class Morador extends Pessoa {
     }
 
     public Apartamento getApartamento() {
-        return apartamento;
+        return this.apartamento;
     }
 
     public void setApartamento(Apartamento apartamento) {
