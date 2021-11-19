@@ -1,9 +1,9 @@
 public class Pessoa {
-    String id;
-    String nome;
-    String telefone;
-    String email;
-    String cpf;
+    private String id;
+    private String nome;
+    private String telefone;
+    private String email;
+    private String cpf;
 
     public Pessoa(String id, String nome, String telefone, String email, String cpf) {
         this.id = id;
