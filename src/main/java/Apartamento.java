@@ -12,11 +12,11 @@ public class Apartamento {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getBloco() {
-        return bloco;
+        return this.bloco;
     }
 
     public void setBloco(String bloco) {
@@ -24,7 +24,7 @@ public class Apartamento {
     }
 
     public int getAndar() {
-        return andar;
+        return this.andar;
     }
 
     public void setAndar(int andar) {
@@ -32,7 +32,7 @@ public class Apartamento {
     }
 
     public int getApartamento() {
-        return apartamento;
+        return this.apartamento;
     }
 
     public void setApartamento(int apartamento) {

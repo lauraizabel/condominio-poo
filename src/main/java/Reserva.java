@@ -14,11 +14,11 @@ public class Reserva {
     }
 
     public Number getId() {
-        return id;
+        return this.id;
     }
 
     public Number getIdEspaco() {
-        return idEspaco;
+        return this.idEspaco;
     }
 
     public void setIdEspaco(Number idEspaco) {
@@ -34,7 +34,7 @@ public class Reserva {
     }
 
     public Date getDataReserva() {
-        return dataReserva;
+        return this.dataReserva;
     }
 
     public void setDataReserva(Date dataReserva) {

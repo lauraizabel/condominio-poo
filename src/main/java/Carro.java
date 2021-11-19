@@ -12,11 +12,11 @@ public class Carro {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getModelo() {
-        return modelo;
+        return this.modelo;
     }
 
     public void setModelo(String modelo) {
@@ -24,7 +24,7 @@ public class Carro {
     }
 
     public String getPlaca() {
-        return placa;
+        return this.placa;
     }
 
     public void setPlaca(String placa) {
@@ -32,7 +32,7 @@ public class Carro {
     }
 
     public Morador getDono() {
-        return dono;
+        return this.dono;
     }
 
     public void setDono(Morador dono) {

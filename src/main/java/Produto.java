@@ -14,11 +14,11 @@ public class Produto {
     }
 
     public Number getId() {
-        return id;
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -26,7 +26,7 @@ public class Produto {
     }
 
     public Float getValor() {
-        return valor;
+        return this.valor;
     }
 
     public void setValor(Float valor) {
@@ -34,7 +34,7 @@ public class Produto {
     }
 
     public Fornecedor getFornecedor() {
-        return fornecedor;
+        return this.fornecedor;
     }
 
     public void setFornecedor(Fornecedor fornecedor) {
@@ -42,7 +42,7 @@ public class Produto {
     }
 
     public String getCodigo() {
-        return codigo;
+        return this.codigo;
     }
 
     public void setCodigo(String codigo) {

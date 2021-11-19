@@ -14,11 +14,11 @@ public class Pessoa {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -26,7 +26,7 @@ public class Pessoa {
     }
 
     public String getTelefone() {
-        return telefone;
+        return this.telefone;
     }
 
     public void setTelefone(String telefone) {
@@ -34,7 +34,7 @@ public class Pessoa {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -42,7 +42,7 @@ public class Pessoa {
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
     public void setCpf(String cpf) {

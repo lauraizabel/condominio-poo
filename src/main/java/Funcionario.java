@@ -18,11 +18,11 @@ public class Funcionario {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getCargo() {
-        return cargo;
+        return this.cargo;
     }
 
     public void setCargo(String cargo) {
@@ -30,7 +30,7 @@ public class Funcionario {
     }
 
     public Double getSalario() {
-        return salario;
+        return this.salario;
     }
 
     public void setSalario(Double salario) {
@@ -38,7 +38,7 @@ public class Funcionario {
     }
 
     public String getEndereco() {
-        return endereco;
+        return this.endereco;
     }
 
     public void setEndereco(String endereco) {
@@ -46,7 +46,7 @@ public class Funcionario {
     }
 
     public Date getDataAdmissao() {
-        return dataAdmissao;
+        return this.dataAdmissao;
     }
 
     public void setDataAdmissao(Date dataAdmissao) {
@@ -54,7 +54,7 @@ public class Funcionario {
     }
 
     public Date getDataEmissao() {
-        return dataEmissao;
+        return this.dataEmissao;
     }
 
     public void setDataEmissao(Date dataEmissao) {
