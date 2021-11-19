@@ -1,8 +1,8 @@
 public class Apartamento {
-    String id;
-    String bloco;
-    int andar;
-    int apartamento;
+    private String id;
+    private String bloco;
+    private int andar;
+    private int apartamento;
 
     public Apartamento(String id, String bloco, int andar, int apartamento) {
         this.id = id;
