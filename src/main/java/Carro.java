@@ -1,8 +1,8 @@
 public class Carro {
-    String id;
-    String modelo;
-    String placa;
-    Morador dono;
+    private String id;
+    private String modelo;
+    private String placa;
+    private Morador dono;
 
     public Carro(String id, String modelo, String placa, Morador dono){
         this.id = id;

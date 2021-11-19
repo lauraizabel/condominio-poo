@@ -1,12 +1,12 @@
 import java.util.Date;
 
 public class Funcionario {
-    String id;
-    String cargo;
-    Double salario;
-    String endereco;
-    Date dataAdmissao;
-    Date dataEmissao;
+    private String id;
+    private String cargo;
+    private Double salario;
+    private String endereco;
+    private Date dataAdmissao;
+    private Date dataEmissao;
 
     public Funcionario(String id, String cargo, Double salario, String endereco, Date dataAdmissao, Date dataEmissao){
         this.id = id;
