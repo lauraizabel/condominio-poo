@@ -6,6 +6,13 @@ public class Auditoria {
     private Number idFuncionario;
     private Date dataAlteracao;
 
+    public Auditoria(String tabelaAlterada, Number idAlteracao, Number idFuncionario, Date dataAlteracao) {
+        this.tabelaAlterada = tabelaAlterada;
+        this.idAlteracao = idAlteracao;
+        this.idFuncionario = idFuncionario;
+        this.dataAlteracao = dataAlteracao;
+    }
+
     public String getTabelaAlterada() {
         return tabelaAlterada;
     }
