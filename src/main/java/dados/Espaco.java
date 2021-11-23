@@ -1,3 +1,5 @@
+package dados;
+
 public class Espaco {
     private String id;
     private String nome;

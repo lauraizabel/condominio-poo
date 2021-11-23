@@ -1,3 +1,5 @@
+package dados;
+
 public class Produto {
     private Number id;
     private String nome;

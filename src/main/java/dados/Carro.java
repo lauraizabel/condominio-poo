@@ -1,3 +1,5 @@
+package dados;
+
 public class Carro {
     private String id;
     private String modelo;

@@ -1,3 +1,5 @@
+package dados;
+
 public class Morador extends Pessoa {
 
     private Apartamento apartamento;

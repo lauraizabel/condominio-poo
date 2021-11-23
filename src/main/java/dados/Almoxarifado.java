@@ -1,3 +1,5 @@
+package dados;
+
 import java.util.ArrayList;
 
 public class Almoxarifado {
