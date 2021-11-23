@@ -3,36 +3,36 @@ package dados;
 import java.util.Date;
 
 public class Reserva {
-    private Number id;
-    private Number idEspaco;
-    private Number idMorador;
+    private String id;
+    private String idEspaco;
+    private String idApartamento;
     private Date dataReserva;
 
-    public Reserva(Number id, Number idEspaco, Number idMorador, Date dataReserva) {
+    public Reserva(String id, String idEspaco, String idApartamento, Date dataReserva) {
         this.id = id;
         this.idEspaco = idEspaco;
-        this.idMorador = idMorador;
+        this.idApartamento = idApartamento;
         this.dataReserva = dataReserva;
     }
 
-    public Number getId() {
+    public String getId() {
         return this.id;
     }
 
-    public Number getIdEspaco() {
+    public String getIdEspaco() {
         return this.idEspaco;
     }
 
-    public void setIdEspaco(Number idEspaco) {
+    public void setIdEspaco(String idEspaco) {
         this.idEspaco = idEspaco;
     }
 
-    public Number getIdMorador() {
-        return idMorador;
+    public String getIdApartamento() {
+        return idApartamento;
     }
 
-    public void setIdMorador(Number idMorador) {
-        this.idMorador = idMorador;
+    public void setIdApartamento(String idApartamento) {
+        this.idApartamento = idApartamento;
     }
 
     public Date getDataReserva() {

@@ -5,12 +5,14 @@ public class Espaco {
     private String nome;
     private int capacidade;
     private boolean ocupado;
+    private Double custoReserva;
 
-    public Espaco(String id, String nome, int capacidade, boolean ocupado) {
+    public Espaco(String id, String nome, int capacidade, boolean ocupado, Double custoReserva) {
         this.id = id;
         this.nome = nome;
         this.capacidade = capacidade;
         this.ocupado = ocupado;
+        this.custoReserva = custoReserva;
     }
 
     public String getId() {
@@ -39,5 +41,13 @@ public class Espaco {
 
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;
+    }
+
+    public Double getCustoReserva() {
+        return this.custoReserva;
+    }
+
+    public void setOcupado(Double custoReserva) {
+        this.custoReserva = custoReserva;
     }
 }
