@@ -2,25 +2,31 @@ package dados;
 
 import java.util.Date;
 
-public class Funcionario {
-    private String id;
+public class Funcionario extends Pessoa {
     private String cargo;
     private Double salario;
     private String endereco;
     private Date dataAdmissao;
-    private Date dataEmissao;
+    private Date dataDemissao;
 
-    public Funcionario(String id, String cargo, Double salario, String endereco, Date dataAdmissao, Date dataEmissao){
-        this.id = id;
+    public Funcionario(
+            String id,
+            String nome,
+            String telefone,
+            String email,
+            String cpf,
+            String cargo,
+            Double salario,
+            String endereco,
+            Date dataAdmissao,
+            Date dataEmissao
+    ){
+        super(id, nome, telefone, email, cpf);
         this.cargo = cargo;
         this.salario = salario;
         this.endereco = endereco;
         this.dataAdmissao = dataAdmissao;
-        this.dataEmissao = dataEmissao;
-    }
-
-    public String getId() {
-        return this.id;
+        this.dataDemissao = dataEmissao;
     }
 
     public String getCargo() {
@@ -55,11 +61,11 @@ public class Funcionario {
         this.dataAdmissao = dataAdmissao;
     }
 
-    public Date getDataEmissao() {
-        return this.dataEmissao;
+    public Date getDataDemissao() {
+        return this.dataDemissao;
     }
 
-    public void setDataEmissao(Date dataEmissao) {
-        this.dataEmissao = dataEmissao;
+    public void setDataDemissao(Date dataDemissao) {
+        this.dataDemissao = dataDemissao;
     }
 }
