@@ -1,3 +1,5 @@
+package dados;
+
 import java.util.Date;
 
 public class Auditoria {

@@ -1,3 +1,5 @@
+package dados;
+
 public class AcessoPermitido extends Pessoa {
 
     private String id;

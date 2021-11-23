@@ -1,3 +1,5 @@
+package dados;
+
 public class Apartamento {
     private String id;
     private String bloco;
