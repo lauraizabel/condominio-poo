@@ -1,6 +1,6 @@
 package dados;
 
-public class Pessoa {
+public abstract class Pessoa {
     private String id;
     private String nome;
     private String telefone;
