@@ -1,14 +1,14 @@
 package dados;
 
 public class Fornecedor {
-    private Number id;
+    private String id;
     private String nome;
     private String cnpj;
     private String endereco;
     private String telefone;
     private String email;
 
-    public Fornecedor(Number id, String nome, String cnpj, String endereco, String telefone, String email) {
+    public Fornecedor(String id, String nome, String cnpj, String endereco, String telefone, String email) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -17,7 +17,7 @@ public class Fornecedor {
         this.email = email;
     }
 
-    public Number getId() {
+    public String getId() {
         return this.id;
     }
 
