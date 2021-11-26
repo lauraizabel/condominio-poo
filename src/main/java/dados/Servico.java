@@ -1,16 +1,20 @@
+package dados;
+
 public class Servico {
     private String id;
     private String descricao;
     private Float valor;
     private String codigo;
     private Funcionario requerente;
+    private Fornecedor fornecedor;
 
-    public Servico(String id, String descricao, Float valor, String codigo, Funcionario requerente ) {
+    public Servico(String id, String descricao, Float valor, String codigo, Funcionario requerente, Fornecedor fornecedor) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
         this.codigo = codigo;
         this.requerente = requerente;
+        this.fornecedor = fornecedor;
     }
 
     public String getId(){
@@ -48,4 +52,14 @@ public class Servico {
     public void setRequerente(Funcionario requerente) {
         this.requerente = requerente;
     }
+
+    public Fornecedor getFornecedor() {
+        return this.fornecedor;
+    }
+
+    public void SetFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+
 }

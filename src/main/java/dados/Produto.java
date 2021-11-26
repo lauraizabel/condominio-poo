@@ -1,11 +1,13 @@
+package dados;
+
 public class Produto {
-    private Number id;
+    private String id;
     private String nome;
     private Float valor;
     private Fornecedor fornecedor;
     private String codigo;
 
-    public Produto(Number id, String nome, Float valor, Fornecedor fornecedor, String codigo) {
+    public Produto(String id, String nome, Float valor, Fornecedor fornecedor, String codigo) {
         this.id = id;
         this.nome = nome;
         this.valor = valor;
@@ -13,7 +15,7 @@ public class Produto {
         this.codigo = codigo;
     }
 
-    public Number getId() {
+    public String getId() {
         return this.id;
     }
 

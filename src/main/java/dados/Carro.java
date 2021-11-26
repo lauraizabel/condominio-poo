@@ -1,14 +1,14 @@
+package dados;
+
 public class Carro {
     private String id;
     private String modelo;
     private String placa;
-    private Morador dono;
 
-    public Carro(String id, String modelo, String placa, Morador dono){
+    public Carro(String id, String modelo, String placa){
         this.id = id;
         this.modelo = modelo;
         this.placa = placa;
-        this.dono = dono;
     }
 
     public String getId() {
@@ -31,11 +31,5 @@ public class Carro {
         this.placa = placa;
     }
 
-    public Morador getDono() {
-        return this.dono;
-    }
-
-    public void setDono(Morador dono) {
-        this.dono = dono;
-    }    
+       
 }

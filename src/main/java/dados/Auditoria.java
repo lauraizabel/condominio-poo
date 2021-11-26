@@ -1,12 +1,14 @@
+package dados;
+
 import java.util.Date;
 
 public class Auditoria {
     private String tabelaAlterada;
-    private Number idAlteracao;
-    private Number idFuncionario;
+    private String idAlteracao;
+    private String idFuncionario;
     private Date dataAlteracao;
 
-    public Auditoria(String tabelaAlterada, Number idAlteracao, Number idFuncionario, Date dataAlteracao) {
+    public Auditoria(String tabelaAlterada, String idAlteracao, String idFuncionario, Date dataAlteracao) {
         this.tabelaAlterada = tabelaAlterada;
         this.idAlteracao = idAlteracao;
         this.idFuncionario = idFuncionario;
@@ -21,11 +23,11 @@ public class Auditoria {
         this.tabelaAlterada = tabelaAlterada;
     }
 
-    public Number getIdAlteracao() {
+    public String getIdAlteracao() {
         return this.idAlteracao;
     }
 
-    public Number getIdFuncionario() {
+    public String getIdFuncionario() {
         return this.idFuncionario;
     }
 
