@@ -1,6 +1,12 @@
 package dados;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Servico {
+    @Id @GeneratedValue
     private String id;
     private String descricao;
     private Float valor;
