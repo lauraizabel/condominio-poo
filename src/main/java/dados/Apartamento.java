@@ -2,7 +2,14 @@ package dados;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Apartamento {
+    
+    @Id @GeneratedValue
     private String id;
     private String bloco;
     private int andar;
