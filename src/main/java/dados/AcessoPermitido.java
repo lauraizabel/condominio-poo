@@ -1,8 +1,13 @@
 package dados;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class AcessoPermitido extends Pessoa {
 
-    private String idAcesso;
+    @Id @GeneratedValue;
     private Apartamento apartamento;
     private Boolean permitido;
 

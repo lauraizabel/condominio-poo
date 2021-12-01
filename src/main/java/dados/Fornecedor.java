@@ -1,7 +1,14 @@
 package dados;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+
 public class Fornecedor {
-    private String id;
+    
+    @Id @GeneratedValue;
     private String nome;
     private String cnpj;
     private String endereco;
