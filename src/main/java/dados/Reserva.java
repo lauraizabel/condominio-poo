@@ -1,8 +1,13 @@
 package dados;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class Reserva {
+    @Id @GeneratedValue
     private String id;
     private String idEspaco;
     private String idApartamento;
