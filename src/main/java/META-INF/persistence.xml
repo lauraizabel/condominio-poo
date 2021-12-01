@@ -7,16 +7,22 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="default">
         <properties>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:postgres://localhost:5432/postgres" />
+                      value="postgres://dgvkekeuikeued:11cfeea9513e91762bdc2ebe68d5b
+                            876daa8f511ba4385f9245f5c34ed856358@ec2-54-204-128-96.compute-1
+                            .amazonaws.com:5432/d14bqonbtnd4g2" />
 
             <property name="javax.persistence.jdbc.user"
-                      value="postgres" />
+                      value="dgvkekeuikeued" />
+
             <property name="javax.persistence.jdbc.password"
-                      value="postgres" />
+                      value="11cfeea9513e91762bdc2ebe68d5b876daa8f511ba4385f9245f5c34ed856358" />
+
             <property name="javax.persistence.jdbc.driver"
-                      value="com.mysql.jdbc.Driver" />
+                      value="org.postgresql.Driver" />
+
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.PostgreSQL82Dialect"/>
+
             <property name="hibernate.hbm2ddl.auto"
                       value="update" />
         </properties>
