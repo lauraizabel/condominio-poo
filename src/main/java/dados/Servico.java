@@ -6,6 +6,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Servico {
+    
     @Id @GeneratedValue
     private String id;
     private String descricao;

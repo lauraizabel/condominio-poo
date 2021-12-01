@@ -1,9 +1,15 @@
 package dados;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import java.util.ArrayList;
 
+@Entity
 public class Pedido {
-    private String id;
+    
+    @Id @GeneratedValue;
     private Funcionario requerente;
     private ArrayList<Produto> produtos;
     

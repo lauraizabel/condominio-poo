@@ -1,7 +1,13 @@
 package dados;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Produto {
-    private String id;
+    
+    @Id @GeneratedValue;
     private String nome;
     private Float valor;
     private Fornecedor fornecedor;

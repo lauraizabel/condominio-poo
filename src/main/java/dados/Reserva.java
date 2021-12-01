@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 public class Reserva {
+    
     @Id @GeneratedValue
     private String id;
     private String idEspaco;
