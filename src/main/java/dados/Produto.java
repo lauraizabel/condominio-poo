@@ -6,8 +6,9 @@ import javax.persistence.Id;
 
 @Entity
 public class Produto {
-    
-    @Id @GeneratedValue;
+
+    @Id @GeneratedValue
+    private String id;
     private String nome;
     private Float valor;
     private Fornecedor fornecedor;

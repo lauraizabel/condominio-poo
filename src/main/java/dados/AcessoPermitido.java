@@ -7,7 +7,8 @@ import javax.persistence.Id;
 @Entity
 public class AcessoPermitido extends Pessoa {
 
-    @Id @GeneratedValue;
+    @Id @GeneratedValue
+    private String idAcesso;
     private Apartamento apartamento;
     private Boolean permitido;
 
