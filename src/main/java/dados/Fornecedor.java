@@ -7,8 +7,9 @@ import javax.persistence.Id;
 @Entity
 
 public class Fornecedor {
-    
-    @Id @GeneratedValue;
+
+    @Id @GeneratedValue
+    private String id;
     private String nome;
     private String cnpj;
     private String endereco;

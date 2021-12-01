@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 @Entity
 public class Pedido {
-    
-    @Id @GeneratedValue;
+
+    @Id @GeneratedValue
+    private String id;
     private Funcionario requerente;
     private ArrayList<Produto> produtos;
     
