@@ -1,13 +1,22 @@
 package dados;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+// import javax.persistence.JoinColumn;
 
+
+@Entity
 public class Funcionario extends Pessoa {
     private String cargo;
     private Double salario;
     private String endereco;
     private Date dataAdmissao;
     private Date dataDemissao;
+    
+    @Id
+    // @JoinColumn 
+    private String idPessoa;
 
     public Funcionario(
             String id,

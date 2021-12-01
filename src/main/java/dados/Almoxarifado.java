@@ -3,13 +3,8 @@ package dados;
 import java.util.ArrayList;
 
 public class Almoxarifado {
-    private String id;
     private ArrayList<Produto> produtos = new ArrayList<Produto>();
     private ArrayList<Servico> servicos = new ArrayList<Servico>();
-
-    public String getId() {
-        return this.id;
-    }
 
     public Almoxarifado(ArrayList<Produto> produtos){
         this.produtos = produtos;
