@@ -11,6 +11,8 @@ public class Main {
     
     Teste T1 = new Teste();
     T1.setId(2);
+    //Mudar o nome pra ver se salva correto no banco de dados;
+    T1.setName("Laura");
     
     
     EntityTransaction tx = em.getTransaction();

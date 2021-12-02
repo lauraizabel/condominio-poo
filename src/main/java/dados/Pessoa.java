@@ -1,10 +1,19 @@
 package dados;
+import javax.persistence.*;
 
+@Entity
 public abstract class Pessoa {
+
+    @Id
+    @GeneratedValue
     private String id;
+    @Column
     private String nome;
+    @Column
     private String telefone;
+    @Column
     private String email;
+    @Column
     private String cpf;
 
     public Pessoa(String id, String nome, String telefone, String email, String cpf) {
