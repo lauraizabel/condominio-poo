@@ -4,19 +4,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-// @Entity
-
+@Entity
 public class Fornecedor {
 
     @Id @GeneratedValue
-    private String id;
+    private Integer id;
     private String nome;
     private String cnpj;
     private String endereco;
     private String telefone;
     private String email;
 
-    public Fornecedor(String id, String nome, String cnpj, String endereco, String telefone, String email) {
+    public Fornecedor() {}
+
+    public Fornecedor(Integer id, String nome, String cnpj, String endereco, String telefone, String email) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -25,7 +26,7 @@ public class Fornecedor {
         this.email = email;
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 

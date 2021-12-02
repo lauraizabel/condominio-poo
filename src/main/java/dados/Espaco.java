@@ -4,16 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-// @Entity
+@Entity
 public class Espaco {
     @Id @GeneratedValue
-    private String id;
+    private Integer id;
     private String nome;
     private int capacidade;
     private boolean ocupado;
     private Double custoReserva;
 
-    public Espaco(String id, String nome, int capacidade, boolean ocupado, Double custoReserva) {
+    public Espaco() {}
+
+    public Espaco(Integer id, String nome, int capacidade, boolean ocupado, Double custoReserva) {
         this.id = id;
         this.nome = nome;
         this.capacidade = capacidade;
@@ -21,7 +23,7 @@ public class Espaco {
         this.custoReserva = custoReserva;
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 

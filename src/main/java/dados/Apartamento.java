@@ -6,18 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-// @Entity
+@Entity
 public class Apartamento {
     
     @Id @GeneratedValue
-    private String id;
+    private Integer id;
     private String bloco;
     private int andar;
     private int apartamento;
     private ArrayList<Morador> moradores;
     private ArrayList<Carro> carros;
 
-    public Apartamento(String id, String bloco, int andar, int apartamento, ArrayList<Morador> moradores, ArrayList<Carro> carros) {
+    public Apartamento() {}
+
+    public Apartamento(Integer id, String bloco, int andar, int apartamento, ArrayList<Morador> moradores, ArrayList<Carro> carros) {
         this.id = id;
         this.bloco = bloco;
         this.andar = andar;
@@ -26,7 +28,7 @@ public class Apartamento {
         this.carros = carros;
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 

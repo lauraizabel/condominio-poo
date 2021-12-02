@@ -4,20 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-// @Entity
+@Entity
 public class Carro {
     @Id @GeneratedValue
-    private String id;
+    private Integer id;
     private String modelo;
     private String placa;
 
-    public Carro(String id, String modelo, String placa){
+    public Carro() {}
+
+    public Carro(Integer id, String modelo, String placa){
         this.id = id;
         this.modelo = modelo;
         this.placa = placa;
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 

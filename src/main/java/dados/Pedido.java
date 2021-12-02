@@ -1,30 +1,33 @@
 package dados;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
-// @Entity
+@Entity
 public class Pedido {
 
     @Id @GeneratedValue
-    private String id;
+    private Integer id;
+    @ManyToOne(targetEntity=Funcionario.class, fetch= FetchType.EAGER)
     private Funcionario requerente;
-    private ArrayList<Produto> produtos;
+    @OneToMany(targetEntity=Produto.class, fetch= FetchType.EAGER)
+    private List<Produto> produtos;
+
+    public Pedido() {}
     
-    public Pedido(String id, Funcionario requerente, ArrayList<Produto> produtos) {
+    public Pedido(Integer id, Funcionario requerente, ArrayList<Produto> produtos) {
         this.id = id;
         this.requerente = requerente;
         this.produtos = produtos;
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public ArrayList<Produto> getProduto() {
+    public List<Produto> getProduto() {
         return this.produtos;
     }
 

@@ -1,22 +1,18 @@
 package dados;
 import javax.persistence.*;
 
-@Entity
+@MappedSuperclass
 public abstract class Pessoa {
-
-    @Id
-    @GeneratedValue
-    private String id;
-    @Column
+    @Id @GeneratedValue
+    private Integer id;
     private String nome;
-    @Column
     private String telefone;
-    @Column
     private String email;
-    @Column
     private String cpf;
 
-    public Pessoa(String id, String nome, String telefone, String email, String cpf) {
+    public Pessoa() {}
+
+    public Pessoa(Integer id, String nome, String telefone, String email, String cpf) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
@@ -24,7 +20,7 @@ public abstract class Pessoa {
         this.cpf = cpf;
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 

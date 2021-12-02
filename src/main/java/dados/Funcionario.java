@@ -2,24 +2,24 @@ package dados;
 
 import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-// import javax.persistence.JoinColumn;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
-// @Entity
+@Entity
 public class Funcionario extends Pessoa {
     private String cargo;
     private Double salario;
     private String endereco;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataAdmissao;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataDemissao;
-    
-    // @Id
-    // @JoinColumn 
-    // private String idPessoa;
+
+    public Funcionario() {}
 
     public Funcionario(
-            String id,
+            Integer id,
             String nome,
             String telefone,
             String email,

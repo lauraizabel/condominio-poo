@@ -1,14 +1,20 @@
 package dados;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Auditoria {
+    @Id @GeneratedValue
+    private Integer idAlteracao;
     private String tabelaAlterada;
-    private String idAlteracao;
     private String idFuncionario;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;
 
-    public Auditoria(String tabelaAlterada, String idAlteracao, String idFuncionario, Date dataAlteracao) {
+    public Auditoria() {}
+
+    public Auditoria(String tabelaAlterada, Integer idAlteracao, String idFuncionario, Date dataAlteracao) {
         this.tabelaAlterada = tabelaAlterada;
         this.idAlteracao = idAlteracao;
         this.idFuncionario = idFuncionario;
@@ -23,7 +29,7 @@ public class Auditoria {
         this.tabelaAlterada = tabelaAlterada;
     }
 
-    public String getIdAlteracao() {
+    public Integer getIdAlteracao() {
         return this.idAlteracao;
     }
 

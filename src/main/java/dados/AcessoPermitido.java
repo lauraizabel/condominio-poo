@@ -1,25 +1,24 @@
 package dados;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-// @Entity
+@Entity
 public class AcessoPermitido extends Pessoa {
-
-    @Id @GeneratedValue
-    private String idAcesso;
+    private Integer idAcesso;
+    @ManyToOne(targetEntity=Apartamento.class, fetch= FetchType.EAGER)
     private Apartamento apartamento;
     private Boolean permitido;
 
-    public AcessoPermitido(String id, String nome, String cpf, Apartamento apartamento, String telefone, String email, Morador permissor, Boolean permitido, String idAcesso){
+    public AcessoPermitido() {}
+
+    public AcessoPermitido(Integer id, String nome, String cpf, Apartamento apartamento, String telefone, String email, Morador permissor, Boolean permitido, Integer idAcesso){
         super(id, nome, telefone, email, cpf);
         this.apartamento = apartamento;
         this.permitido = permitido;
         this.idAcesso = idAcesso;
     }
 
-    public String getIdAcesso() {
+    public Integer getIdAcesso() {
         return this.idAcesso;
     }
 

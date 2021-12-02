@@ -1,21 +1,23 @@
 package dados;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-// @Entity
+@Entity
 public class Servico {
     
     @Id @GeneratedValue
-    private String id;
+    private Integer id;
     private String descricao;
     private Float valor;
     private String codigo;
+    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.EAGER)
     private Funcionario requerente;
+    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.EAGER)
     private Fornecedor fornecedor;
 
-    public Servico(String id, String descricao, Float valor, String codigo, Funcionario requerente, Fornecedor fornecedor) {
+    public Servico() {}
+
+    public Servico(Integer id, String descricao, Float valor, String codigo, Funcionario requerente, Fornecedor fornecedor) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -24,7 +26,7 @@ public class Servico {
         this.fornecedor = fornecedor;
     }
 
-    public String getId(){
+    public Integer getId(){
         return this.id;
     }
 

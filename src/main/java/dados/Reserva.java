@@ -1,27 +1,28 @@
 package dados;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
-// @Entity
+@Entity
 public class Reserva {
     
     @Id @GeneratedValue
-    private String id;
+    private Integer id;
     private String idEspaco;
     private String idApartamento;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataReserva;
 
-    public Reserva(String id, String idEspaco, String idApartamento, Date dataReserva) {
+    public Reserva() {}
+
+    public Reserva(Integer id, String idEspaco, String idApartamento, Date dataReserva) {
         this.id = id;
         this.idEspaco = idEspaco;
         this.idApartamento = idApartamento;
         this.dataReserva = dataReserva;
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
