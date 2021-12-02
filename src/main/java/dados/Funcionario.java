@@ -6,7 +6,7 @@ import javax.persistence.Id;
 // import javax.persistence.JoinColumn;
 
 
-@Entity
+// @Entity
 public class Funcionario extends Pessoa {
     private String cargo;
     private Double salario;
@@ -14,9 +14,9 @@ public class Funcionario extends Pessoa {
     private Date dataAdmissao;
     private Date dataDemissao;
     
-    @Id
+    // @Id
     // @JoinColumn 
-    private String idPessoa;
+    // private String idPessoa;
 
     public Funcionario(
             String id,

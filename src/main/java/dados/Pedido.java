@@ -6,7 +6,7 @@ import javax.persistence.Id;
 
 import java.util.ArrayList;
 
-@Entity
+// @Entity
 public class Pedido {
 
     @Id @GeneratedValue
