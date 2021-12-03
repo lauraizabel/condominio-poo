@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class AcessoPermitido extends Pessoa {
     private Integer idAcesso;
-    @ManyToOne(targetEntity=Apartamento.class, fetch= FetchType.EAGER)
+    @ManyToOne(targetEntity=Apartamento.class, fetch= FetchType.LAZY)
     private Apartamento apartamento;
     private Boolean permitido;
 

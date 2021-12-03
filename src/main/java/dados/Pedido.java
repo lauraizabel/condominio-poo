@@ -10,9 +10,9 @@ public class Pedido {
 
     @Id @GeneratedValue
     private Integer id;
-    @ManyToOne(targetEntity=Funcionario.class, fetch= FetchType.EAGER)
+    @ManyToOne(targetEntity=Funcionario.class, fetch= FetchType.LAZY)
     private Funcionario requerente;
-    @OneToMany(targetEntity=Produto.class, fetch= FetchType.EAGER)
+    @OneToMany(targetEntity=Produto.class, fetch= FetchType.LAZY)
     private List<Produto> produtos;
 
     public Pedido() {}

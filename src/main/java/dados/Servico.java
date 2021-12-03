@@ -10,9 +10,9 @@ public class Servico {
     private String descricao;
     private Float valor;
     private String codigo;
-    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.EAGER)
+    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.LAZY)
     private Funcionario requerente;
-    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.EAGER)
+    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.LAZY)
     private Fornecedor fornecedor;
 
     public Servico() {}
