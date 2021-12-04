@@ -9,7 +9,7 @@ import dados.Produto;
 public class ProdutoTest {
   Faker fake = new Faker();
   TakeClasses takeClasses = new TakeClasses();
-  Produto produto = new TakeClasses().produto();
+  Produto produto = takeClasses.produto();
 
   @Test
   public void testGetId() {
