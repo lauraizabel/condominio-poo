@@ -4,20 +4,23 @@ import javax.persistence.*;
 
 @Entity
 public class Servico {
-    
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
     private Integer id;
     private String descricao;
     private Float valor;
     private String codigo;
-    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity = Fornecedor.class, fetch = FetchType.LAZY)
     private Funcionario requerente;
-    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity = Fornecedor.class, fetch = FetchType.LAZY)
     private Fornecedor fornecedor;
 
-    public Servico() {}
+    public Servico() {
+    }
 
-    public Servico(Integer id, String descricao, Float valor, String codigo, Funcionario requerente, Fornecedor fornecedor) {
+    public Servico(Integer id, String descricao, Float valor, String codigo, Funcionario requerente,
+            Fornecedor fornecedor) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -26,11 +29,11 @@ public class Servico {
         this.fornecedor = fornecedor;
     }
 
-    public Integer getId(){
+    public Integer getId() {
         return this.id;
     }
 
-    public String getDescricao(){
+    public String getDescricao() {
         return this.descricao;
     }
 
@@ -69,6 +72,5 @@ public class Servico {
     public void SetFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
-
 
 }
