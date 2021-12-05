@@ -55,7 +55,7 @@ public class Espaco {
         return this.custoReserva;
     }
 
-    public void setOcupado(Double custoReserva) {
+    public void setCustoReserva(Double custoReserva) {
         this.custoReserva = custoReserva;
     }
 }

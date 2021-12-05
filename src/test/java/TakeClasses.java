@@ -1,14 +1,20 @@
-
 import java.util.ArrayList;
 import java.util.Date;
 
 import com.github.javafaker.Faker;
 
+import dados.AcessoPermitido;
+import dados.Almoxarifado;
+import dados.Apartamento;
+import dados.Auditoria;
+import dados.Carro;
+import dados.Espaco;
 import dados.Fornecedor;
 import dados.Funcionario;
 import dados.Morador;
 import dados.Pedido;
 import dados.Produto;
+import dados.Servico;
 
 public class TakeClasses {
   static Faker faker = new Faker();
@@ -23,12 +29,29 @@ public class TakeClasses {
   private String endereco;
   private Date data;
   private double valor;
+  private String modelo;
+  private String placa;
+  private int andar;
+  private int numApartamento;
+  private boolean ocupado;
+  private int capacidade;
+  private Double custoReserva;
+  private String nomeEspaco;
+  private String tabelaAlterada;
+  private String bloco;
 
   private Funcionario funcionario;
   private Morador morador;
   private Fornecedor fornecedor;
   private Produto produto;
   private Pedido pedido;
+  private AcessoPermitido acessoPermitido;
+  private Apartamento apartamento;
+  private Almoxarifado almoxarifado;
+  private Carro carro;
+  private Espaco espaco;
+  private Auditoria auditoria;
+  
 
   public TakeClasses() {
     this.id = faker.random().nextInt(1, 100);
@@ -42,7 +65,17 @@ public class TakeClasses {
     this.endereco = faker.address().fullAddress();
     this.data = faker.date().birthday();
     this.valor = faker.random().nextDouble();
-  }
+    this.modelo = faker.random().toString();
+    this.placa = faker.random().toString();
+    this.andar = faker.random().nextInt(1,20);
+    this.ocupado = faker.bool().bool();
+    this.capacidade = faker.random().nextInt(20, 1000);
+    this.custoReserva = faker.random().nextDouble();
+    this.nomeEspaco = faker.lorem().word();
+    this.tabelaAlterada = faker.lorem().word();
+    this.bloco = faker.lorem().characters();
+    this.numApartamento = faker.random().nextInt(1, 500);
+    }
 
   public Funcionario getFuncionario() {
     return this.funcionario;
@@ -62,6 +95,18 @@ public class TakeClasses {
 
   public Pedido getPedido() {
     return this.pedido;
+  }
+
+  public AcessoPermitido getAcessoPermitido() {
+    return this.acessoPermitido;
+  }
+
+  public Apartamento getApartamento() {
+    return this.apartamento;
+  }
+
+  public Carro getCarro() {
+    return this.carro;
   }
 
   public Integer getId() {
@@ -104,6 +149,46 @@ public class TakeClasses {
     return data;
   }
 
+  public String getCnpj() {
+    return cnpj;
+  }
+
+  public String getModelo() {
+    return modelo;
+  }
+
+  public String getPlaca() {
+    return placa;
+  }
+
+  public String getNomeEspaco() {
+    return nomeEspaco;
+  }
+
+  public int getCapacidade() {
+    return capacidade;
+  }
+
+  public boolean isOcupado() {
+    return ocupado;
+  }
+
+  public Double getCustoReserva() {
+    return custoReserva;
+  }
+
+  public String getTabelaAlterada() {
+    return tabelaAlterada;
+  }
+
+  public String getBloco() {
+     return bloco;
+  }
+
+  public int getNumApartamento() {
+    return numApartamento;
+  }
+
   public Funcionario funcionario() {
     Funcionario funcionario = new Funcionario(this.id, this.name, this.phone, this.email, this.cpf, this.cargo,
         this.salario, this.endereco, this.data, this.data);
@@ -127,6 +212,7 @@ public class TakeClasses {
 
   public Fornecedor fornecedor() {
     Fornecedor fornecedor = new Fornecedor(this.id, this.name, this.cnpj, this.endereco, this.phone, this.email);
+    this.fornecedor = fornecedor;
     return fornecedor;
   }
 
@@ -141,4 +227,45 @@ public class TakeClasses {
     this.pedido = pedido;
     return pedido;
   }
+
+  public Carro carro() { 
+    Carro carro = new Carro(this.id, this.modelo, this.placa);
+    this.carro = carro;
+    return carro;
+  }
+
+  public Espaco espaco() {
+    Espaco espaco = new Espaco(this.id, this.nomeEspaco, this.capacidade, this.ocupado, this.custoReserva);
+    this.espaco = espaco;
+    return espaco;
+  }
+
+  public Auditoria auditoria() {
+    Auditoria auditoria = new Auditoria(this.tabelaAlterada, this.id ,this.id, this.data);
+    this.auditoria = auditoria;
+    return auditoria;
+  }
+
+  public Apartamento apartamento() { 
+    ArrayList<Morador> moradores = new ArrayList<Morador>();
+    moradores.add(morador());
+    ArrayList<Carro> carros = new ArrayList<Carro>();
+    carros.add(carro());
+
+    Apartamento apartamento = new Apartamento(this.id, this.bloco, this.andar, this.numApartamento, moradores, carros);
+    this.apartamento = apartamento;
+    return apartamento;
+
+  }
+
+  /*public AcessoPermitido acessoPermitido() {
+    
+  }*/
+
+  /*public Almoxarifado almoxarifado() {
+    ArrayList<Produto> produtos = new ArrayList<>(Arrays.asList(produto()));
+    ArrayList<Servico> servicos = new ArrayList<>(Arrays.asList(servico()));
+    Almoxarifado almoxarifado = Almoxarifado()
+  }*/
+
 }

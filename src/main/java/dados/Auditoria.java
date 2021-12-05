@@ -8,13 +8,13 @@ public class Auditoria {
     @Id @GeneratedValue
     private Integer idAlteracao;
     private String tabelaAlterada;
-    private String idFuncionario;
+    private Integer idFuncionario;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;
 
     public Auditoria() {}
 
-    public Auditoria(String tabelaAlterada, Integer idAlteracao, String idFuncionario, Date dataAlteracao) {
+    public Auditoria(String tabelaAlterada, Integer idAlteracao, Integer idFuncionario, Date dataAlteracao) {
         this.tabelaAlterada = tabelaAlterada;
         this.idAlteracao = idAlteracao;
         this.idFuncionario = idFuncionario;
@@ -33,7 +33,7 @@ public class Auditoria {
         return this.idAlteracao;
     }
 
-    public String getIdFuncionario() {
+    public Integer getIdFuncionario() {
         return this.idFuncionario;
     }
 
