@@ -26,7 +26,7 @@ public class AuditoriaTest {
     }
 
     @Test
-    public void TestGetterIdAlteração() {
+    public void TestGetterIdAlteracao() {
         assertEquals(takeClasses.getId(), auditoria.getIdAlteracao());
     }
 

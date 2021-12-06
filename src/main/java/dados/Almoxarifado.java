@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class Almoxarifado {
     private ArrayList<Produto> produtos = new ArrayList<Produto>();
-    private ArrayList<Servico> servicos = new ArrayList<Servico>();
 
+    public Almoxarifado(){}
+   
     public Almoxarifado(ArrayList<Produto> produtos){
         this.produtos = produtos;
     }
@@ -18,11 +19,4 @@ public class Almoxarifado {
         this.produtos = produtos;
     }
 
-    public ArrayList<Servico> getServicos() {
-        return this.servicos;
-    }
-
-    public void setServicos(ArrayList<Servico> servicos) {
-        this.servicos = servicos;
-    }
 }

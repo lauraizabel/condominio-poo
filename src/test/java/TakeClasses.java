@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.github.javafaker.Faker;
@@ -14,11 +15,14 @@ import dados.Funcionario;
 import dados.Morador;
 import dados.Pedido;
 import dados.Produto;
+import dados.Reserva;
 import dados.Servico;
 
 public class TakeClasses {
   static Faker faker = new Faker();
   private Integer id;
+  private Integer idAcesso;
+  private String descricao;
   private String name;
   private String phone;
   private String email;
@@ -28,17 +32,21 @@ public class TakeClasses {
   private double salario;
   private String endereco;
   private Date data;
-  private double valor;
+  private Double valor;
   private String modelo;
   private String placa;
   private int andar;
   private int numApartamento;
   private boolean ocupado;
+  private boolean permitido;
   private int capacidade;
   private Double custoReserva;
   private String nomeEspaco;
   private String tabelaAlterada;
   private String bloco;
+  private String codigo;
+  private Integer idEspaco;
+  private Integer idApartamento;
 
   private Funcionario funcionario;
   private Morador morador;
@@ -51,10 +59,14 @@ public class TakeClasses {
   private Carro carro;
   private Espaco espaco;
   private Auditoria auditoria;
+  private Servico servico;
+  private Reserva reserva;
+  
   
 
   public TakeClasses() {
     this.id = faker.random().nextInt(1, 100);
+    this.idAcesso = faker.random().nextInt(1, 100);
     this.name = faker.name().firstName();
     this.phone = faker.phoneNumber().cellPhone();
     this.email = faker.internet().emailAddress();
@@ -69,16 +81,25 @@ public class TakeClasses {
     this.placa = faker.random().toString();
     this.andar = faker.random().nextInt(1,20);
     this.ocupado = faker.bool().bool();
+    this.permitido = faker.bool().bool();
     this.capacidade = faker.random().nextInt(20, 1000);
     this.custoReserva = faker.random().nextDouble();
     this.nomeEspaco = faker.lorem().word();
     this.tabelaAlterada = faker.lorem().word();
     this.bloco = faker.lorem().characters();
     this.numApartamento = faker.random().nextInt(1, 500);
+    this.descricao = faker.random().toString();
+    this.codigo = faker.random().toString();
+    this.idEspaco = faker.random().nextInt(1, 100);
+    this.idApartamento = faker.random().nextInt(1, 100);
     }
 
   public Funcionario getFuncionario() {
     return this.funcionario;
+  }
+
+  public Espaco getEspaco() {
+    return this.espaco;
   }
 
   public Morador getMorador() {
@@ -109,8 +130,32 @@ public class TakeClasses {
     return this.carro;
   }
 
+  public Servico getsServico() {
+    return this.servico;
+  }
+
+  public Reserva getReserva() {
+    return this.reserva;
+  }
+
+  public Almoxarifado getAlmoxarifado(){
+    return this.almoxarifado;
+  }
+
   public Integer getId() {
     return id;
+  }
+
+  public Integer getIdAcesso() {
+    return this.idAcesso;
+  }
+
+  public Integer getIdApApartamento() {
+    return this.idApartamento;
+  }
+
+  public Integer getIdEspaco() {
+    return this.idEspaco;
   }
 
   public String getName() {
@@ -173,6 +218,10 @@ public class TakeClasses {
     return ocupado;
   }
 
+  public boolean isPermitido() {
+    return this.permitido;
+  }
+
   public Double getCustoReserva() {
     return custoReserva;
   }
@@ -187,6 +236,18 @@ public class TakeClasses {
 
   public int getNumApartamento() {
     return numApartamento;
+  }
+
+  public String getCodigo() {
+    return this.codigo;
+  }
+
+  public Double getValor() {
+    return this.valor;
+  }
+
+  public String getDescricao() {
+    return this.descricao;
   }
 
   public Funcionario funcionario() {
@@ -258,14 +319,32 @@ public class TakeClasses {
 
   }
 
-  /*public AcessoPermitido acessoPermitido() {
-    
-  }*/
+  public Servico servico() {
+    Servico servico = new Servico(this.id, this.descricao, this.valor, this.codigo, this.funcionario, this.fornecedor);
+    this.servico = servico;
+    return servico;
+  }
 
-  /*public Almoxarifado almoxarifado() {
-    ArrayList<Produto> produtos = new ArrayList<>(Arrays.asList(produto()));
-    ArrayList<Servico> servicos = new ArrayList<>(Arrays.asList(servico()));
-    Almoxarifado almoxarifado = Almoxarifado()
-  }*/
+  public Reserva reserva(){
+    Reserva reserva = new Reserva(this.id, this.idEspaco, this.idApartamento, this.data);
+    this.reserva = reserva;
+    return reserva;
+  }
+
+  public AcessoPermitido acessoPermitido() {
+    AcessoPermitido acessoPermitido = new AcessoPermitido(this.id, this.name, this.cpf, this.apartamento, this.phone, 
+      this.email, this.morador, this.permitido, this.idAcesso);
+    
+      this.acessoPermitido = acessoPermitido;
+      return acessoPermitido;
+  }
+
+  public Almoxarifado almoxarifado() {
+    ArrayList<Produto> produtos = new ArrayList<>();
+    produtos.add(produto());
+    Almoxarifado almoxarifado = new Almoxarifado(produtos);
+    this.almoxarifado = almoxarifado;
+    return almoxarifado;
+  }
 
 }
