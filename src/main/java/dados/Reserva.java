@@ -5,17 +5,19 @@ import java.util.Date;
 
 @Entity
 public class Reserva {
-    
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
     private Integer id;
-    private String idEspaco;
-    private String idApartamento;
+    private Integer idEspaco;
+    private Integer idApartamento;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataReserva;
 
-    public Reserva() {}
+    public Reserva() {
+    }
 
-    public Reserva(Integer id, String idEspaco, String idApartamento, Date dataReserva) {
+    public Reserva(Integer id, Integer idEspaco, Integer idApartamento, Date dataReserva) {
         this.id = id;
         this.idEspaco = idEspaco;
         this.idApartamento = idApartamento;
@@ -26,19 +28,19 @@ public class Reserva {
         return this.id;
     }
 
-    public String getIdEspaco() {
+    public Integer getIdEspaco() {
         return this.idEspaco;
     }
 
-    public void setIdEspaco(String idEspaco) {
+    public void setIdEspaco(Integer idEspaco) {
         this.idEspaco = idEspaco;
     }
 
-    public String getIdApartamento() {
+    public Integer getIdApartamento() {
         return idApartamento;
     }
 
-    public void setIdApartamento(String idApartamento) {
+    public void setIdApartamento(Integer idApartamento) {
         this.idApartamento = idApartamento;
     }
 

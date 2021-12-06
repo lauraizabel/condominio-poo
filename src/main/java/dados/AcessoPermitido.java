@@ -5,13 +5,15 @@ import javax.persistence.*;
 @Entity
 public class AcessoPermitido extends Pessoa {
     private Integer idAcesso;
-    @ManyToOne(targetEntity=Apartamento.class, fetch= FetchType.LAZY)
+    @ManyToOne(targetEntity = Apartamento.class, fetch = FetchType.LAZY)
     private Apartamento apartamento;
     private Boolean permitido;
 
-    public AcessoPermitido() {}
+    public AcessoPermitido() {
+    }
 
-    public AcessoPermitido(Integer id, String nome, String cpf, Apartamento apartamento, String telefone, String email, Morador permissor, Boolean permitido, Integer idAcesso){
+    public AcessoPermitido(Integer id, String nome, String cpf, Apartamento apartamento, String telefone, String email,
+            Morador permissor, Boolean permitido, Integer idAcesso) {
         super(id, nome, telefone, email, cpf);
         this.apartamento = apartamento;
         this.permitido = permitido;
@@ -22,7 +24,7 @@ public class AcessoPermitido extends Pessoa {
         return this.idAcesso;
     }
 
-    public Apartamento getApartamento(){
+    public Apartamento getApartamento() {
         return this.apartamento;
     }
 

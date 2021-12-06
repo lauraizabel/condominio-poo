@@ -8,15 +8,17 @@ import java.util.List;
 @Entity
 public class Pedido {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer id;
-    @ManyToOne(targetEntity=Funcionario.class, fetch= FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
     private Funcionario requerente;
-    @OneToMany(targetEntity=Produto.class, fetch= FetchType.LAZY)
+    @OneToMany(targetEntity = Produto.class, fetch = FetchType.LAZY)
     private List<Produto> produtos;
 
-    public Pedido() {}
-    
+    public Pedido() {
+    }
+
     public Pedido(Integer id, Funcionario requerente, ArrayList<Produto> produtos) {
         this.id = id;
         this.requerente = requerente;

@@ -13,17 +13,17 @@ public class Apartamento {
     private Integer id;
     private String bloco;
     private int andar;
-    private int apartamento;
+    private int numero;
     private ArrayList<Morador> moradores;
     private ArrayList<Carro> carros;
 
     public Apartamento() {}
 
-    public Apartamento(Integer id, String bloco, int andar, int apartamento, ArrayList<Morador> moradores, ArrayList<Carro> carros) {
+    public Apartamento(Integer id, String bloco, int andar, int numero, ArrayList<Morador> moradores, ArrayList<Carro> carros) {
         this.id = id;
         this.bloco = bloco;
         this.andar = andar;
-        this.apartamento = apartamento;
+        this.numero = numero;
         this.moradores = moradores;
         this.carros = carros;
     }
@@ -48,12 +48,12 @@ public class Apartamento {
         this.andar = andar;
     }
 
-    public int getApartamento() {
-        return this.apartamento;
+    public int getNumApartamento() {
+        return this.numero;
     }
 
-    public void setApartamento(int apartamento) {
-        this.apartamento = apartamento;
+    public void setNumApartamento(int apartamento) {
+        this.numero = apartamento;
     }
 
     public ArrayList<Morador> getMoradores() {
