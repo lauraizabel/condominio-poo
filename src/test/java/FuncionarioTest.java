@@ -16,10 +16,6 @@ public class FuncionarioTest {
     }
 
     /* Testando Getters */
-    @Test
-    public void TestGetterId() {
-        assertEquals(takeClasses.getId(), funcionario.getId());
-    }
 
     @Test
     public void TestGetterName() {

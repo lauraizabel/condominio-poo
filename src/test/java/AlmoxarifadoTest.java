@@ -9,7 +9,7 @@ import org.junit.Test;
 import dados.Almoxarifado;
 import dados.Produto;
 
-public class AlmoxerifadoTest {
+public class AlmoxarifadoTest {
     Faker faker = new Faker();
     TakeClasses takeClasses = new TakeClasses();
     Almoxarifado almoxarifado = takeClasses.almoxarifado();

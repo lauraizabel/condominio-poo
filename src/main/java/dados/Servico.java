@@ -19,9 +19,7 @@ public class Servico {
     public Servico() {
     }
 
-    public Servico(Integer id, String descricao, Double valor, String codigo, Funcionario requerente,
-            Fornecedor fornecedor) {
-        this.id = id;
+    public Servico(String descricao, Double valor, String codigo, Funcionario requerente, Fornecedor fornecedor) {
         this.descricao = descricao;
         this.valor = valor;
         this.codigo = codigo;

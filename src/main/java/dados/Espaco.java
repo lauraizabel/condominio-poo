@@ -15,8 +15,7 @@ public class Espaco {
 
     public Espaco() {}
 
-    public Espaco(Integer id, String nome, int capacidade, boolean ocupado, Double custoReserva) {
-        this.id = id;
+    public Espaco(String nome, int capacidade, boolean ocupado, Double custoReserva) {
         this.nome = nome;
         this.capacidade = capacidade;
         this.ocupado = ocupado;

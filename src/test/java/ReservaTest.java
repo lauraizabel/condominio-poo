@@ -19,11 +19,6 @@ public class ReservaTest {
 
               // GETTERS
     @Test
-    public void TesteGetId(){
-        assertEquals(takeClasses.getId(), reserva.getId());
-    }
-
-    @Test
     public void TesteGetIdEspaco(){
         assertEquals(takeClasses.getIdEspaco(), reserva.getIdEspaco());
     }

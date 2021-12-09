@@ -8,8 +8,8 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EntityDAO<T> implements IEntityDAO<T> {
 
@@ -55,11 +55,11 @@ public class EntityDAO<T> implements IEntityDAO<T> {
     CriteriaBuilder builder = em.getCriteriaBuilder();
     CriteriaQuery<T> query = builder.createQuery(persistedClass);
     query.from(persistedClass);
-    
+
     // convertendo para ArrayList para ser um tipo aceito pelo hibernate
     List<T> result = em.createQuery(query).getResultList();
     ArrayList<T> arrayListResult = new ArrayList<T>(result);
-    
+
     return arrayListResult;
   }
 

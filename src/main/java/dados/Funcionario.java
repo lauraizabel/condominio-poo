@@ -29,7 +29,7 @@ public class Funcionario extends Pessoa {
             Date dataAdmissao,
             Date dataEmissao
     ){
-        super( nome, telefone, email, cpf);
+        super(nome, telefone, email, cpf);
         this.cargo = cargo;
         this.salario = salario;
         this.endereco = endereco;

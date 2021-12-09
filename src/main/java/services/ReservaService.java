@@ -6,7 +6,7 @@ import repositories.ReservaRepository;
 import java.util.ArrayList;
 
 public class ReservaService implements IService<Reserva> {
-    private ReservaRepository reservaRepository;
+    private ReservaRepository reservaRepository = new ReservaRepository();
 
     @Override
     public Reserva getById(Integer id) {

@@ -19,8 +19,7 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Integer id, Funcionario requerente, ArrayList<Produto> produtos) {
-        this.id = id;
+    public Pedido(Funcionario requerente, ArrayList<Produto> produtos) {
         this.requerente = requerente;
         this.produtos = produtos;
     }

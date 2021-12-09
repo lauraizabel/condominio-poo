@@ -6,7 +6,7 @@ import repositories.ServicoRepository;
 import java.util.ArrayList;
 
 public class ServicoService implements IService<Servico> {
-    private ServicoRepository servicoRepository;
+    private ServicoRepository servicoRepository = new ServicoRepository();
 
     @Override
     public Servico getById(Integer id) {

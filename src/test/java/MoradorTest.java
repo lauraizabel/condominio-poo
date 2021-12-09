@@ -12,11 +12,6 @@ public class MoradorTest {
   Morador morador = takeClasses.morador();
 
   @Test
-  public void testGetId() {
-    assertEquals(takeClasses.getId(), morador.getId());
-  }
-
-  @Test
   public void testGetNome() {
     assertEquals(takeClasses.getName(), morador.getNome());
   }

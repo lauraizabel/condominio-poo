@@ -5,7 +5,7 @@ import dados.Reserva;
 
 import java.util.ArrayList;
 public class ReservaRepository implements IRepository<Reserva> {
-    private ReservaDAO reservaDAO;
+    private ReservaDAO reservaDAO = new ReservaDAO();
 
     @Override
     public Reserva getById(Integer id) {

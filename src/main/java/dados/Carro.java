@@ -39,6 +39,4 @@ public class Carro implements Serializable {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-
-       
 }

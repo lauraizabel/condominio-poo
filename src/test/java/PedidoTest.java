@@ -17,11 +17,6 @@ public class PedidoTest {
   Pedido pedido = takeClasses.pedido();
 
   @Test
-  public void testGetId() {
-    assertEquals(takeClasses.getPedido().getId(), pedido.getId());
-  }
-
-  @Test
   public void testGetRequerente() {
     assertEquals(takeClasses.getPedido().getRequerente(), pedido.getRequerente());
   }

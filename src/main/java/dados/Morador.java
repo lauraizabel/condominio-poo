@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Morador extends Pessoa implements Serializable {
     public Morador() {}
 
-    public Morador( String nome, String telefone, String email, String cpf) {
-        super( nome, telefone, email, cpf);
+    public Morador(String nome, String telefone, String email, String cpf) {
+        super(nome, telefone, email, cpf);
     }
 }
