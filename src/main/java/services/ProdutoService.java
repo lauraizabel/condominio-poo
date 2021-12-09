@@ -1,14 +1,12 @@
 package services;
 
 import DAO.ProdutoDAO;
-import dados.Fornecedor;
 import dados.Produto;
-import repositories.IRepository;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class ProdutoService implements IRepository<Produto> {
-    private ProdutoDAO produtoDAO;
+public class ProdutoService implements IService<Produto> {
+    private ProdutoDAO produtoDAO = new ProdutoDAO();
 
     @Override
     public Produto getById(Integer id) {
@@ -17,8 +15,8 @@ public class ProdutoService implements IRepository<Produto> {
     }
 
     @Override
-    public List<Produto> getAll() {
-        List<Produto> produto = produtoDAO.getAll();
+    public ArrayList<Produto> getAll() {
+        ArrayList<Produto> produto = produtoDAO.getAll();
         return produto;
     }
 

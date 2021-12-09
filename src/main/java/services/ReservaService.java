@@ -1,35 +1,35 @@
 package services;
 
+import DAO.ReservaDAO;
 import dados.Reserva;
-import repositories.ReservaRepository;
 
 import java.util.ArrayList;
 
 public class ReservaService implements IService<Reserva> {
-    private ReservaRepository reservaRepository = new ReservaRepository();
+    private ReservaDAO reservaDAO = new ReservaDAO();
 
     @Override
     public Reserva getById(Integer id) {
-        return reservaRepository.getById(id);
+        return reservaDAO.getById(id);
     }
 
     @Override
     public ArrayList<Reserva> getAll() {
-        return reservaRepository.getAll();
+        return reservaDAO.getAll();
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return reservaRepository.deleteById(id);
+        return reservaDAO.deleteById(id);
     }
 
     @Override
     public boolean save(Reserva reserva) {
-        return reservaRepository.save(reserva);
+        return reservaDAO.save(reserva);
     }
 
     @Override
     public Reserva update(Reserva reserva) {
-        return reservaRepository.update(reserva);
+        return reservaDAO.update(reserva);
     }
 }

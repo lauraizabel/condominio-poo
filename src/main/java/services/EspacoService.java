@@ -2,12 +2,11 @@ package services;
 
 import DAO.EspacoDAO;
 import dados.Espaco;
-import repositories.IRepository;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class EspacoService implements IRepository<Espaco> {
-    private EspacoDAO espacoDAO;
+public class EspacoService implements IService<Espaco> {
+    private EspacoDAO espacoDAO = new EspacoDAO();
 
     @Override
     public Espaco getById(Integer id) {
@@ -16,8 +15,8 @@ public class EspacoService implements IRepository<Espaco> {
     }
 
     @Override
-    public List<Espaco> getAll() {
-        List<Espaco> espacos = espacoDAO.getAll();
+    public ArrayList<Espaco> getAll() {
+        ArrayList<Espaco> espacos = espacoDAO.getAll();
         return espacos;
     }
 

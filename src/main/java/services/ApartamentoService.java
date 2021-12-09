@@ -1,35 +1,35 @@
 package services;
 
+import DAO.ApartamentoDAO;
 import dados.Apartamento;
-import repositories.ApartamentoRepository;
 
 import java.util.ArrayList;
 
 public class ApartamentoService  implements IService<Apartamento>{
-    private ApartamentoRepository apartamentoRepository = new ApartamentoRepository();
+    private ApartamentoDAO apartamentoDAO = new ApartamentoDAO();
 
     @Override
     public Apartamento getById(Integer id) {
-        return apartamentoRepository.getById(id);
+        return apartamentoDAO.getById(id);
     }
 
     @Override
     public ArrayList<Apartamento> getAll() {
-        return apartamentoRepository.getAll();
+        return apartamentoDAO.getAll();
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return apartamentoRepository.deleteById(id);
+        return apartamentoDAO.deleteById(id);
     }
 
     @Override
     public boolean save(Apartamento reserva) {
-        return apartamentoRepository.save(reserva);
+        return apartamentoDAO.save(reserva);
     }
 
     @Override
     public Apartamento update(Apartamento reserva) {
-        return apartamentoRepository.update(reserva);
+        return apartamentoDAO.update(reserva);
     }
 }

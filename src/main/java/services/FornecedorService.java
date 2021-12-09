@@ -2,12 +2,11 @@ package services;
 
 import DAO.FornecedorDAO;
 import dados.Fornecedor;
-import repositories.IRepository;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class FornecedorService implements IRepository<Fornecedor> {
-    private FornecedorDAO fornecedorDAO;
+public class FornecedorService implements IService<Fornecedor> {
+    private FornecedorDAO fornecedorDAO = new FornecedorDAO();
 
     @Override
     public Fornecedor getById(Integer id) {
@@ -16,8 +15,8 @@ public class FornecedorService implements IRepository<Fornecedor> {
     }
 
     @Override
-    public List<Fornecedor> getAll() {
-        List<Fornecedor> fornecedor = fornecedorDAO.getAll();
+    public ArrayList<Fornecedor> getAll() {
+        ArrayList<Fornecedor> fornecedor = fornecedorDAO.getAll();
         return fornecedor;
     }
 
