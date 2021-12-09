@@ -15,8 +15,7 @@ public class Produto {
 
     public Produto() {}
 
-    public Produto(Integer id, String nome, Float valor, Fornecedor fornecedor, String codigo) {
-        this.id = id;
+    public Produto(String nome, Float valor, Fornecedor fornecedor, String codigo) {
         this.nome = nome;
         this.valor = valor;
         this.fornecedor = fornecedor;

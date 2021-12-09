@@ -12,8 +12,7 @@ public abstract class Pessoa {
 
     public Pessoa() {}
 
-    public Pessoa(Integer id, String nome, String telefone, String email, String cpf) {
-        this.id = id;
+    public Pessoa(String nome, String telefone, String email, String cpf) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;

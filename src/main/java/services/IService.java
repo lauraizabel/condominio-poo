@@ -1,15 +1,12 @@
 package services;
 
-import dados.Reserva;
-import repositories.ReservaRepository;
-
-import java.util.List;
+import java.util.ArrayList;
 
 public interface IService<T> {
 
     T getById(Integer id) ;
 
-    List<T> getAll();
+    ArrayList<T> getAll();
 
     boolean deleteById(Integer id);
 

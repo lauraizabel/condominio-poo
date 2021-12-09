@@ -17,8 +17,7 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(Integer id, Integer idEspaco, Integer idApartamento, Date dataReserva) {
-        this.id = id;
+    public Reserva(Integer idEspaco, Integer idApartamento, Date dataReserva) {
         this.idEspaco = idEspaco;
         this.idApartamento = idApartamento;
         this.dataReserva = dataReserva;

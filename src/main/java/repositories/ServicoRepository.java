@@ -3,10 +3,10 @@ package repositories;
 import DAO.ServicoDAO;
 import dados.Servico;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ServicoRepository implements IRepository<Servico>{
-    private ServicoDAO servicoDAO;
+    private ServicoDAO servicoDAO = new ServicoDAO();
 
     @Override
     public Servico getById(Integer id) {
@@ -15,8 +15,8 @@ public class ServicoRepository implements IRepository<Servico>{
     }
 
     @Override
-    public List<Servico> getAll() {
-        List<Servico> servicos = servicoDAO.getAll();
+    public ArrayList<Servico> getAll() {
+        ArrayList<Servico> servicos = servicoDAO.getAll();
         return servicos;
     }
 

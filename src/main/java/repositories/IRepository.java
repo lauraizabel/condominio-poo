@@ -1,11 +1,11 @@
 package repositories;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface IRepository<T> {
     T getById(Integer id);
 
-    List<T> getAll();
+    ArrayList<T> getAll();
 
     boolean deleteById(Integer id);
 

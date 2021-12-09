@@ -13,8 +13,7 @@ public class Carro {
 
     public Carro() {}
 
-    public Carro(Integer id, String modelo, String placa){
-        this.id = id;
+    public Carro(String modelo, String placa){
         this.modelo = modelo;
         this.placa = placa;
     }
@@ -38,6 +37,4 @@ public class Carro {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-
-       
 }

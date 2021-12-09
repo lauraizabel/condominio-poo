@@ -1,6 +1,7 @@
 package DAO;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IEntityDAO<T> {
@@ -10,7 +11,7 @@ public interface IEntityDAO<T> {
 
     boolean save(T object);
 
-    List<T> getAll();
+    ArrayList<T> getAll();
 
     T update(T object);
 

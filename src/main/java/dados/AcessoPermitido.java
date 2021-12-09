@@ -12,9 +12,9 @@ public class AcessoPermitido extends Pessoa {
     public AcessoPermitido() {
     }
 
-    public AcessoPermitido(Integer id, String nome, String cpf, Apartamento apartamento, String telefone, String email,
+    public AcessoPermitido(String nome, String cpf, Apartamento apartamento, String telefone, String email,
             Morador permissor, Boolean permitido, Integer idAcesso) {
-        super(id, nome, telefone, email, cpf);
+        super(nome, telefone, email, cpf);
         this.apartamento = apartamento;
         this.permitido = permitido;
         this.idAcesso = idAcesso;

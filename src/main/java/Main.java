@@ -1,28 +1,29 @@
-import dados.Morador;
+import dados.*;
+import services.ReservaService;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import java.util.Date;
 
 public class Main {
   public static void main(String[] args) {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-    EntityManager em = emf.createEntityManager();
+    // SÓ TESTANDO PQ SIM
 
-//    Teste T1 = new Teste();
-//    T1.setId(3);
-//    //Mudar o nome pra ver se salva correto no banco de dados;
-//    T1.setName("Laura");
-    Integer id = 1;
-    Morador morador1 = new Morador(id, "Wili", "40028922", "a@b.com", "12345677899");
+    // criando instância do servico de reserva
+    ReservaService reservaService = new ReservaService();
 
-    EntityTransaction tx = em.getTransaction();
-    tx.begin();
-    em.merge(morador1);
-    tx.commit();
+    // criando objeto Reserva
+    Reserva reserva = new Reserva(1, 1, new Date());
 
-    em.close();
-    emf.close();
+    // testando
+      // save
+    reservaService.save(reserva);
+      // getById
+//    Reserva reservaFetched = reservaService.getById(2);
+      // update
+//    reservaFetched.setDataReserva(new Date());
+//    reservaService.update(reservaFetched);
+      //getAll
+//    List<Reserva> reservasFetched = reservaService.getAll();
+      // delete
+//      reservaService.deleteById(3);
   }
 }
