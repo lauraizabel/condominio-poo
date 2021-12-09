@@ -19,7 +19,6 @@ public class Funcionario extends Pessoa {
     public Funcionario() {}
 
     public Funcionario(
-            Integer id,
             String nome,
             String telefone,
             String email,
@@ -30,7 +29,7 @@ public class Funcionario extends Pessoa {
             Date dataAdmissao,
             Date dataEmissao
     ){
-        super(id, nome, telefone, email, cpf);
+        super( nome, telefone, email, cpf);
         this.cargo = cargo;
         this.salario = salario;
         this.endereco = endereco;

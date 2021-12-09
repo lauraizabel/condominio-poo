@@ -3,7 +3,7 @@ package services;
 import dados.Reserva;
 import repositories.ReservaRepository;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ReservaService implements IService<Reserva> {
     private ReservaRepository reservaRepository;
@@ -14,7 +14,7 @@ public class ReservaService implements IService<Reserva> {
     }
 
     @Override
-    public List<Reserva> getAll() {
+    public ArrayList<Reserva> getAll() {
         return reservaRepository.getAll();
     }
 

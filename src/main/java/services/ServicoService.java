@@ -3,7 +3,7 @@ package services;
 import dados.Servico;
 import repositories.ServicoRepository;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ServicoService implements IService<Servico> {
     private ServicoRepository servicoRepository;
@@ -14,7 +14,7 @@ public class ServicoService implements IService<Servico> {
     }
 
     @Override
-    public List<Servico> getAll() {
+    public ArrayList<Servico> getAll() {
         return servicoRepository.getAll();
     }
 

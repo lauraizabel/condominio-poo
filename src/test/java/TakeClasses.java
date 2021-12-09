@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import com.github.javafaker.Faker;
@@ -251,14 +250,14 @@ public class TakeClasses {
   }
 
   public Funcionario funcionario() {
-    Funcionario funcionario = new Funcionario(this.id, this.name, this.phone, this.email, this.cpf, this.cargo,
+    Funcionario funcionario = new Funcionario(this.name, this.phone, this.email, this.cpf, this.cargo,
         this.salario, this.endereco, this.data, this.data);
     this.funcionario = funcionario;
     return funcionario;
   }
 
   public Morador morador() {
-    Morador morador = new Morador(this.id, this.name, this.phone, this.email, this.cpf);
+    Morador morador = new Morador(this.name, this.phone, this.email, this.cpf);
     this.morador = morador;
     return morador;
   }
@@ -290,7 +289,7 @@ public class TakeClasses {
   }
 
   public Carro carro() { 
-    Carro carro = new Carro(this.id, this.modelo, this.placa);
+    Carro carro = new Carro(this.modelo, this.placa);
     this.carro = carro;
     return carro;
   }
@@ -313,7 +312,7 @@ public class TakeClasses {
     ArrayList<Carro> carros = new ArrayList<Carro>();
     carros.add(carro());
 
-    Apartamento apartamento = new Apartamento(this.id, this.bloco, this.andar, this.numApartamento, moradores, carros);
+    Apartamento apartamento = new Apartamento(this.bloco, this.andar, this.numApartamento, moradores, carros);
     this.apartamento = apartamento;
     return apartamento;
 
@@ -332,7 +331,7 @@ public class TakeClasses {
   }
 
   public AcessoPermitido acessoPermitido() {
-    AcessoPermitido acessoPermitido = new AcessoPermitido(this.id, this.name, this.cpf, this.apartamento, this.phone, 
+    AcessoPermitido acessoPermitido = new AcessoPermitido(this.name, this.cpf, this.apartamento, this.phone, 
       this.email, this.morador, this.permitido, this.idAcesso);
     
       this.acessoPermitido = acessoPermitido;

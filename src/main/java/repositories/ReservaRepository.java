@@ -3,7 +3,7 @@ package repositories;
 import DAO.ReservaDAO;
 import dados.Reserva;
 
-import java.util.List;
+import java.util.ArrayList;
 public class ReservaRepository implements IRepository<Reserva> {
     private ReservaDAO reservaDAO;
 
@@ -14,8 +14,8 @@ public class ReservaRepository implements IRepository<Reserva> {
     }
 
     @Override
-    public List<Reserva> getAll() {
-        List<Reserva> reservas = reservaDAO.getAll();
+    public ArrayList<Reserva> getAll() {
+        ArrayList<Reserva> reservas = reservaDAO.getAll();
         return reservas;
     }
 

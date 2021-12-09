@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class EntityDAO<T> implements IEntityDAO<T> {
 
@@ -50,11 +51,16 @@ public class EntityDAO<T> implements IEntityDAO<T> {
   }
 
   @Override
-  public List<T> getAll() {
+  public ArrayList<T> getAll() {
     CriteriaBuilder builder = em.getCriteriaBuilder();
     CriteriaQuery<T> query = builder.createQuery(persistedClass);
     query.from(persistedClass);
-    return em.createQuery(query).getResultList();
+    
+    // convertendo para ArrayList para ser um tipo aceito pelo hibernate
+    List<T> result = em.createQuery(query).getResultList();
+    ArrayList<T> arrayListResult = new ArrayList<T>(result);
+    
+    return arrayListResult;
   }
 
   @Override
