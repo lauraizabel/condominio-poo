@@ -17,12 +17,7 @@ public class EspacoTest {
         assertNotNull(espaco);
     }
 
-    /* Testando Getters */  
-    @Test 
-    public void TestGetterId() {
-        assertEquals(takeClasses.getId(), espaco.getId());
-    }
-
+    /* Testando Getters */
     @Test
     public void TestGetterNome() {
         assertEquals(takeClasses.getNomeEspaco(), espaco.getNome());

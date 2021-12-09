@@ -19,11 +19,6 @@ public class AcessoPermitidoTest {
     }
 
     // Getters
-    @Test
-    public void TesteGetIdAcesso() {
-        assertEquals(takeClasses.getIdAcesso(), acessoPermitido.getIdAcesso());
-        
-    }
 
     @Test
     public void TesteGetApartamento() {

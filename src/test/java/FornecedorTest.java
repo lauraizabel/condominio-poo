@@ -17,12 +17,7 @@ public class FornecedorTest {
         assertNotNull(fornecedor);
     }
 
-    /* Testando Getters */  
-    @Test 
-    public void TestGetterId() {
-        assertEquals(takeClasses.getId(), fornecedor.getId());
-    }
-
+    /* Testando Getters */
     @Test
     public void TestGetterNome() {
         assertEquals(takeClasses.getName(), fornecedor.getNome());

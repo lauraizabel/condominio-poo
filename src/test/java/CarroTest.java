@@ -17,12 +17,7 @@ public class CarroTest {
         assertNotNull(carro);
     }
 
-    /* Testando Getters */  
-    @Test
-    public void TestGetterId() {
-        assertEquals(takeClasses.getId(), carro.getId());
-    }
-
+    /* Testando Getters */
     @Test
     public void TestGetterModelo() {
         assertEquals(takeClasses.getModelo(), carro.getModelo());

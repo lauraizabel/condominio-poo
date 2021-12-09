@@ -22,11 +22,6 @@ public class ApartamentoTest {
     }
 
     @Test
-    public void TestGetId() {
-        assertEquals(takeClasses.getApartamento().getId(), apartamento.getId());
-    }
-
-    @Test
     public void TestGetBloco() {
         assertEquals(takeClasses.getApartamento().getBloco(), apartamento.getBloco());
     }
