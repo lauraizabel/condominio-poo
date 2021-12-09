@@ -1,37 +1,36 @@
 package services;
 
-import java.util.List;
-
+import DAO.FuncionarioDAO;
 import dados.Funcionario;
-import repositories.FuncionarioRepository;
+
+import java.util.ArrayList;
 
 public class FuncionarioService implements IService<Funcionario> {
-    private FuncionarioRepository funcionarioRepository;
+    private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
     @Override
     public Funcionario getById(Integer id) {
-       return funcionarioRepository.getById(id);
+       return funcionarioDAO.getById(id);
     }
 
     @Override
-    public List<Funcionario> getAll() {
-        return funcionarioRepository.getAll();
+    public ArrayList<Funcionario> getAll() {
+        return funcionarioDAO.getAll();
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        // TODO Auto-generated method stub
-        return false;
+        return funcionarioDAO.deleteById(id);
     }
 
     @Override
     public boolean save(Funcionario funcionario) {
-        return funcionarioRepository.save(funcionario);
+        return funcionarioDAO.save(funcionario);
     }
 
     @Override
     public Funcionario update(Funcionario funcionario) {
-        return funcionarioRepository.update(funcionario);
+        return funcionarioDAO.update(funcionario);
     }
     
 }

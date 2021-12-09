@@ -1,4 +1,4 @@
-import dados.*;
+import dados.Reserva;
 import services.ReservaService;
 
 import java.util.Date;
