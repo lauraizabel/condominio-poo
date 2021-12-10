@@ -1,11 +1,13 @@
 package dados;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Carro {
+public class Carro implements Serializable {
     @Id @GeneratedValue
     private Integer id;
     private String modelo;
@@ -13,8 +15,7 @@ public class Carro {
 
     public Carro() {}
 
-    public Carro(Integer id, String modelo, String placa){
-        this.id = id;
+    public Carro(String modelo, String placa){
         this.modelo = modelo;
         this.placa = placa;
     }
@@ -38,6 +39,4 @@ public class Carro {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-
-       
 }

@@ -26,16 +26,6 @@ public class AuditoriaTest {
     }
 
     @Test
-    public void TestGetterIdAlteracao() {
-        assertEquals(takeClasses.getId(), auditoria.getIdAlteracao());
-    }
-
-    @Test
-    public void TestGetterIdFuncionario() {
-        assertEquals(takeClasses.getId(), auditoria.getIdFuncionario());
-    }
-
-    @Test
     public void TestGetterDataAlteracao() {
         assertEquals(takeClasses.getData(), auditoria.getDataAlteracao());
     }

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import com.github.javafaker.Faker;
@@ -251,14 +250,14 @@ public class TakeClasses {
   }
 
   public Funcionario funcionario() {
-    Funcionario funcionario = new Funcionario(this.id, this.name, this.phone, this.email, this.cpf, this.cargo,
+    Funcionario funcionario = new Funcionario(this.name, this.phone, this.email, this.cpf, this.cargo,
         this.salario, this.endereco, this.data, this.data);
     this.funcionario = funcionario;
     return funcionario;
   }
 
   public Morador morador() {
-    Morador morador = new Morador(this.id, this.name, this.phone, this.email, this.cpf);
+    Morador morador = new Morador(this.name, this.phone, this.email, this.cpf);
     this.morador = morador;
     return morador;
   }
@@ -266,13 +265,13 @@ public class TakeClasses {
   public Produto produto() {
     String cod = this.id.toString();
     Float v = 10.0f;
-    Produto produto = new Produto(this.id, this.name, v, this.fornecedor(), cod);
+    Produto produto = new Produto(this.name, v, this.fornecedor(), cod);
     this.produto = produto;
     return produto;
   }
 
   public Fornecedor fornecedor() {
-    Fornecedor fornecedor = new Fornecedor(this.id, this.name, this.cnpj, this.endereco, this.phone, this.email);
+    Fornecedor fornecedor = new Fornecedor(this.name, this.cnpj, this.endereco, this.phone, this.email);
     this.fornecedor = fornecedor;
     return fornecedor;
   }
@@ -284,25 +283,25 @@ public class TakeClasses {
     ArrayList<Produto> produtos = new ArrayList<Produto>();
     produtos.add(p1);
     produtos.add(p2);
-    Pedido pedido = new Pedido(this.id, f, produtos);
+    Pedido pedido = new Pedido(f, produtos);
     this.pedido = pedido;
     return pedido;
   }
 
   public Carro carro() { 
-    Carro carro = new Carro(this.id, this.modelo, this.placa);
+    Carro carro = new Carro(this.modelo, this.placa);
     this.carro = carro;
     return carro;
   }
 
   public Espaco espaco() {
-    Espaco espaco = new Espaco(this.id, this.nomeEspaco, this.capacidade, this.ocupado, this.custoReserva);
+    Espaco espaco = new Espaco(this.nomeEspaco, this.capacidade, this.ocupado, this.custoReserva);
     this.espaco = espaco;
     return espaco;
   }
 
   public Auditoria auditoria() {
-    Auditoria auditoria = new Auditoria(this.tabelaAlterada, this.id ,this.id, this.data);
+    Auditoria auditoria = new Auditoria(this.tabelaAlterada, this.id, this.data);
     this.auditoria = auditoria;
     return auditoria;
   }
@@ -313,26 +312,26 @@ public class TakeClasses {
     ArrayList<Carro> carros = new ArrayList<Carro>();
     carros.add(carro());
 
-    Apartamento apartamento = new Apartamento(this.id, this.bloco, this.andar, this.numApartamento, moradores, carros);
+    Apartamento apartamento = new Apartamento(this.bloco, this.andar, this.numApartamento, moradores, carros);
     this.apartamento = apartamento;
     return apartamento;
 
   }
 
   public Servico servico() {
-    Servico servico = new Servico(this.id, this.descricao, this.valor, this.codigo, this.funcionario, this.fornecedor);
+    Servico servico = new Servico(this.descricao, this.valor, this.codigo, this.funcionario, this.fornecedor);
     this.servico = servico;
     return servico;
   }
 
   public Reserva reserva(){
-    Reserva reserva = new Reserva(this.id, this.idEspaco, this.idApartamento, this.data);
+    Reserva reserva = new Reserva(this.idEspaco, this.idApartamento, this.data);
     this.reserva = reserva;
     return reserva;
   }
 
   public AcessoPermitido acessoPermitido() {
-    AcessoPermitido acessoPermitido = new AcessoPermitido(this.id, this.name, this.cpf, this.apartamento, this.phone, 
+    AcessoPermitido acessoPermitido = new AcessoPermitido(this.name, this.cpf, this.apartamento, this.phone,
       this.email, this.morador, this.permitido, this.idAcesso);
     
       this.acessoPermitido = acessoPermitido;

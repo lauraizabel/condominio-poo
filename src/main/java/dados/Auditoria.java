@@ -14,9 +14,8 @@ public class Auditoria {
 
     public Auditoria() {}
 
-    public Auditoria(String tabelaAlterada, Integer idAlteracao, Integer idFuncionario, Date dataAlteracao) {
+    public Auditoria(String tabelaAlterada, Integer idFuncionario, Date dataAlteracao) {
         this.tabelaAlterada = tabelaAlterada;
-        this.idAlteracao = idAlteracao;
         this.idFuncionario = idFuncionario;
         this.dataAlteracao = dataAlteracao;
     }

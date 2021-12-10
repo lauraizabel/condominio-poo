@@ -1,12 +1,13 @@
 package dados;
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
-public class Morador extends Pessoa {
+public class Morador extends Pessoa implements Serializable {
     public Morador() {}
 
-    public Morador(Integer id, String nome, String telefone, String email, String cpf) {
-        super(id, nome, telefone, email, cpf);
+    public Morador(String nome, String telefone, String email, String cpf) {
+        super(nome, telefone, email, cpf);
     }
 }

@@ -20,11 +20,6 @@ public class ServicoTest {
 
               // GETTERS
     @Test
-    public void TesteGetId(){
-        assertEquals(takeClasses.getId(), servico.getId());
-    }
-
-    @Test
     public void TesteGetDescricao(){
         assertEquals(takeClasses.getDescricao(), servico.getDescricao());
     }

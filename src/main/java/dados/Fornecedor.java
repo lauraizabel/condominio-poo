@@ -17,8 +17,7 @@ public class Fornecedor {
 
     public Fornecedor() {}
 
-    public Fornecedor(Integer id, String nome, String cnpj, String endereco, String telefone, String email) {
-        this.id = id;
+    public Fornecedor(String nome, String cnpj, String endereco, String telefone, String email) {
         this.nome = nome;
         this.cnpj = cnpj;
         this.endereco = endereco;

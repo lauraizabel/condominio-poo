@@ -12,11 +12,6 @@ public class ProdutoTest {
   Produto produto = takeClasses.produto();
 
   @Test
-  public void testGetId() {
-    assertEquals(takeClasses.getId(), produto.getId());
-  }
-
-  @Test
   public void testGetCodigo() {
     assertEquals(takeClasses.getProduto().getCodigo(), produto.getCodigo());
   }

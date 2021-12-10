@@ -19,8 +19,7 @@ public class Apartamento {
 
     public Apartamento() {}
 
-    public Apartamento(Integer id, String bloco, int andar, int numero, ArrayList<Morador> moradores, ArrayList<Carro> carros) {
-        this.id = id;
+    public Apartamento(String bloco, int andar, int numero, ArrayList<Morador> moradores, ArrayList<Carro> carros) {
         this.bloco = bloco;
         this.andar = andar;
         this.numero = numero;
