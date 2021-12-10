@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import DAO.MoradorDAO;
 import dados.Morador;
+import utils.validacao;
 
 
 public class MoradorService implements IService<Morador> {
@@ -25,12 +26,14 @@ public class MoradorService implements IService<Morador> {
     }
 
     @Override
-    public boolean save(Morador reserva) {
-        return moradorDAO.save(reserva);
+    public boolean save(Morador morador) throws Exception {
+        validacao.validaCpf(morador.getCpf());
+        validacao.validaEmail(morador.getEmail());
+        return moradorDAO.save(morador);
     }
 
     @Override
-    public Morador update(Morador reserva) {
-        return moradorDAO.update(reserva);
+    public Morador update(Morador morador) {
+        return moradorDAO.update(morador);
     }
 }

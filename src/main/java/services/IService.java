@@ -10,7 +10,7 @@ public interface IService<T> {
 
     boolean deleteById(Integer id);
 
-    boolean save(T object);
+    boolean save(T object) throws Exception;
 
     T update(T object);
 

@@ -2,6 +2,7 @@ package services;
 
 import DAO.FornecedorDAO;
 import dados.Fornecedor;
+import utils.validacao;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,9 @@ public class FornecedorService implements IService<Fornecedor> {
     }
 
     @Override
-    public boolean save(Fornecedor fornecedor) {
+    public boolean save(Fornecedor fornecedor) throws Exception{
+        validacao.validaCnpj(fornecedor.getCnpj());
+        validacao.validaEmail(fornecedor.getEmail());
         boolean result = fornecedorDAO.save(fornecedor);
         return result;
     }

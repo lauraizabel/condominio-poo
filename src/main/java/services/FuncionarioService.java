@@ -2,6 +2,7 @@ package services;
 
 import DAO.FuncionarioDAO;
 import dados.Funcionario;
+import utils.validacao;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,9 @@ public class FuncionarioService implements IService<Funcionario> {
     }
 
     @Override
-    public boolean save(Funcionario funcionario) {
+    public boolean save(Funcionario funcionario) throws Exception {
+        validacao.validaCpf(funcionario.getCpf());
+        validacao.validaEmail(funcionario.getEmail());
         return funcionarioDAO.save(funcionario);
     }
 

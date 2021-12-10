@@ -2,6 +2,7 @@ package services;
 
 import DAO.AcessoPermitidoDAO;
 import dados.AcessoPermitido;
+import utils.validacao;
 
 import java.util.ArrayList;
 
@@ -24,12 +25,14 @@ public class AcessooPermitidoService implements IService <AcessoPermitido>{
     }
 
     @Override
-    public boolean save(AcessoPermitido AcessoPermitido) {
-        return AcessoPermitidoDAO.save(AcessoPermitido);
+    public boolean save(AcessoPermitido acessoPermitido) throws Exception {
+        validacao.validaCpf(acessoPermitido.getCpf());
+        validacao.validaEmail(acessoPermitido.getEmail());
+        return AcessoPermitidoDAO.save(acessoPermitido);
     }
 
     @Override
-    public AcessoPermitido update(AcessoPermitido AcessoPermitido) {
-        return AcessoPermitidoDAO.update(AcessoPermitido);
+    public AcessoPermitido update(AcessoPermitido acessoPermitido) {
+        return AcessoPermitidoDAO.update(acessoPermitido);
     }
 }
