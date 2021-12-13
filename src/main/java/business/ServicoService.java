@@ -1,4 +1,4 @@
-package services;
+package business;
 
 import DAO.ServicoDAO;
 import dados.Servico;

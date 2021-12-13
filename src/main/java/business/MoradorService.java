@@ -1,10 +1,10 @@
-package services;
+package business;
 
 import java.util.ArrayList;
 
 import DAO.MoradorDAO;
 import dados.Morador;
-import utils.validacao;
+import validation.validacao;
 
 
 public class MoradorService implements IService<Morador> {
