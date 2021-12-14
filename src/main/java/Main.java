@@ -19,7 +19,7 @@ public class Main {
 
             Fornecedor fornecedor = new Fornecedor("Gabrielltda", "02.025.659/0001-98", "rua sol", "37258139", "f@.com");
 
-            funcionarioService.save(funcionario);      
+//            funcionarioService.save(funcionario);
             // validacao.validaCpf(funcionario.getCpf());
             // validacao.validaEmail(funcionario.getEmail());
             // validacao.validaCnpj(fornecedor.getCnpj());

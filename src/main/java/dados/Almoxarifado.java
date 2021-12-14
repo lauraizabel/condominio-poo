@@ -1,22 +1,75 @@
 package dados;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.util.Date;
 
+@Entity
 public class Almoxarifado {
-    private ArrayList<Produto> produtos = new ArrayList<Produto>();
+    @Id
+    @GeneratedValue
+    private Integer id;
+    @OneToOne(targetEntity = Produto.class, fetch = FetchType.LAZY)
+    private Produto produto;
+    @OneToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
+    private Funcionario funcionario;
+    private Integer quantidadeAdicionada;
+    private Integer quantidadeRemovida;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataAlteracao;
 
-    public Almoxarifado(){}
-   
-    public Almoxarifado(ArrayList<Produto> produtos){
-        this.produtos = produtos;
+    public Almoxarifado() {
     }
 
-    public ArrayList<Produto> getProdutos() {
-        return this.produtos;
+    public Almoxarifado(Produto produto, Funcionario funcionario, Integer quantidadeAdicionada,
+            Integer quantidadeRemovida, Date dataAlteracao) {
+        this.produto = produto;
+        this.funcionario = funcionario;
+        this.quantidadeAdicionada = quantidadeAdicionada;
+        this.quantidadeRemovida = quantidadeRemovida;
+        this.dataAlteracao = dataAlteracao;
     }
 
-    public void setProdutos(ArrayList<Produto> produtos) {
-        this.produtos = produtos;
+    public Integer getId() {
+        return id;
     }
 
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
+    public Integer getQuantidadeAdicionada() {
+        return quantidadeAdicionada;
+    }
+
+    public void setQuantidadeAdicionada(Integer quantidadeAdicionada) {
+        this.quantidadeAdicionada = quantidadeAdicionada;
+    }
+
+    public Integer getQuantidadeRemovida() {
+        return quantidadeRemovida;
+    }
+
+    public void setQuantidadeRemovida(Integer quantidadeRemovida) {
+        this.quantidadeRemovida = quantidadeRemovida;
+    }
+
+    public Date getDataAlteracao() {
+        return dataAlteracao;
+    }
+
+    public void setDataAlteracao(Date dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 }
