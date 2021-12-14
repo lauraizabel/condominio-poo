@@ -53,6 +53,16 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
 
         return almoxarifados.get(0);
     }
+    
+    public List<Almoxarifado> getAllAlmoxarifadosByProduct(Integer productId) {
+        List<Almoxarifado> almoxarifados = almoxarifadoDAO.findByProductId(productId);
+
+        if (almoxarifados.isEmpty()) {
+            return null;
+        }
+
+        return almoxarifados;
+    }
 
     public Produto getProdutoById(Integer id) {
         return produtoService.getById(id);
@@ -100,10 +110,10 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
     }
 
     // -- pedidos de compra
-    public void fazerPedidoDeCompra(Almoxarifado almoxarifado, int quantidade) {
+    public void fazerPedidoDeCompra(Almoxarifado almoxarifado, int quantidade, double valorUnitario) {
         if (checkPontoDePedido(almoxarifado.getProduto())) {
             Compra novaCompra = new Compra(almoxarifado.getProduto(), quantidade, new Date(),
-                    almoxarifado.getFuncionario());
+                    almoxarifado.getFuncionario(), valorUnitario);
             // Aqui eu espero que ele salve e entre no fluxo da função de adicionar produto
             // daqui
             compraService.save(novaCompra);

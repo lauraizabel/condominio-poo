@@ -6,6 +6,7 @@ import dados.Compra;
 import dados.Produto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompraService implements IService<Compra> {
     private CompraDAO compraDAO = new CompraDAO();
@@ -42,6 +43,25 @@ public class CompraService implements IService<Compra> {
     @Override
     public Compra update(Compra compra) {
         return compraDAO.update(compra);
+    }
+
+
+    public Double valorMedioPorProduto (Integer productId) {
+        ArrayList<Compra> compras = compraDAO.findByProductId(productId);
+
+        if(compras == null) {
+            return null;
+        }
+
+        Double valorMedio = 0.0;
+
+        for (Compra compra: compras) {
+            valorMedio += compra.getValorUnitario();
+        }
+
+        valorMedio = valorMedio / compras.size();
+
+        return valorMedio;
     }
 
 }

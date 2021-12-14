@@ -15,15 +15,17 @@ public class Compra {
     private Funcionario funcionario;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;
+    private Double valorUnitario;
 
     public Compra() {
     }
 
-    public Compra(Produto produto, Integer quantidade, Date dataAlteracao, Funcionario funcionario) {
+    public Compra(Produto produto, Integer quantidade, Date dataAlteracao, Funcionario funcionario, Double valorUnitario) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.dataAlteracao = dataAlteracao;
         this.funcionario = funcionario;
+        this.valorUnitario = valorUnitario;
     }
 
     public Integer getId() {
@@ -56,5 +58,9 @@ public class Compra {
 
     public Funcionario getFuncionario() {
         return this.funcionario;
+    }
+
+    public Double getValorUnitario() {
+        return valorUnitario;
     }
 }
