@@ -8,9 +8,9 @@ public class Almoxarifado {
     @Id
     @GeneratedValue
     private Integer id;
-    @OneToOne(targetEntity = Produto.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.LAZY)
     private Produto produto;
-    @OneToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
     private Funcionario funcionario;
     private Integer quantidadeAdicionada;
     private Integer quantidadeRemovida;

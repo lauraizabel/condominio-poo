@@ -1,14 +1,8 @@
 package business;
 
 import DAO.AlmoxarifadoDAO;
-import DAO.ApartamentoDAO;
-import DAO.FuncionarioDAO;
-import DAO.ProdutoDAO;
-import dados.Almoxarifado;
-import dados.Apartamento;
-import dados.Compra;
-import dados.Funcionario;
-import dados.Produto;
+
+import dados.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +12,7 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
     private AlmoxarifadoDAO almoxarifadoDAO = new AlmoxarifadoDAO();
     private ProdutoService produtoService = new ProdutoService();
     private CompraService compraService = new CompraService();
+    private PedidoDeCompraService pedidoDeCompraService = new PedidoDeCompraService();
 
     @Override
     public Almoxarifado getById(Integer id) {
@@ -44,18 +39,18 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         return almoxarifadoDAO.update(almoxarifado);
     }
 
-    public Almoxarifado findByProductId(Integer productId) {
+    public  List<Almoxarifado> findByProductId(Integer productId) {
         List<Almoxarifado> almoxarifados = almoxarifadoDAO.findByProductId(productId);
 
         if (almoxarifados.isEmpty()) {
             return null;
         }
 
-        return almoxarifados.get(0);
+        return almoxarifados;
     }
     
     public List<Almoxarifado> getAllAlmoxarifadosByProduct(Integer productId) {
-        List<Almoxarifado> almoxarifados = almoxarifadoDAO.findByProductId(productId);
+        ArrayList<Almoxarifado> almoxarifados = almoxarifadoDAO.findByProductId(productId);
 
         if (almoxarifados.isEmpty()) {
             return null;
@@ -68,36 +63,36 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         return produtoService.getById(id);
     }
 
-    public boolean adicionarProduto(Produto produto, Funcionario funcionario) {
-        Almoxarifado findedAlmoxarifado = findByProductId(produto.getId());
-
-        if (findedAlmoxarifado == null) {
-            // cadastrar novo almoxarifado
-            Almoxarifado almoxarifado = new Almoxarifado();
-            almoxarifado.setProduto(produto);
-            almoxarifado.setFuncionario(funcionario);
-            return save(almoxarifado);
-        }
-
-        Produto prodUpdated = produtoService.getById(produto.getId());
-        findedAlmoxarifado.setProduto(prodUpdated);
-
-        return almoxarifadoDAO.update(findedAlmoxarifado) != null;
+    public boolean adicionarProduto(Produto produto, Funcionario funcionario, Integer quantidade) {
+        // cadastrar novo registro no almoxarifado
+        Date dataRegistro = new Date();
+        Almoxarifado almoxarifado = new Almoxarifado(produto, funcionario, quantidade, 0, dataRegistro);
+        return save(almoxarifado);
     }
 
-    public boolean removerDoEstoque(Integer almoxarifadoId, Integer quantidade) {
-        Almoxarifado almoxarifado = almoxarifadoDAO.getById(almoxarifadoId);
-        almoxarifado.setQuantidadeRemovida(quantidade);
-        almoxarifadoDAO.update(almoxarifado);
-        Produto novoProduto = almoxarifado.getProduto();
-        novoProduto.setQuantidade(novoProduto.getQuantidade() - quantidade);
-
-        return produtoService.update(novoProduto) != null;
+    public boolean removerProduto(Produto produto, Funcionario funcionario, Integer almoxarifadoId, Integer quantidade) {
+        if ( produto.getQuantidade() >= quantidade ) {
+            // removendo quantidade do estoque
+            produto.setQuantidade(produto.getQuantidade() - quantidade);
+            boolean updated = produtoService.update(produto) != null;
+            if ( updated ) {
+                // checar ponto de pedido
+                if ( this.checkPontoDePedido(produto) ) {
+                    this.fazerPedidoDeCompra(produto);
+                    System.out.println("Ponto de pedido atingido");
+                }
+                // adicionar registro de remoção de produto no almoxarifado
+                Date dataRegistro = new Date();
+                Almoxarifado almoxarifado = new Almoxarifado(produto, funcionario, 0, quantidade, dataRegistro);
+                return save(almoxarifado);
+            }
+            return false;
+        }
+        return false;
     }
 
     public int getQuatidadeEmEstoque(Integer id) {
-        Almoxarifado almoxarifado = almoxarifadoDAO.getById(id);
-        return almoxarifado.getProduto().getQuantidade();
+        return produtoService.getById(id).getQuantidade();
     }
 
     public Funcionario getFuncionario(Integer id) {
@@ -109,14 +104,12 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         return produto.getQuantidade() <= produto.getPontoDePedido();
     }
 
-    // -- pedidos de compra
-    public void fazerPedidoDeCompra(Almoxarifado almoxarifado, int quantidade, double valorUnitario) {
-        if (checkPontoDePedido(almoxarifado.getProduto())) {
-            Compra novaCompra = new Compra(almoxarifado.getProduto(), quantidade, new Date(),
-                    almoxarifado.getFuncionario(), valorUnitario);
-            // Aqui eu espero que ele salve e entre no fluxo da função de adicionar produto
-            // daqui
-            compraService.save(novaCompra);
+    public boolean fazerPedidoDeCompra(Produto produto) {
+        PedidoDeCompra pedidoDeCompra = new PedidoDeCompra(produto);
+        ArrayList pedidosDeCompra = pedidoDeCompraService.getByProductId(produto.getId());
+        if ( pedidosDeCompra.size() == 0 ) {
+            return pedidoDeCompraService.save(pedidoDeCompra);
         }
+        return false;
     }
 }

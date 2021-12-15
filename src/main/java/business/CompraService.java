@@ -6,6 +6,7 @@ import dados.Compra;
 import dados.Produto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CompraService implements IService<Compra> {
@@ -31,13 +32,15 @@ public class CompraService implements IService<Compra> {
     @Override
     public boolean save(Compra compra) {
         boolean saved = compraDAO.save(compra);
-        Produto produto = compra.getProduto();
-        produto.setQuantidade(produto.getQuantidade() + compra.getQuantidade());
-
-        boolean produtoSalvo = produtoService.save(produto);
-        almoxarifadoService.adicionarProduto(produto, compra.getFuncionario());
-
-        return saved && produtoSalvo;
+        if ( saved ) {
+            Produto produto = compra.getProduto();
+            // atualizando quantidade do produto no BD
+            produto.setQuantidade(produto.getQuantidade() + compra.getQuantidade());
+            Produto produtoAtualizado = produtoService.update(produto);
+            boolean registrado = almoxarifadoService.adicionarProduto(produto, compra.getFuncionario(), compra.getQuantidade());
+            return ( produtoAtualizado != null && registrado);
+        }
+        return false;
     }
 
     @Override
@@ -45,23 +48,25 @@ public class CompraService implements IService<Compra> {
         return compraDAO.update(compra);
     }
 
+    public Double valorMedioProduto (Integer productId, Date minDate, Date maxDate) {
+        Double valorMedio = 0.0;
+        Integer qtdTotalDeProdutos = 0;
 
-    public Double valorMedioPorProduto (Integer productId) {
         ArrayList<Compra> compras = compraDAO.findByProductId(productId);
 
-        if(compras == null) {
-            return null;
+        if (compras.size() == 0) {
+            return valorMedio;
         }
-
-        Double valorMedio = 0.0;
 
         for (Compra compra: compras) {
-            valorMedio += compra.getValorUnitario();
+            // se estiver no intervalo (inclusivo) de datas
+            if ( !minDate.after(compra.getDataAlteracao()) && !maxDate.before(compra.getDataAlteracao()) ) {
+                valorMedio += compra.getValorUnitario() * compra.getQuantidade();
+                qtdTotalDeProdutos += compra.getQuantidade();
+            }
         }
 
-        valorMedio = valorMedio / compras.size();
-
+        valorMedio = valorMedio / qtdTotalDeProdutos;
         return valorMedio;
     }
-
 }
