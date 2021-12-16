@@ -13,7 +13,7 @@ public class Pedido {
     private Integer id;
     @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
     private Funcionario requerente;
-    @OneToMany(targetEntity = Produto.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Produto.class, fetch = FetchType.LAZY)
     private List<Produto> produtos;
 
     public Pedido() {

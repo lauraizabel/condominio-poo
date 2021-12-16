@@ -27,11 +27,6 @@ public class ProdutoTest {
   }
 
   @Test
-  public void testGetTelefone() {
-    assertEquals(takeClasses.getProduto().getValor(), produto.getValor());
-  }
-
-  @Test
   public void testSetNome() {
     String novoNome = fake.name().fullName();
     produto.setNome(novoNome);

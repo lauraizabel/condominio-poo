@@ -265,7 +265,7 @@ public class TakeClasses {
   public Produto produto() {
     String cod = this.id.toString();
     Float v = 10.0f;
-    Produto produto = new Produto(this.name, v, this.fornecedor(), cod);
+    Produto produto = new Produto(this.name, this.fornecedor(), cod, 10, 10);
     this.produto = produto;
     return produto;
   }
@@ -338,12 +338,12 @@ public class TakeClasses {
       return acessoPermitido;
   }
 
-  public Almoxarifado almoxarifado() {
-    ArrayList<Produto> produtos = new ArrayList<>();
-    produtos.add(produto());
-    Almoxarifado almoxarifado = new Almoxarifado(produtos);
-    this.almoxarifado = almoxarifado;
-    return almoxarifado;
-  }
+//  public Almoxarifado almoxarifado() {
+//    ArrayList<Produto> produtos = new ArrayList<>();
+//    produtos.add(produto());
+//    Almoxarifado almoxarifado = new Almoxarifado(produtos);
+//    this.almoxarifado = almoxarifado;
+//    return almoxarifado;
+//  }
 
 }
