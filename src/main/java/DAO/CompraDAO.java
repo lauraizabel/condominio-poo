@@ -12,7 +12,7 @@ public class CompraDAO extends EntityDAO<Compra> {
     }
 
     public ArrayList<Compra> findByProductId (Integer id) {
-        Query query = this.em.createQuery("SELECT * FROM compra WHERE produto_id = :id");
+        Query query = this.em.createQuery("FROM Compra WHERE produto_id = :id");
         query.setParameter("id", id);
         ArrayList<Compra> compras = new ArrayList<Compra>(query.getResultList());
         return compras;

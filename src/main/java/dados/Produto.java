@@ -8,7 +8,7 @@ public class Produto {
     @Id @GeneratedValue
     private Integer id;
     private String nome;
-    @ManyToOne(targetEntity=Fornecedor.class, fetch= FetchType.EAGER)
+    @ManyToOne(targetEntity=Fornecedor.class, fetch= FetchType.LAZY)
     private Fornecedor fornecedor;
     private String codigo;
     private Integer pontoDePedido;

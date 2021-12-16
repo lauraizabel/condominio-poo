@@ -33,7 +33,7 @@ public class PedidoDeCompraService implements IService<PedidoDeCompra>{
         return PedidoDeCompraDAO.update(pedidoDeCompra);
     }
 
-    public ArrayList<PedidoDeCompra> getByProductId(Integer produtoId) {
+    public PedidoDeCompra getByProductId(Integer produtoId) {
         return PedidoDeCompraDAO.getByProductId(produtoId);
     }
 }

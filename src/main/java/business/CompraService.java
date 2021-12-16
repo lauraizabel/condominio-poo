@@ -1,18 +1,18 @@
 package business;
 
-import DAO.AlmoxarifadoDAO;
 import DAO.CompraDAO;
 import dados.Compra;
+import dados.PedidoDeCompra;
 import dados.Produto;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class CompraService implements IService<Compra> {
     private CompraDAO compraDAO = new CompraDAO();
     private AlmoxarifadoService almoxarifadoService = new AlmoxarifadoService();
     private ProdutoService produtoService = new ProdutoService();
+    private PedidoDeCompraService pedidoDeCompraService = new PedidoDeCompraService();
 
     @Override
     public Compra getById(Integer id) {
@@ -38,10 +38,16 @@ public class CompraService implements IService<Compra> {
             produto.setQuantidade(produto.getQuantidade() + compra.getQuantidade());
             Produto produtoAtualizado = produtoService.update(produto);
             boolean registrado = almoxarifadoService.adicionarProduto(produto, compra.getFuncionario(), compra.getQuantidade());
+            if ( !almoxarifadoService.checkPontoDePedido(produtoAtualizado) ) {
+                PedidoDeCompra pedidoDeCompra = pedidoDeCompraService.getByProductId(produto.getId());
+                pedidoDeCompraService.deleteById(pedidoDeCompra.getId());
+            }
             return ( produtoAtualizado != null && registrado);
         }
         return false;
     }
+
+
 
     @Override
     public Compra update(Compra compra) {

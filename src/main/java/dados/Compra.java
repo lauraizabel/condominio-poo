@@ -8,7 +8,7 @@ public class Compra {
     @Id
     @GeneratedValue
     private Integer id;
-    @OneToOne()
+    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.LAZY)
     private Produto produto;
     private Integer quantidade;
     @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
