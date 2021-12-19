@@ -255,7 +255,11 @@ public class TakeClasses {
   public Compra getCompra() {
     return this.compra;
   }
-
+  
+  public PedidoDeCompra getPedidoDeCompra() {
+    return this.pedidoDeCompra;
+  }
+  
   public Funcionario funcionario() {
     Funcionario funcionario = new Funcionario(this.name, this.phone, this.email, this.cpf, this.cargo,
         this.salario, this.endereco, this.data, this.data);
