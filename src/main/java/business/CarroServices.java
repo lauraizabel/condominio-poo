@@ -24,12 +24,12 @@ public class CarroServices implements IService<Carro>{
     }
 
     @Override
-    public boolean save(Carro reserva) {
-        return carroDAO.save(reserva);
+    public boolean save(Carro carro) {
+        return carroDAO.save(carro);
     }
 
     @Override
-    public Carro update(Carro reserva) {
-        return carroDAO.update(reserva);
+    public Carro update(Carro carro) {
+        return carroDAO.update(carro);
     }
 }
