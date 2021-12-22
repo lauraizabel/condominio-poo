@@ -50,7 +50,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HelloFXController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
 <children>
     <MenuBar prefHeight="48.0" prefWidth="928.0" VBox.vgrow="NEVER" />
     <SplitPane dividerPositions="0.5" focusTraversable="true" prefWidth="719.0" VBox.vgrow="ALWAYS">
@@ -59,21 +59,21 @@
                 <children>
                     <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="250.0" spacing="10.0">
                         <children>
-                            <Button fx:id="acessoPermitido" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Acessos Permitidos" />
-                            <Button fx:id="almoxarifado" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Almoxarifado" />
-                            <Button fx:id="apartamentos" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Apartamentos" />
-                            <Button fx:id="auditoria" layoutX="32.0" layoutY="298.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Auditoria" />
-                            <Button fx:id="carros" layoutX="32.0" layoutY="321.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Carros" />
-                            <Button fx:id="compras" layoutX="32.0" layoutY="343.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Compras" />
-                            <Button fx:id="espaco" layoutX="32.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Espaços" />
-                            <Button fx:id="fornecedores" layoutX="32.0" layoutY="388.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Fornecedores" />
-                            <Button fx:id="funcionarios" layoutX="32.0" layoutY="411.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Funcionários" />
-                            <Button fx:id="moradores" layoutX="32.0" layoutY="433.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Moradores" />
-                            <Button fx:id="pedidos" layoutX="32.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Pedidos" />
-                            <Button fx:id="pedidosCompra" layoutX="32.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Pedidos de Compra" />
-                            <Button fx:id="produto"  layoutX="32.0" layoutY="418.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Produtos" />
-                            <Button fx:id="reservas" layoutX="32.0" layoutY="433.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Reservas" />
-                            <Button fx:id="servicos" layoutX="32.0" layoutY="448.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Serviços" />
+                            <Button fx:id="acessoPermitido" onAction="#switchById" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Acessos Permitidos" />
+                            <Button fx:id="almoxarifado" onAction="#switchById" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Almoxarifado" />
+                            <Button fx:id="apartamento" onAction="#switchById" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Apartamentos" />
+                            <Button fx:id="auditoria" onAction="#switchById" layoutX="32.0" layoutY="298.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Auditoria" />
+                            <Button fx:id="carros" onAction="#switchById" layoutX="32.0" layoutY="321.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Carros" />
+                            <Button fx:id="compra" onAction="#switchById" layoutX="32.0" layoutY="343.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Compras" />
+                            <Button fx:id="espaco" onAction="#switchById" layoutX="32.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Espaços" />
+                            <Button fx:id="fornecedor" onAction="#switchById" layoutX="32.0" layoutY="388.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Fornecedores" />
+                            <Button fx:id="funcionario" onAction="#switchById" layoutX="32.0" layoutY="411.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Funcionários" />
+                            <Button fx:id="morador" onAction="#switchById" layoutX="32.0" layoutY="433.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Moradores" />
+                            <Button fx:id="pedido" onAction="#switchById" layoutX="32.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Pedidos" />
+                            <Button fx:id="pedidoDeCompra" onAction="#switchById" layoutX="32.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Pedidos de Compra" />
+                            <Button fx:id="produto" onAction="#switchById"  layoutX="32.0" layoutY="418.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Produtos" />
+                            <Button fx:id="reserva" onAction="#switchById" layoutX="32.0" layoutY="433.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Reservas" />
+                            <Button fx:id="servico" onAction="#switchById" layoutX="32.0" layoutY="448.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Serviços" />
                         </children>
                     </VBox>
                 </children>
