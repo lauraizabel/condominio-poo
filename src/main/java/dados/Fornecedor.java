@@ -1,10 +1,15 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Audited
+@Table
 public class Fornecedor {
 
     @Id @GeneratedValue
@@ -28,7 +33,7 @@ public class Fornecedor {
     public Integer getId() {
         return this.id;
     }
-
+    public void setId(Integer id) {this.id = id;}
     public String getNome() {
         return this.nome;
     }

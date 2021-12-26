@@ -17,8 +17,8 @@ public class FornecedorService implements IService<Fornecedor> {
 
     @Override
     public ArrayList<Fornecedor> getAll() {
-        ArrayList<Fornecedor> fornecedor = fornecedorDAO.getAll();
-        return fornecedor;
+        ArrayList<Fornecedor> providers = fornecedorDAO.getAll();
+        return providers;
     }
 
     @Override

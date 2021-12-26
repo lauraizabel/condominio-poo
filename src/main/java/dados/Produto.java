@@ -1,14 +1,19 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 
+import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
+
 @Entity
+@Audited(targetAuditMode = NOT_AUDITED)
 public class Produto {
 
     @Id @GeneratedValue
     private Integer id;
     private String nome;
-    @ManyToOne(targetEntity=Fornecedor.class, fetch= FetchType.LAZY)
+    @ManyToOne(targetEntity= Fornecedor.class, fetch= FetchType.LAZY)
     private Fornecedor fornecedor;
     private String codigo;
     private Integer pontoDePedido;
@@ -16,7 +21,7 @@ public class Produto {
 
     public Produto() {}
 
-    public Produto(String nome,  Fornecedor fornecedor, String codigo, Integer pontoDePedido, Integer quantidade) {
+    public Produto(String nome, Fornecedor fornecedor, String codigo, Integer pontoDePedido, Integer quantidade) {
         this.nome = nome;
         this.fornecedor = fornecedor;
         this.codigo = codigo;
