@@ -36,10 +36,10 @@ public class CreateServicoController implements Initializable {
     TextField valorValue;
 
     @FXML
-    ComboBox<String> fornecedoresValues;
+    ComboBox<String> fornecedoresValues = new ComboBox<String>();
 
     @FXML
-    ComboBox<String> funcionariosValues;
+    ComboBox<String> funcionariosValues = new ComboBox<String>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,7 +50,6 @@ public class CreateServicoController implements Initializable {
     }
 
     private ObservableList<String> getFornecedores() {
-
         this.fornecedores = this.fornecedorService.getAll();
 
         ArrayList<String> fornecedoresList = new ArrayList<String>();
@@ -62,7 +61,6 @@ public class CreateServicoController implements Initializable {
     }
 
     private ObservableList<String> getFuncionarios() {
-        System.out.println("*");
         this.funcionarios = this.funcionarioService.getAll();
 
         ArrayList<String> funcionariosList = new ArrayList<String>();
@@ -79,6 +77,11 @@ public class CreateServicoController implements Initializable {
         Integer fornecedorIdx = Integer.valueOf(fornecedoresValues.getSelectionModel().getSelectedIndex());
         Integer funcionarioIdx = Integer.valueOf(funcionariosValues.getSelectionModel().getSelectedIndex());
 
+        System.out.println("Descrição: " + descricaoValue.getText());
+        System.out.println("Valor: " + valorValue.getText());
+        System.out.println("Código: " + codigoValue.getText());
+        System.out.println("Fornecedor: " + funcionarios.get(funcionarioIdx).getId());
+        System.out.println("Funcionário: " + fornecedores.get(fornecedorIdx).getId());
         // Criando novo Serviço
         Servico servico = new Servico(
                 String.valueOf(descricaoValue.getText()),
