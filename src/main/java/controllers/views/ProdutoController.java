@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jdk.jshell.spi.ExecutionControl;
 import tables.ProdutoTable;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ import java.util.ResourceBundle;
 public class ProdutoController implements Initializable {
     ProdutoService service = new ProdutoService();
     private static ArrayList<Produto> items;
+    private static ObservableList<ProdutoTable> tableItems;
     private static ProdutoTable itemSelecionado;
 
     @FXML
@@ -56,7 +58,8 @@ public class ProdutoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(codigoCol, nomeCol, fornecedorCol, quantidadeCol, pontoDePedidoCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems());
+        tableItems = this.listaDeItems();
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<ProdutoTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -68,7 +71,9 @@ public class ProdutoController implements Initializable {
             @Override
             public void onChanged(Change<? extends ProdutoTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -79,27 +84,29 @@ public class ProdutoController implements Initializable {
         for ( Produto item: this.items) {
             itemTableList.add(
                 new ProdutoTable(
+                    item.getId(),
                     item.getNome(),
                     item.getQuantidade(),
                     item.getFornecedor().getNome(),
                     item.getCodigo(),
-                    item.getPontoDePedido())
+                    item.getPontoDePedido()
+                )
             );
         }
         return FXCollections.observableArrayList(itemTableList);
     }
 
     public boolean onDelete() {
-        // deletando
-        String itemCode = itemSelecionado.getCodigo();
-        Produto item = this.findItemByCode(itemCode);
-
-        if ( item != null ) {
-            Integer itemId = item.getId();
+        Integer itemId = itemSelecionado.getId();
+        try {
             service.deleteById(itemId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            reloadItems();
         }
-
-        return true;
     }
 
     public void onCreate() throws IOException  {
@@ -108,7 +115,7 @@ public class ProdutoController implements Initializable {
     }
 
     public void onEdit() throws IOException  {
-        Produto item = this.findItemByCode(itemSelecionado.getCodigo());
+        Produto item = this.service.getById(itemSelecionado.getId());
         EditProdutoController controller = new EditProdutoController(item);
         this.createModal("Editar item", controller);
     }
@@ -126,22 +133,24 @@ public class ProdutoController implements Initializable {
         stage.show();
     }
 
-    private Produto findItemByCode(String code) {
-        try {
-            for ( Produto item : this.items ) {
-                if ( item.getCodigo() == code ) {
-                    return item;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("ERRO [DELETE]: " + e);
-        }
-        return null;
+    public void reloadItems() {
+        this.cleanTableContent();
+        this.populateTableContent();
     }
 
-    public void reloadItems() {
-        // How to reload ?
-//        this.tabelaConteudo.setItems(this.listaDeProdutos());  -> does not work
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
+        }
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        for (ProdutoTable item: this.listaDeItems()) {
+            tableItems.add(item);
+        }
     }
 
 }

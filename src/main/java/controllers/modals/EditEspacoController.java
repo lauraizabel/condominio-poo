@@ -1,6 +1,7 @@
 package controllers.modals;
 
 import business.EspacoService;
+import controllers.views.EspacoController;
 import dados.Espaco;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,8 +61,8 @@ public class EditEspacoController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-//        FUncionarioController controller = new FUncionarioController();
-//        controller.reloadItems();
+        EspacoController controller = new EspacoController();
+        controller.reloadItems();
 
         // fecha janela
         Stage stage = (Stage) submitButton.getScene().getWindow();

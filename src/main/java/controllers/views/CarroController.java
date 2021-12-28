@@ -23,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.CarroTable;
+import tables.EspacoTable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +33,7 @@ import java.util.ResourceBundle;
 public class CarroController implements Initializable  {
     CarroServices service = new CarroServices();
     private static ArrayList<Carro> items;
+    private static ObservableList<CarroTable> tableItems;
     private static CarroTable itemSelecionado;
 
     @FXML
@@ -51,7 +53,8 @@ public class CarroController implements Initializable  {
         this.tabelaConteudo.getColumns().setAll(modeloCol, placaCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems());
+        tableItems = this.listaDeItems();
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<CarroTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -63,7 +66,9 @@ public class CarroController implements Initializable  {
             @Override
             public void onChanged(Change<? extends CarroTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -91,6 +96,8 @@ public class CarroController implements Initializable  {
             return true;
         } catch (Exception e) {
             return false;
+        } finally {
+            this.reloadItems();
         }
     }
 
@@ -118,7 +125,22 @@ public class CarroController implements Initializable  {
     }
 
     public void reloadItems() {
-        // How to reload ?
-//        this.tabelaConteudo.setItems(this.listaDeServicos());  -> does not work
+        this.cleanTableContent();
+        this.populateTableContent();
+    }
+
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
+        }
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        for (CarroTable item: this.listaDeItems()) {
+            tableItems.add(item);
+        }
     }
 }

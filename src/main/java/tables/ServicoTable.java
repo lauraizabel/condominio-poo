@@ -1,9 +1,11 @@
 package tables;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ServicoTable {
+    private final SimpleIntegerProperty id;
     private final SimpleStringProperty codigo;
     private final SimpleStringProperty descricao;
     private final SimpleDoubleProperty valor;
@@ -12,12 +14,14 @@ public class ServicoTable {
 
 
     public ServicoTable(
+            Integer id,
             String codigo,
             String descricao,
             double valor,
             String fornecedor,
             String requerente
     ) {
+        this.id = new SimpleIntegerProperty(id);
         this.codigo = new SimpleStringProperty(codigo);
         this.descricao = new SimpleStringProperty(descricao);
         this.valor = new SimpleDoubleProperty(valor);
@@ -83,5 +87,13 @@ public class ServicoTable {
 
     public void setRequerente(String requerente) {
         this.requerente.set(requerente);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public SimpleIntegerProperty idProperty() {
+        return id;
     }
 }

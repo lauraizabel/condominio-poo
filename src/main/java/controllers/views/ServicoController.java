@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tables.ProdutoTable;
 import tables.ServicoTable;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ import java.util.ResourceBundle;
 public class ServicoController implements Initializable {
     ServicoService service = new ServicoService();
     private static ArrayList<Servico> items;
+    private static ObservableList<ServicoTable> tableItems;
     private static ServicoTable itemSelecionado;
 
     @FXML
@@ -56,7 +58,8 @@ public class ServicoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(codigoCol, descricaoCol, valorCol, fornecedorCol,requerenteCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems());
+        tableItems = this.listaDeItems();
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<ServicoTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -68,7 +71,9 @@ public class ServicoController implements Initializable {
             @Override
             public void onChanged(Change<? extends ServicoTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -79,6 +84,7 @@ public class ServicoController implements Initializable {
         for ( Servico item: this.items) {
             itemTableList.add(
                 new ServicoTable(
+                    item.getId(),
                     item.getCodigo(),
                     item.getDescricao(),
                     item.getValor(),
@@ -92,12 +98,13 @@ public class ServicoController implements Initializable {
 
     public boolean onDelete() {
         // deletando
-        String itemCode = itemSelecionado.getCodigo();
-        Servico item = this.findItemByCode(itemCode);
-
-        if ( item != null ) {
-            Integer itemId = item.getId();
+        Integer itemId = itemSelecionado.getId();
+        try {
             service.deleteById(itemId);
+        } catch (Exception e) {
+           e.printStackTrace();
+        } finally {
+            this.reloadItems();
         }
 
         return true;
@@ -141,8 +148,23 @@ public class ServicoController implements Initializable {
     }
 
     public void reloadItems() {
-        // How to reload ?
-//        this.tabelaConteudo.setItems(this.listaDeServicos());  -> does not work
+        this.cleanTableContent();
+        this.populateTableContent();
+    }
+
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
+        }
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        for (ServicoTable item: this.listaDeItems()) {
+            tableItems.add(item);
+        }
     }
 
 }

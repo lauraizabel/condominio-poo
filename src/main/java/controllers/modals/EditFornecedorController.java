@@ -1,6 +1,7 @@
 package controllers.modals;
 
 import business.FornecedorService;
+import controllers.views.FornecedorController;
 import dados.Fornecedor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,8 +65,8 @@ public class EditFornecedorController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-//        FornecedorController controller = new FornecedorController();
-//        controller.reloadItems();
+        FornecedorController controller = new FornecedorController();
+        controller.reloadItems();
 
         // fecha janela
         Stage stage = (Stage) submitButton.getScene().getWindow();

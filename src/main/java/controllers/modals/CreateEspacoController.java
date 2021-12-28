@@ -2,6 +2,7 @@ package controllers.modals;
 
 import business.EspacoService;
 import business.FornecedorService;
+import controllers.views.EspacoController;
 import dados.Espaco;
 import dados.Fornecedor;
 import javafx.event.ActionEvent;
@@ -50,8 +51,8 @@ public class CreateEspacoController {
 
     private void finish() {
         // atualiza conteúdo
-//        EspacoController controller = new EspacoController();
-//        controller.reloadItems();
+        EspacoController controller = new EspacoController();
+        controller.reloadItems();
 
         // fecha janela
         Stage stage = (Stage) submitButton.getScene().getWindow();

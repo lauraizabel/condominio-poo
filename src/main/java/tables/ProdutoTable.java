@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ProdutoTable {
+    private final SimpleIntegerProperty id;
     private final SimpleStringProperty nome;
     private final SimpleIntegerProperty quantidade;
     private final SimpleStringProperty codigo;
@@ -11,12 +12,14 @@ public class ProdutoTable {
     private final SimpleIntegerProperty pontoDePedido;
 
     public ProdutoTable(
+            Integer id,
             String nome,
             Integer quantidade,
             String fornecedor,
             String codigo,
             Integer pontoDePedido
     ) {
+        this.id = new SimpleIntegerProperty(id);
         this.nome = new SimpleStringProperty(nome);
         this.quantidade = new SimpleIntegerProperty(quantidade);
         this.codigo = new SimpleStringProperty(codigo);
@@ -82,5 +85,13 @@ public class ProdutoTable {
 
     public void setPontoDePedido(int pontoDePedido) {
         this.pontoDePedido.set(pontoDePedido);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public SimpleIntegerProperty idProperty() {
+        return id;
     }
 }

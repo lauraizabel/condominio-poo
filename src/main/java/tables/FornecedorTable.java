@@ -1,8 +1,10 @@
 package tables;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class FornecedorTable {
+    private final SimpleIntegerProperty id;
     private final SimpleStringProperty nome;
     private final SimpleStringProperty cnpj;
     private final SimpleStringProperty endereco;
@@ -10,12 +12,14 @@ public class FornecedorTable {
     private final SimpleStringProperty email;
 
     public FornecedorTable(
+            Integer id,
             String nome,
             String cnpj,
             String endereco,
             String telefone,
             String email
     ) {
+        this.id = new SimpleIntegerProperty(id);
         this.nome = new SimpleStringProperty(nome);
         this.cnpj = new SimpleStringProperty(cnpj);
         this.endereco = new SimpleStringProperty(endereco);
@@ -81,5 +85,13 @@ public class FornecedorTable {
 
     public void setEmail(String email) {
         this.email.set(email);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public SimpleIntegerProperty idProperty() {
+        return id;
     }
 }

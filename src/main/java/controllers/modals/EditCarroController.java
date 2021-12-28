@@ -2,6 +2,7 @@ package controllers.modals;
 
 import business.CarroServices;
 import controllers.views.CarroController;
+import controllers.views.EspacoController;
 import dados.Carro;
 import dados.Espaco;
 import javafx.event.ActionEvent;
