@@ -44,6 +44,11 @@
             <version>0.15</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.3m</version>
+        </dependency>
 
         <!-- API, java.xml.bind module -->
         <dependency>
