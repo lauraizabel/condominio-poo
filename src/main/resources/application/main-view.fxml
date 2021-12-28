@@ -49,7 +49,7 @@
         <items>
               <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #273746;">
                   <children>
-                      <Button fx:id="acessoPermitido" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#switchById" prefHeight="25.0" prefWidth="180.0" text="Acessos Permitidos" textFill="WHITE">
+                      <Button fx:id="acessoPermitido" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#switchById" prefHeight="25.0" prefWidth="180.0" text="Acessos Permitidos">
                      <padding>
                         <Insets bottom="5.0" left="25.0" />
                      </padding></Button>
@@ -57,13 +57,7 @@
                      <padding>
                         <Insets bottom="5.0" left="25.0" />
                      </padding></Button>
-                      <Button fx:id="apartamento" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#switchById" prefHeight="25.0" prefWidth="180.0" text="Apartamentos" textFill="#20613d">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
+                      <Button fx:id="apartamento" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#switchById" prefHeight="25.0" prefWidth="180.0" text="Apartamentos">
                      <padding>
                         <Insets bottom="5.0" left="25.0" />
                      </padding>

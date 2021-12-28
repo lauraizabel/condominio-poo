@@ -1,5 +1,6 @@
 package application;
 
+import com.sun.javafx.css.StyleManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ public class MainApplication extends Application {
 
         stage.setTitle("Condomínio POO");
         //stage.setMaximized(true);
+
         stage.setScene(scene);
         stage.show();
     }
