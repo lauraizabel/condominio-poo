@@ -1,0 +1,21 @@
+*.grid {
+    -fx-background-color: #3cb371;
+}
+
+.button {
+    -fx-font-family: 'sans-serif';
+    -fx-background-color: #273746;
+    -fx-text-fill: #D5D8DC ;
+    -fx-border-color: rgba(0, 0, 0, 0);
+    -fx-font-weight: 700;
+    -fx-min-height: 26px ;
+    -fx-min-height: 40px;
+    -fx-min-width: 200px;
+    -fx-border-radius: 5;
+    -fx-font-size: 13;
+}
+
+.button:hover{
+    -fx-background-color: #17202A;
+}
+
