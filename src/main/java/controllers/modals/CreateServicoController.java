@@ -3,6 +3,7 @@ package controllers.modals;
 import business.FornecedorService;
 import business.FuncionarioService;
 import business.ServicoService;
+import controllers.views.ServicoController;
 import dados.Fornecedor;
 import dados.Funcionario;
 import dados.Servico;
@@ -11,8 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,12 +44,13 @@ public class CreateServicoController implements Initializable {
     @FXML
     ComboBox<String> funcionariosValues = new ComboBox<String>();
 
+    @FXML
+    private Button submitButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fornecedoresValues.setItems(FXCollections.observableArrayList(getFornecedores()));
-        System.out.println("forn ok");
         funcionariosValues.setItems(FXCollections.observableArrayList(getFuncionarios()));
-        System.out.println("func ok");
     }
 
     private ObservableList<String> getFornecedores() {
@@ -56,7 +60,6 @@ public class CreateServicoController implements Initializable {
         for ( Fornecedor fornecedor: this.fornecedores) {
             fornecedoresList.add(fornecedor.getNome());
         }
-        System.out.println(fornecedoresList);
         return FXCollections.observableArrayList(fornecedoresList);
     }
 
@@ -66,9 +69,7 @@ public class CreateServicoController implements Initializable {
         ArrayList<String> funcionariosList = new ArrayList<String>();
         for ( Funcionario funcinario: this.funcionarios) {
             funcionariosList.add(funcinario.getNome());
-            System.out.println("func" + funcinario.getNome());
         }
-        System.out.println(funcionariosList);
         return FXCollections.observableArrayList(funcionariosList);
     }
 
@@ -77,11 +78,6 @@ public class CreateServicoController implements Initializable {
         Integer fornecedorIdx = Integer.valueOf(fornecedoresValues.getSelectionModel().getSelectedIndex());
         Integer funcionarioIdx = Integer.valueOf(funcionariosValues.getSelectionModel().getSelectedIndex());
 
-        System.out.println("Descrição: " + descricaoValue.getText());
-        System.out.println("Valor: " + valorValue.getText());
-        System.out.println("Código: " + codigoValue.getText());
-        System.out.println("Fornecedor: " + funcionarios.get(funcionarioIdx).getId());
-        System.out.println("Funcionário: " + fornecedores.get(fornecedorIdx).getId());
         // Criando novo Serviço
         Servico servico = new Servico(
                 String.valueOf(descricaoValue.getText()),
@@ -91,5 +87,17 @@ public class CreateServicoController implements Initializable {
                 fornecedores.get(fornecedorIdx)
         );
         service.save(servico);
+
+        this.finish();
+    };
+
+    private void finish() {
+        // atualiza conteúdo
+        ServicoController controller = new ServicoController();
+        controller.reloadItems();
+
+        // fecha janela
+        Stage stage = (Stage) submitButton.getScene().getWindow();
+        stage.close();
     };
 }
