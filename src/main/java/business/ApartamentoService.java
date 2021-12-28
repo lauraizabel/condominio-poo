@@ -1,6 +1,7 @@
 package business;
 
 import DAO.ApartamentoDAO;
+import dados.Almoxarifado;
 import dados.Apartamento;
 
 import java.util.ArrayList;
@@ -31,5 +32,10 @@ public class ApartamentoService  implements IService<Apartamento>{
     @Override
     public Apartamento update(Apartamento reserva) {
         return apartamentoDAO.update(reserva);
+    }
+
+    @Override
+    public ArrayList<Apartamento> getAllAuditory() {
+        return apartamentoDAO.getAllAuditory();
     }
 }

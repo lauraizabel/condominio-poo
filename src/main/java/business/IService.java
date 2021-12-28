@@ -14,4 +14,5 @@ public interface IService<T> {
 
     T update(T object);
 
+    ArrayList<T> getAllAuditory();
 }

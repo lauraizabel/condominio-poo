@@ -2,6 +2,7 @@ package business;
 
 import DAO.AcessoPermitidoDAO;
 import dados.AcessoPermitido;
+import dados.Fornecedor;
 import validation.validacao;
 
 import java.util.ArrayList;
@@ -34,5 +35,10 @@ public class AcessooPermitidoService implements IService <AcessoPermitido>{
     @Override
     public AcessoPermitido update(AcessoPermitido acessoPermitido) {
         return AcessoPermitidoDAO.update(acessoPermitido);
+    }
+
+    @Override
+    public ArrayList<AcessoPermitido> getAllAuditory() {
+        return AcessoPermitidoDAO.getAllAuditory();
     }
 }

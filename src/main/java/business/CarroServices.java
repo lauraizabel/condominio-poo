@@ -1,6 +1,7 @@
 package business;
 
 import DAO.CarroDAO;
+import dados.Apartamento;
 import dados.Carro;
 
 import java.util.ArrayList;
@@ -31,5 +32,10 @@ public class CarroServices implements IService<Carro>{
     @Override
     public Carro update(Carro carro) {
         return carroDAO.update(carro);
+    }
+
+    @Override
+    public ArrayList<Carro> getAllAuditory() {
+        return carroDAO.getAllAuditory();
     }
 }

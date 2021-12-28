@@ -2,6 +2,7 @@ package business;
 
 import DAO.PedidoDAO;
 import dados.Pedido;
+import dados.PedidoDeCompra;
 
 import java.util.ArrayList;
 
@@ -31,5 +32,10 @@ public class PedidoService  implements IService<Pedido>{
     @Override
     public Pedido update(Pedido pedido) {
         return pedidoDAO.update(pedido);
+    }
+
+    @Override
+    public ArrayList<Pedido> getAllAuditory() {
+        return pedidoDAO.getAllAuditory();
     }
 }

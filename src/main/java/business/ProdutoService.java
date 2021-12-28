@@ -1,6 +1,7 @@
 package business;
 
 import DAO.ProdutoDAO;
+import dados.PedidoDeCompra;
 import dados.Produto;
 
 import java.util.ArrayList;
@@ -36,5 +37,10 @@ public class ProdutoService implements IService<Produto> {
     public Produto update(Produto produto) {
         Produto produtoUpdated = produtoDAO.update(produto);
         return produtoUpdated;
+    }
+
+    @Override
+    public ArrayList<Produto> getAllAuditory() {
+        return produtoDAO.getAllAuditory();
     }
 }

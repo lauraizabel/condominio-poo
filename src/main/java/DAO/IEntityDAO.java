@@ -15,4 +15,6 @@ public interface IEntityDAO<T> {
     T update(T object);
 
     boolean deleteById(Integer id);
+
+    ArrayList<T> getAllAuditory();
 }

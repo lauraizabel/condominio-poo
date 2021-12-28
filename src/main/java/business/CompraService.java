@@ -1,6 +1,7 @@
 package business;
 
 import DAO.CompraDAO;
+import dados.Apartamento;
 import dados.Compra;
 import dados.PedidoDeCompra;
 import dados.Produto;
@@ -74,5 +75,10 @@ public class CompraService implements IService<Compra> {
 
         valorMedio = valorMedio / qtdTotalDeProdutos;
         return valorMedio;
+    }
+
+    @Override
+    public ArrayList<Compra> getAllAuditory() {
+        return compraDAO.getAllAuditory();
     }
 }
