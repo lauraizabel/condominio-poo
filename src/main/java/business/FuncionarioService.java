@@ -1,6 +1,7 @@
 package business;
 
 import DAO.FuncionarioDAO;
+import dados.Espaco;
 import dados.Funcionario;
 import validation.validacao;
 
@@ -35,5 +36,9 @@ public class FuncionarioService implements IService<Funcionario> {
     public Funcionario update(Funcionario funcionario) {
         return funcionarioDAO.update(funcionario);
     }
-    
+
+    @Override
+    public ArrayList<Funcionario> getAllAuditory() {
+        return funcionarioDAO.getAllAuditory();
+    }
 }

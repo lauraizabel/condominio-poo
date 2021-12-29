@@ -1,10 +1,18 @@
 package business;
 
 import DAO.FornecedorDAO;
+import DAO.IEntityDAO;
+import DAO.implementation.EntityDAO;
 import dados.Fornecedor;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.query.AuditEntity;
+import org.hibernate.envers.query.AuditQuery;
+import org.hibernate.transform.Transformers;
 import validation.validacao;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FornecedorService implements IService<Fornecedor> {
     private FornecedorDAO fornecedorDAO = new FornecedorDAO();
@@ -17,8 +25,8 @@ public class FornecedorService implements IService<Fornecedor> {
 
     @Override
     public ArrayList<Fornecedor> getAll() {
-        ArrayList<Fornecedor> fornecedor = fornecedorDAO.getAll();
-        return fornecedor;
+        ArrayList<Fornecedor> providers = fornecedorDAO.getAll();
+        return providers;
     }
 
     @Override
@@ -28,7 +36,7 @@ public class FornecedorService implements IService<Fornecedor> {
     }
 
     @Override
-    public boolean save(Fornecedor fornecedor) throws Exception{
+    public boolean save(Fornecedor fornecedor) throws Exception {
         validacao.validaCnpj(fornecedor.getCnpj());
         validacao.validaEmail(fornecedor.getEmail());
         boolean result = fornecedorDAO.save(fornecedor);
@@ -39,5 +47,10 @@ public class FornecedorService implements IService<Fornecedor> {
     public Fornecedor update(Fornecedor fornecedor) {
         Fornecedor fornecedorUpdated = fornecedorDAO.update(fornecedor);
         return fornecedorUpdated;
+    }
+
+    @Override
+    public ArrayList<Fornecedor> getAllAuditory() {
+        return fornecedorDAO.getAllAuditory();
     }
 }

@@ -1,8 +1,13 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 
+import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
+
 @Entity
+@Audited(targetAuditMode = NOT_AUDITED)
 public class Servico {
 
     @Id

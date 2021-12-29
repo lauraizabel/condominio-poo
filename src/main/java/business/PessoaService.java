@@ -3,6 +3,7 @@ package business;
 import java.util.ArrayList;
 
 import DAO.PessoaDAO;
+import dados.PedidoDeCompra;
 import dados.Pessoa;
 
 public class PessoaService implements IService<Pessoa> {
@@ -32,5 +33,9 @@ public class PessoaService implements IService<Pessoa> {
     public Pessoa update(Pessoa pessoa) {
         return pessoaDAO.update(pessoa);
     }
-    
+
+    @Override
+    public ArrayList<Pessoa> getAllAuditory() {
+        return pessoaDAO.getAllAuditory();
+    }
 }

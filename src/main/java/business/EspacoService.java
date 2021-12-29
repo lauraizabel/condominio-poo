@@ -1,6 +1,7 @@
 package business;
 
 import DAO.EspacoDAO;
+import dados.Apartamento;
 import dados.Espaco;
 
 import java.util.ArrayList;
@@ -38,4 +39,8 @@ public class EspacoService implements IService<Espaco> {
         return espacoUpdated;
     }
 
+    @Override
+    public ArrayList<Espaco> getAllAuditory() {
+        return espacoDAO.getAllAuditory();
+    }
 }

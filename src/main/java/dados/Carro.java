@@ -1,11 +1,16 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
+@Audited
 public class Carro implements Serializable {
     @Id @GeneratedValue
     private Integer id;

@@ -1,39 +1,45 @@
 package business;
 
 import DAO.PedidoDeCompraDAO;
+import dados.Espaco;
 import dados.PedidoDeCompra;
 
 import java.util.ArrayList;
 
 public class PedidoDeCompraService implements IService<PedidoDeCompra>{
-    private PedidoDeCompraDAO PedidoDeCompraDAO = new PedidoDeCompraDAO();
+    private PedidoDeCompraDAO pedidoDeCompraDAO = new PedidoDeCompraDAO();
 
     @Override
     public PedidoDeCompra getById(Integer id) {
-        return PedidoDeCompraDAO.getById(id);
+        return pedidoDeCompraDAO.getById(id);
     }
 
     @Override
     public ArrayList<PedidoDeCompra> getAll() {
-        return PedidoDeCompraDAO.getAll();
+        return pedidoDeCompraDAO.getAll();
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return PedidoDeCompraDAO.deleteById(id);
+        return pedidoDeCompraDAO.deleteById(id);
     }
 
     @Override
     public boolean save(PedidoDeCompra pedidoDeCompra) {
-        return PedidoDeCompraDAO.save(pedidoDeCompra);
+        return pedidoDeCompraDAO.save(pedidoDeCompra);
     }
 
     @Override
     public PedidoDeCompra update(PedidoDeCompra pedidoDeCompra) {
-        return PedidoDeCompraDAO.update(pedidoDeCompra);
+        return pedidoDeCompraDAO.update(pedidoDeCompra);
     }
 
-    public ArrayList<PedidoDeCompra> getByProductId(Integer produtoId) {
-        return PedidoDeCompraDAO.getByProductId(produtoId);
+    public PedidoDeCompra getByProductId(Integer produtoId) {
+        return pedidoDeCompraDAO.getByProductId(produtoId);
+    }
+
+    @Override
+    public ArrayList<PedidoDeCompra> getAllAuditory() {
+        return pedidoDeCompraDAO.getAllAuditory();
     }
 }

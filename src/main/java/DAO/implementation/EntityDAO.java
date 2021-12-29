@@ -1,6 +1,10 @@
 package DAO.implementation;
 
 import DAO.IEntityDAO;
+import dados.Fornecedor;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditQuery;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -16,7 +20,7 @@ public class EntityDAO<T> implements IEntityDAO<T> {
   private Class<T> persistedClass;
 
   protected EntityManager em;
-  protected EntityDAO() {}
+  public EntityDAO() {}
 
   protected EntityDAO(Class<T> persistedClass) {
     this();
@@ -87,5 +91,26 @@ public class EntityDAO<T> implements IEntityDAO<T> {
     } catch (Exception e) {
       return false;
     }
+  }
+
+  public AuditReader getAuditReader() {
+    return AuditReaderFactory.get(em);
+  }
+
+  public ArrayList<T> getAllAuditory () {
+    AuditReader reader = getAuditReader();
+    AuditQuery query = reader.createQuery().forRevisionsOfEntity(Fornecedor.class, false, true);
+
+
+    ArrayList<T> newObjects = new ArrayList<T>();
+
+    List<Object[]> result = query.getResultList();
+
+
+    for (Object[] o : result) {
+      T typeObject = (T) o[0];
+      newObjects.add(typeObject);
+    }
+    return newObjects;
   }
 }

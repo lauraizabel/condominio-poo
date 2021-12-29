@@ -3,8 +3,12 @@ package dados;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.*;
 
 @Entity
+@Audited
 public class AcessoPermitido extends Pessoa {
     private Integer idAcesso;
     @ManyToOne(targetEntity = Apartamento.class, fetch = FetchType.LAZY)

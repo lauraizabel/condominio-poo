@@ -6,13 +6,14 @@ import com.github.javafaker.Faker;
 import dados.AcessoPermitido;
 import dados.Almoxarifado;
 import dados.Apartamento;
-import dados.Auditoria;
 import dados.Carro;
+import dados.Compra;
 import dados.Espaco;
 import dados.Fornecedor;
 import dados.Funcionario;
 import dados.Morador;
 import dados.Pedido;
+import dados.PedidoDeCompra;
 import dados.Produto;
 import dados.Reserva;
 import dados.Servico;
@@ -57,10 +58,10 @@ public class TakeClasses {
   private Almoxarifado almoxarifado;
   private Carro carro;
   private Espaco espaco;
-  private Auditoria auditoria;
   private Servico servico;
   private Reserva reserva;
-  
+  private Compra compra;
+  private PedidoDeCompra pedidoDeCompra;
   
 
   public TakeClasses() {
@@ -249,6 +250,14 @@ public class TakeClasses {
     return this.descricao;
   }
 
+  public Compra getCompra() {
+    return this.compra;
+  }
+  
+  public PedidoDeCompra getPedidoDeCompra() {
+    return this.pedidoDeCompra;
+  }
+  
   public Funcionario funcionario() {
     Funcionario funcionario = new Funcionario(this.name, this.phone, this.email, this.cpf, this.cargo,
         this.salario, this.endereco, this.data, this.data);
@@ -300,13 +309,7 @@ public class TakeClasses {
     return espaco;
   }
 
-  public Auditoria auditoria() {
-    Auditoria auditoria = new Auditoria(this.tabelaAlterada, this.id, this.data);
-    this.auditoria = auditoria;
-    return auditoria;
-  }
-
-  public Apartamento apartamento() { 
+  public Apartamento apartamento() {
     ArrayList<Morador> moradores = new ArrayList<Morador>();
     moradores.add(morador());
     ArrayList<Carro> carros = new ArrayList<Carro>();
@@ -345,5 +348,19 @@ public class TakeClasses {
 //    this.almoxarifado = almoxarifado;
 //    return almoxarifado;
 //  }
+
+  public Compra compra() {
+    Produto produto = this.produto();
+    Funcionario funcionario = this.funcionario();
+    Compra compra = new Compra(produto, 10, this.data, funcionario, this.valor);
+    this.compra = compra;
+    return compra;
+  }
+
+  public PedidoDeCompra pedidoDeCompra() {
+    PedidoDeCompra pedidoDeCompra = new PedidoDeCompra(this.produto());
+    this.pedidoDeCompra = pedidoDeCompra;
+    return pedidoDeCompra;
+  }
 
 }

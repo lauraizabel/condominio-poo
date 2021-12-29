@@ -4,6 +4,7 @@ import DAO.AlmoxarifadoDAO;
 
 import dados.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.List;
 public class AlmoxarifadoService implements IService<Almoxarifado> {
     private AlmoxarifadoDAO almoxarifadoDAO = new AlmoxarifadoDAO();
     private ProdutoService produtoService = new ProdutoService();
-    private CompraService compraService = new CompraService();
     private PedidoDeCompraService pedidoDeCompraService = new PedidoDeCompraService();
 
     @Override
@@ -39,17 +39,8 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         return almoxarifadoDAO.update(almoxarifado);
     }
 
-    public  List<Almoxarifado> findByProductId(Integer productId) {
-        List<Almoxarifado> almoxarifados = almoxarifadoDAO.findByProductId(productId);
-
-        if (almoxarifados.isEmpty()) {
-            return null;
-        }
-
-        return almoxarifados;
-    }
-    
-    public List<Almoxarifado> getAllAlmoxarifadosByProduct(Integer productId) {
+    // testado
+    public ArrayList<Almoxarifado> findByProductId(Integer productId) {
         ArrayList<Almoxarifado> almoxarifados = almoxarifadoDAO.findByProductId(productId);
 
         if (almoxarifados.isEmpty()) {
@@ -59,10 +50,12 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         return almoxarifados;
     }
 
+    // testado
     public Produto getProdutoById(Integer id) {
         return produtoService.getById(id);
     }
 
+    // testado
     public boolean adicionarProduto(Produto produto, Funcionario funcionario, Integer quantidade) {
         // cadastrar novo registro no almoxarifado
         Date dataRegistro = new Date();
@@ -70,7 +63,8 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         return save(almoxarifado);
     }
 
-    public boolean removerProduto(Produto produto, Funcionario funcionario, Integer almoxarifadoId, Integer quantidade) {
+    // testado
+    public boolean removerProduto(Produto produto, Funcionario funcionario, Integer quantidade) {
         if ( produto.getQuantidade() >= quantidade ) {
             // removendo quantidade do estoque
             produto.setQuantidade(produto.getQuantidade() - quantidade);
@@ -91,25 +85,34 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         return false;
     }
 
+    // testado
     public int getQuatidadeEmEstoque(Integer id) {
         return produtoService.getById(id).getQuantidade();
     }
 
+    // testado
     public Funcionario getFuncionario(Integer id) {
         Almoxarifado almoxarifado = almoxarifadoDAO.getById(id);
         return almoxarifado.getFuncionario();
     }
 
+    // testado
     public boolean checkPontoDePedido(Produto produto) {
         return produto.getQuantidade() <= produto.getPontoDePedido();
     }
 
+    // testado
     public boolean fazerPedidoDeCompra(Produto produto) {
         PedidoDeCompra pedidoDeCompra = new PedidoDeCompra(produto);
-        ArrayList pedidosDeCompra = pedidoDeCompraService.getByProductId(produto.getId());
-        if ( pedidosDeCompra.size() == 0 ) {
+        PedidoDeCompra pedidosDeCompra = pedidoDeCompraService.getByProductId(produto.getId());
+        if ( pedidosDeCompra != null ) {
             return pedidoDeCompraService.save(pedidoDeCompra);
         }
         return false;
+    }
+
+    @Override
+    public ArrayList<Almoxarifado> getAllAuditory() {
+        return almoxarifadoDAO.getAllAuditory();
     }
 }

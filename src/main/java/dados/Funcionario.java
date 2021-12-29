@@ -1,5 +1,8 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -7,6 +10,7 @@ import java.util.Date;
 
 
 @Entity
+@Audited
 public class Funcionario extends Pessoa {
     private String cargo;
     private Double salario;

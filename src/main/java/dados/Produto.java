@@ -1,8 +1,13 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 
+import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
+
 @Entity
+@Audited(targetAuditMode = NOT_AUDITED)
 public class Produto {
 
     @Id @GeneratedValue
@@ -16,7 +21,7 @@ public class Produto {
 
     public Produto() {}
 
-    public Produto(String nome,  Fornecedor fornecedor, String codigo, Integer pontoDePedido, Integer quantidade) {
+    public Produto(String nome, Fornecedor fornecedor, String codigo, Integer pontoDePedido, Integer quantidade) {
         this.nome = nome;
         this.fornecedor = fornecedor;
         this.codigo = codigo;

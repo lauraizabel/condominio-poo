@@ -1,6 +1,7 @@
 package business;
 
 import DAO.ServicoDAO;
+import dados.PedidoDeCompra;
 import dados.Servico;
 
 import java.util.ArrayList;
@@ -29,5 +30,10 @@ public class ServicoService implements IService<Servico> {
     @Override
     public Servico update(Servico servico) {
         return servicoDAO.update(servico);
+    }
+
+    @Override
+    public ArrayList<Servico> getAllAuditory() {
+        return servicoDAO.getAllAuditory();
     }
 }

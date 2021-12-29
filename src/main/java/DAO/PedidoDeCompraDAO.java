@@ -12,12 +12,12 @@ public class PedidoDeCompraDAO extends EntityDAO<PedidoDeCompra> {
         super(PedidoDeCompra.class);
     }
 
-    public ArrayList<PedidoDeCompra> getByProductId(Integer produtoId) {
-        Query query = this.em.createQuery("SELECT * FROM pedidodecompra WHERE produto_id = :id");
+    public PedidoDeCompra getByProductId(Integer produtoId) {
+        Query query = this.em.createQuery("FROM PedidoDeCompra WHERE produto_id = :id");
         query.setParameter("id", produtoId);
 
         // convertendo para ArrayList para ser um tipo aceito pelo hibernate
         ArrayList<PedidoDeCompra> result = new ArrayList<PedidoDeCompra>(query.getResultList());
-        return result;
+        return result.get(0);
     }
 }
