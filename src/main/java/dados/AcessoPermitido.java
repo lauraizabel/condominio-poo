@@ -3,6 +3,9 @@ package dados;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Audited
