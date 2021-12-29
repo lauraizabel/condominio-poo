@@ -13,7 +13,7 @@ public class UsuarioDAO extends EntityDAO<Usuario> {
     }
 
     public Usuario findByEmail (String email) {
-        Query query = this.em.createQuery("FROM usuario WHERE email = :email");
+        Query query = this.em.createQuery("FROM Usuario WHERE email = :email", Usuario.class);
         query.setParameter("email", email);
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>(query.getResultList());
         return usuarios.get(0);
