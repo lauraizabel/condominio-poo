@@ -1,22 +1,28 @@
 package controllers.modals;
 
-import business.CarroServices;
-import controllers.views.CarroController;
-import dados.Carro;
+import business.MoradorService;
+import controllers.views.MoradorController;
+import dados.Morador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CreateCarroController {
-    CarroServices service = new CarroServices();
+public class CreateMoradorController {
+    MoradorService service = new MoradorService();
 
     @FXML
-    TextField modeloValue;
+    TextField nomeValue;
 
     @FXML
-    TextField placaValue;
+    TextField telefoneValue;
+
+    @FXML
+    TextField emailValue;
+
+    @FXML
+    TextField cpfValue;
 
     @FXML
     private Button submitButton;
@@ -24,9 +30,11 @@ public class CreateCarroController {
     @FXML
     public void handleSubmit(ActionEvent e) {
         // Criando novo produto
-        Carro item = new Carro(
-                String.valueOf(modeloValue.getText()),
-                String.valueOf(placaValue.getText())
+        Morador item = new Morador(
+                String.valueOf(nomeValue.getText()),
+                String.valueOf(telefoneValue.getText()),
+                String.valueOf(emailValue.getText()),
+                String.valueOf(cpfValue.getText())
         );
 
         try {
@@ -40,7 +48,7 @@ public class CreateCarroController {
 
     private void finish() {
         // atualiza conteúdo
-        CarroController controller = new CarroController();
+        MoradorController controller = new MoradorController();
         controller.reloadItems();
 
         // fecha janela
