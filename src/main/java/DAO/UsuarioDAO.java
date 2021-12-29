@@ -1,0 +1,21 @@
+package DAO;
+
+import DAO.implementation.EntityDAO;
+import dados.Compra;
+import dados.Usuario;
+
+import javax.persistence.Query;
+import java.util.ArrayList;
+
+public class UsuarioDAO extends EntityDAO<Usuario> {
+    public UsuarioDAO() {
+        super(Usuario.class);
+    }
+
+    public Usuario findByEmail (String email) {
+        Query query = this.em.createQuery("FROM usuario WHERE email = :email");
+        query.setParameter("email", email);
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>(query.getResultList());
+        return usuarios.get(0);
+    }
+}
