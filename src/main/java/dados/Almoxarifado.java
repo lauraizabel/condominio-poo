@@ -1,9 +1,12 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Audited
 public class Almoxarifado {
     @Id
     @GeneratedValue

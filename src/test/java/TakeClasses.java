@@ -6,7 +6,6 @@ import com.github.javafaker.Faker;
 import dados.AcessoPermitido;
 import dados.Almoxarifado;
 import dados.Apartamento;
-import dados.Auditoria;
 import dados.Carro;
 import dados.Compra;
 import dados.Espaco;
@@ -59,7 +58,6 @@ public class TakeClasses {
   private Almoxarifado almoxarifado;
   private Carro carro;
   private Espaco espaco;
-  private Auditoria auditoria;
   private Servico servico;
   private Reserva reserva;
   private Compra compra;
@@ -311,13 +309,7 @@ public class TakeClasses {
     return espaco;
   }
 
-  public Auditoria auditoria() {
-    Auditoria auditoria = new Auditoria(this.tabelaAlterada, this.id, this.data);
-    this.auditoria = auditoria;
-    return auditoria;
-  }
-
-  public Apartamento apartamento() { 
+  public Apartamento apartamento() {
     ArrayList<Morador> moradores = new ArrayList<Morador>();
     moradores.add(morador());
     ArrayList<Carro> carros = new ArrayList<Carro>();

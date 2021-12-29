@@ -110,4 +110,9 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         }
         return false;
     }
+
+    @Override
+    public ArrayList<Almoxarifado> getAllAuditory() {
+        return almoxarifadoDAO.getAllAuditory();
+    }
 }

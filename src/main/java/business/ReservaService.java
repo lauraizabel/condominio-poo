@@ -1,6 +1,7 @@
 package business;
 
 import DAO.ReservaDAO;
+import dados.PedidoDeCompra;
 import dados.Reserva;
 
 import java.util.ArrayList;
@@ -31,5 +32,10 @@ public class ReservaService implements IService<Reserva> {
     @Override
     public Reserva update(Reserva reserva) {
         return reservaDAO.update(reserva);
+    }
+
+    @Override
+    public ArrayList<Reserva> getAllAuditory() {
+        return reservaDAO.getAllAuditory();
     }
 }

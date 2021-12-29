@@ -1,8 +1,13 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 
+import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
+
 @Entity
+@Audited(targetAuditMode = NOT_AUDITED)
 public class Servico {
 
     @Id
@@ -11,7 +16,7 @@ public class Servico {
     private String descricao;
     private Double valor;
     private String codigo;
-    @ManyToOne(targetEntity = Fornecedor.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
     private Funcionario requerente;
     @ManyToOne(targetEntity = Fornecedor.class, fetch = FetchType.LAZY)
     private Fornecedor fornecedor;
