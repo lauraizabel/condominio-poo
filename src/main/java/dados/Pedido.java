@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Audited
-public class Pedido {
+public class Pedido extends CustomAuditory<Pedido> {
 
     @Id
     @GeneratedValue

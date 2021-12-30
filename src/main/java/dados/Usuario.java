@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Audited
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario extends CustomAuditory<Servico> {
     @Id
     @GeneratedValue
     private Integer id;

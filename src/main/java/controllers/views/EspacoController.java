@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -21,9 +22,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.EspacoTable;
+import tables.FornecedorTable;
 import tables.ServicoTable;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -58,7 +61,7 @@ public class EspacoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(nomeCol, capacidadeCol, ocupadoCol, custoReservaCol);
 
         // get data from db
-        tableItems = this.listaDeItems();
+        tableItems = this.listaDeItems(this.service.getAll());
         this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
@@ -78,8 +81,8 @@ public class EspacoController implements Initializable {
         });
     }
 
-    public ObservableList<EspacoTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<EspacoTable> listaDeItems(ArrayList<Espaco> espacoArrayList) {
+        this.items = espacoArrayList;
         ArrayList<EspacoTable> itemsTableList = new ArrayList<EspacoTable>();
         for (Espaco items : this.items) {
             String isOcupado = items.isOcupado() ? "Sim" : "Não";
@@ -120,6 +123,44 @@ public class EspacoController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
+    public void onAuditory() throws IOException {
+        this.createModalAuditory();
+    }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<EspacoTable> espacoArrayList = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn id = new TableColumn("ID");
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        TableColumn capacidade = new TableColumn("Capacidade");
+        capacidade.setCellValueFactory(new PropertyValueFactory<>("capacidade"));
+
+        TableColumn custoreserva = new TableColumn("Custo Reserva");
+        custoreserva.setCellValueFactory(new PropertyValueFactory<>("custoreserva"));
+
+        TableColumn nome = new TableColumn("Nome");
+        nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+
+        TableColumn ocupado = new TableColumn("Ocupado");
+        ocupado.setCellValueFactory(new PropertyValueFactory<>("ocupado"));
+
+        table.getColumns().addAll(id, capacidade, custoreserva, nome, ocupado);
+        table.setItems(espacoArrayList);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
+
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/espaco-modal.fxml"));
         loader.setController(controller);
@@ -130,9 +171,6 @@ public class EspacoController implements Initializable {
         stage.setTitle(title);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
-    }
-
-    public void onAuditory() throws IOException {
     }
 
     public void reloadItems() {
@@ -150,6 +188,6 @@ public class EspacoController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        tableItems.addAll(this.listaDeItems());
+        tableItems.addAll(this.listaDeItems(this.service.getAll()));
     }
 }

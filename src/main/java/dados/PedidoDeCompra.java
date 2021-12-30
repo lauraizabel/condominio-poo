@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Audited
-public class PedidoDeCompra {
+public class PedidoDeCompra extends CustomAuditory<PedidoDeCompra> {
     @Id
     @GeneratedValue
     private Integer id;

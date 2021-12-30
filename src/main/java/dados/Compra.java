@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Audited
-public class Compra {
+public class Compra extends CustomAuditory<Compra> {
     @Id
     @GeneratedValue
     private Integer id;

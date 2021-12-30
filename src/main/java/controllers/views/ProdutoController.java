@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -20,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jdk.jshell.spi.ExecutionControl;
+import tables.EspacoTable;
 import tables.ProdutoTable;
 
 import java.io.IOException;
@@ -58,7 +60,7 @@ public class ProdutoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(codigoCol, nomeCol, fornecedorCol, quantidadeCol, pontoDePedidoCol);
 
         // get data from db
-        tableItems = this.listaDeItems();
+        tableItems = this.listaDeItems(this.service.getAll());
         this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
@@ -78,8 +80,8 @@ public class ProdutoController implements Initializable {
         });
     }
 
-    public ObservableList<ProdutoTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<ProdutoTable> listaDeItems(ArrayList<Produto> produtoArrayList) {
+        this.items = produtoArrayList;
         ArrayList<ProdutoTable> itemTableList = new ArrayList<ProdutoTable>();
         for ( Produto item: this.items) {
             itemTableList.add(
@@ -121,7 +123,45 @@ public class ProdutoController implements Initializable {
     }
 
     public void onAuditory() throws IOException {
+        this.createModalAuditory();
     }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<ProdutoTable> produtoTable = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn id = new TableColumn("ID");
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        TableColumn codigo = new TableColumn("Código");
+        codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+
+        TableColumn pontodepedido = new TableColumn("Ponto de Pedido");
+        pontodepedido.setCellValueFactory(new PropertyValueFactory<>("pontodepedido"));
+
+        TableColumn nome = new TableColumn("Nome");
+        nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+
+        TableColumn quantidade = new TableColumn("Quantidade");
+        quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+
+        TableColumn fornecedor = new TableColumn("Fornecedor");
+        fornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+
+        table.getColumns().addAll(id, codigo, nome, pontodepedido, fornecedor);
+        table.setItems(produtoTable);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
 
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/produto-modal.fxml"));
@@ -151,7 +191,7 @@ public class ProdutoController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (ProdutoTable item: this.listaDeItems()) {
+        for (ProdutoTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }

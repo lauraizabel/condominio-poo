@@ -4,16 +4,19 @@ import DAO.IEntityDAO;
 import dados.Fornecedor;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class EntityDAO<T> implements IEntityDAO<T> {
 
@@ -99,18 +102,16 @@ public class EntityDAO<T> implements IEntityDAO<T> {
 
   public ArrayList<T> getAllAuditory () {
     AuditReader reader = getAuditReader();
-    AuditQuery query = reader.createQuery().forRevisionsOfEntity(Fornecedor.class, false, true);
-
-
+    AuditQuery query = reader.createQuery().forRevisionsOfEntity(persistedClass, false, true);
     ArrayList<T> newObjects = new ArrayList<T>();
 
     List<Object[]> result = query.getResultList();
-
 
     for (Object[] o : result) {
       T typeObject = (T) o[0];
       newObjects.add(typeObject);
     }
+
     return newObjects;
   }
 }

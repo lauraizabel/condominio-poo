@@ -1,5 +1,7 @@
 package application;
 
+import business.CarroServices;
+import dados.Carro;
 import enums.Screens;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +33,8 @@ public class MainApplication extends Application {
         stage.setTitle("Condomínio POO");
         //stage.setMaximized(true);
         stage.setResizable(false);
-        stage.setScene(loginScene);
+        //TODO - trocar para login depois
+        stage.setScene(mainScene);
         stage.show();
     }
 
@@ -50,6 +53,8 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
+        CarroServices carro = new CarroServices();
+        carro.getAllAuditory().get(0).getRev();
         launch();
     }
 }

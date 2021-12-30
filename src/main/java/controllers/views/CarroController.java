@@ -27,6 +27,7 @@ import tables.CarroTable;
 import tables.EspacoTable;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -54,7 +55,7 @@ public class CarroController implements Initializable  {
         this.tabelaConteudo.getColumns().setAll(modeloCol, placaCol);
 
         // get data from db
-        tableItems = this.listaDeItems();
+        tableItems = this.listaDeItems(this.service.getAll());
         this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
@@ -74,8 +75,8 @@ public class CarroController implements Initializable  {
         });
     }
 
-    public ObservableList<CarroTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<CarroTable> listaDeItems(ArrayList<Carro> carroArrayList) {
+        this.items = carroArrayList;
         ArrayList<CarroTable> carroTableList = new ArrayList<CarroTable>();
         for ( Carro carro: this.items) {
             carroTableList.add(
@@ -114,16 +115,32 @@ public class CarroController implements Initializable  {
     }
 
     public void onAuditory() throws IOException {
-        ArrayList<Carro> carroArrayList = this.service.getAllAuditory();
+        this.createModalAuditory();
     }
 
-
     private void createModalAuditory () throws IOException {
+        ObservableList<CarroTable> carroArrayList = listaDeItems(this.service.getAllAuditory());
+
         TableView table = new TableView();
+
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());
-        TableColumn firstNameCol = new TableColumn("First Name");
 
+        TableColumn modelo = new TableColumn("Modelo");
+        modelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+
+        TableColumn placa = new TableColumn("Placa");
+        placa.setCellValueFactory(new PropertyValueFactory<>("placa"));
+
+        table.getColumns().addAll(modelo, placa);
+        table.setItems(carroArrayList);
+        System.out.println(carroArrayList.size());
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
     }
 
 
@@ -154,7 +171,7 @@ public class CarroController implements Initializable  {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (CarroTable item: this.listaDeItems()) {
+        for (CarroTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }

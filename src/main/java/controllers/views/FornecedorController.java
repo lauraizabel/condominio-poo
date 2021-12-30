@@ -4,6 +4,7 @@ import business.FornecedorService;
 import controllers.TableButtonsController;
 import controllers.modals.CreateFornecedorController;
 import controllers.modals.EditFornecedorController;
+import dados.Carro;
 import dados.Fornecedor;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -19,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tables.CarroTable;
 import tables.FornecedorTable;
 import tables.ProdutoTable;
 
@@ -39,7 +42,6 @@ public class FornecedorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // create columns
-
         TableColumn<FornecedorTable, String> nomeCol = new TableColumn<FornecedorTable, String>("Nome");
         nomeCol.setCellValueFactory(new PropertyValueFactory("nome"));
 
@@ -59,7 +61,7 @@ public class FornecedorController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(nomeCol, cnpjCol, enderecoCol, telefoneCol, emailCol);
 
         // get data from db
-        tableItems = this.listaDeItems();
+        tableItems = this.listaDeItems(this.service.getAll());
         this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
@@ -79,8 +81,8 @@ public class FornecedorController implements Initializable {
         });
     }
 
-    public ObservableList<FornecedorTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<FornecedorTable> listaDeItems(ArrayList<Fornecedor> fornecedores) {
+        this.items = fornecedores;
         ArrayList<FornecedorTable> fornecedorTableList = new ArrayList<FornecedorTable>();
         for ( Fornecedor fornecedor: this.items) {
             fornecedorTableList.add(
@@ -120,8 +122,50 @@ public class FornecedorController implements Initializable {
         EditFornecedorController controller = new EditFornecedorController(item);
         this.createModal("Editar item", controller);
     }
+
     public void onAuditory() throws IOException {
+        this.createModalAuditory();
     }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<FornecedorTable> fornecedorArrayList = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn id = new TableColumn("ID");
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        TableColumn cnpj = new TableColumn("CNPJ");
+        cnpj.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
+
+        TableColumn email = new TableColumn("E-mail");
+        email.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+
+        TableColumn endereco = new TableColumn("Endereço");
+        endereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+
+        TableColumn nome = new TableColumn("Nome");
+        nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+
+        TableColumn telefone = new TableColumn("Telefone");
+        telefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+
+        table.getColumns().addAll(id, cnpj, email, endereco, nome, telefone);
+        table.setItems(fornecedorArrayList);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
+
+
 
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/fornecedor-modal.fxml"));
@@ -150,7 +194,7 @@ public class FornecedorController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (FornecedorTable item: this.listaDeItems()) {
+        for (FornecedorTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }

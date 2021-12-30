@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Audited
-public class Almoxarifado {
+public class Almoxarifado extends CustomAuditory<Almoxarifado> {
     @Id
     @GeneratedValue
     private Integer id;

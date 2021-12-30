@@ -8,7 +8,7 @@ import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
 
 @Entity
 @Audited(targetAuditMode = NOT_AUDITED)
-public class Servico {
+public class Servico extends CustomAuditory<Servico> {
 
     @Id
     @GeneratedValue

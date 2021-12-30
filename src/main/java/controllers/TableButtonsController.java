@@ -44,6 +44,11 @@ public class TableButtonsController {
         this.callMethod("onEdit");
     }
 
+    @FXML
+    private void onAuditory(ActionEvent event) throws IOException {
+        this.callMethod("onAuditory");
+    }
+
     private void callMethod(String methodName) {
         // Criando método e chamando
         try {
