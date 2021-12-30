@@ -123,7 +123,7 @@ public class EditCompraController implements Initializable {
         itemSelected.setQuantidade(Integer.valueOf(quantidadeValue.getText()));
         itemSelected.setValorUnitario(Double.valueOf(valorUnitarioValue.getText()));
 
-        Instant instant = Instant.from(dataValue.getValue().atStartOfDay(ZoneId.of("GMT")));
+        Instant instant = Instant.from(dataValue.getValue().atStartOfDay(ZoneId.of("GMT-3")));
         itemSelected.setDataAlteracao(Date.from(instant));
 
         int produtoIdx = produtoValues.getSelectionModel().getSelectedIndex();

@@ -33,12 +33,8 @@ public class CompraService implements IService<Compra> {
     public boolean save(Compra compra) {
         boolean saved = compraDAO.save(compra);
         if ( saved ) {
-            Produto produto = compra.getProduto();
-            // atualizando quantidade do produto no BD
-            produto.setQuantidade(produto.getQuantidade() + compra.getQuantidade());
-            Produto produtoAtualizado = produtoService.update(produto);
-            boolean registrado = almoxarifadoService.adicionarProduto(produto, compra.getFuncionario(), compra.getQuantidade());
-            return ( produtoAtualizado != null && registrado);
+            boolean registrado = almoxarifadoService.adicionarProduto(compra.getProduto(), compra.getFuncionario(), compra.getQuantidade());
+            return ( registrado);
         }
         return false;
     }

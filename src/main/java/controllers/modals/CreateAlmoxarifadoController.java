@@ -84,7 +84,7 @@ public class CreateAlmoxarifadoController implements Initializable {
         Integer funcionarioIdx = Integer.valueOf(funcionarioValues.getSelectionModel().getSelectedIndex());
         Integer produtoIdx = Integer.valueOf(produtoValues.getSelectionModel().getSelectedIndex());
 
-        Instant instant = Instant.from(dataValue.getValue().atStartOfDay(ZoneId.of("GMT")));
+        Instant instant = Instant.from(dataValue.getValue().atStartOfDay(ZoneId.of("GMT-3")));
 
         // Criando novo produto
         Almoxarifado item = new Almoxarifado(

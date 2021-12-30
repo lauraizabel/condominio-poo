@@ -101,18 +101,14 @@ public class AlmoxarifadoController implements Initializable {
 
     public boolean onDelete() {
         // deletando
-        Integer itemCode = itemSelecionado.getId();
-        Almoxarifado item = this.service.getById(itemCode);
+        Integer itemId = itemSelecionado.getId();
 
-        if ( item != null ) {
-            Integer itemId = item.getId();
+        try {
             service.deleteById(itemId);
-            System.out.println("Found: " + itemId);
-        } else {
-            System.out.println("Not found.");
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-
-        return true;
     }
 
     public void onCreate() throws IOException  {

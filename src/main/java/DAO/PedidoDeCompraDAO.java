@@ -13,7 +13,7 @@ public class PedidoDeCompraDAO extends EntityDAO<PedidoDeCompra> {
     }
 
     public ArrayList<PedidoDeCompra> getByProductId(Integer produtoId) {
-        Query query = this.em.createQuery("SELECT * FROM pedidodecompra WHERE produto_id = :id");
+        Query query = this.em.createQuery("from PedidoDeCompra WHERE produto_id=:id");
         query.setParameter("id", produtoId);
 
         // convertendo para ArrayList para ser um tipo aceito pelo hibernate

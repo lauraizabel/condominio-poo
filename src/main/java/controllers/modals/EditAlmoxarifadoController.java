@@ -127,7 +127,7 @@ public class EditAlmoxarifadoController implements Initializable {
         itemSelected.setQuantidadeAdicionada(Integer.valueOf(quantidadeAdcionadaValue.getText()));
         itemSelected.setQuantidadeRemovida(Integer.valueOf(quantidadeRemovidaValue.getText()));
 
-        Instant instant = Instant.from(dataValue.getValue().atStartOfDay(ZoneId.of("GMT")));
+        Instant instant = Instant.from(dataValue.getValue().atStartOfDay(ZoneId.of("GMT-3")));
         itemSelected.setDataAlteracao(Date.from(instant));
 
         int produtoIdx = produtoValues.getSelectionModel().getSelectedIndex();

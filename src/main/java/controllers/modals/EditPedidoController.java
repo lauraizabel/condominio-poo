@@ -6,6 +6,7 @@ import business.ProdutoService;
 import controllers.views.ProdutoController;
 import dados.Funcionario;
 import dados.Pedido;
+import dados.PedidoDeCompra;
 import dados.Produto;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -22,13 +23,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class CreatePedidoController implements Initializable {
+public class EditPedidoController implements Initializable {
     PedidoService service = new PedidoService();
     ProdutoService produtoService = new ProdutoService();
     FuncionarioService funcionarioService = new FuncionarioService();
 
     static ArrayList<Produto> itemsProduto;
     static ArrayList<Funcionario> itemsFuncionario;
+    static Pedido itemSelected;
     static ObservableList<String> selectedFeatures;
 
     @FXML
@@ -40,13 +42,17 @@ public class CreatePedidoController implements Initializable {
     @FXML
     private Button submitButton;
 
+    public EditPedidoController(Pedido itemSelected) {
+        this.itemSelected = itemSelected;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.funcionarioValues.setItems(FXCollections.observableArrayList(getFuncionarios()));
         produtoValues.getItems().addAll(getProdutos());
 
         produtoValues.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
-            public void onChanged(ListChangeListener.Change<? extends String> c) {
+            public void onChanged(Change<? extends String> c) {
                 selectedFeatures = produtoValues.getCheckModel().getCheckedItems();
             }
         });

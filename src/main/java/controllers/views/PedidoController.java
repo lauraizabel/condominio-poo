@@ -4,7 +4,9 @@ import business.FuncionarioService;
 import business.PedidoService;
 import business.ProdutoService;
 import controllers.TableButtonsController;
+import controllers.modals.CreatePedidoController;
 import controllers.modals.CreateProdutoController;
+import controllers.modals.EditPedidoDeCompraController;
 import controllers.modals.EditProdutoController;
 import dados.Funcionario;
 import dados.Pedido;
@@ -108,13 +110,13 @@ public class PedidoController implements Initializable {
     }
 
     public void onCreate() throws IOException  {
-        CreateProdutoController controller = new CreateProdutoController();
+        CreatePedidoController controller = new CreatePedidoController();
         this.createModal("Criar novo item", controller);
     }
 
     public void onEdit() throws IOException  {
 //        Pedido item = this.service.getById(itemSelecionado.getId());
-//        EditProdutoController controller = new EditProdutoController(item);
+//        EditPedidoDeCompraController controller = new EditPedidoController(item);
 //        this.createModal("Editar item", controller);
     }
 
