@@ -4,6 +4,7 @@ import business.EspacoService;
 import controllers.TableButtonsController;
 import controllers.modals.CreateEspacoController;
 import controllers.modals.EditEspacoController;
+import dados.Carro;
 import dados.Espaco;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -129,6 +130,9 @@ public class EspacoController implements Initializable {
         stage.setTitle(title);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
+    }
+
+    public void onAuditory() throws IOException {
     }
 
     public void reloadItems() {

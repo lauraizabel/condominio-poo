@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -111,6 +112,20 @@ public class CarroController implements Initializable  {
         EditCarroController controller = new EditCarroController(item);
         this.createModal("Editar item", controller);
     }
+
+    public void onAuditory() throws IOException {
+        ArrayList<Carro> carroArrayList = this.service.getAllAuditory();
+    }
+
+
+    private void createModalAuditory () throws IOException {
+        TableView table = new TableView();
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+        TableColumn firstNameCol = new TableColumn("First Name");
+
+    }
+
 
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/carro-modal.fxml"));

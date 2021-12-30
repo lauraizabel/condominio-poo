@@ -121,6 +121,9 @@ public class ServicoController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
+    public void onAuditory() throws IOException {
+    }
+
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/servico-modal.fxml"));
         loader.setController(controller);
