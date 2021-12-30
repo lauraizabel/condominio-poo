@@ -11,7 +11,6 @@ import java.util.List;
 public class AlmoxarifadoService implements IService<Almoxarifado> {
     private AlmoxarifadoDAO almoxarifadoDAO = new AlmoxarifadoDAO();
     private ProdutoService produtoService = new ProdutoService();
-    private CompraService compraService = new CompraService();
     private PedidoDeCompraService pedidoDeCompraService = new PedidoDeCompraService();
 
     @Override

@@ -1,10 +1,10 @@
 package controllers.modals;
 
-import business.AlmoxarifadoService;
+import business.CompraService;
 import business.FuncionarioService;
 import business.ProdutoService;
 import dados.Almoxarifado;
-import dados.Fornecedor;
+import dados.Compra;
 import dados.Funcionario;
 import dados.Produto;
 import javafx.collections.FXCollections;
@@ -14,8 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class CreateAlmoxarifadoController implements Initializable {
-    AlmoxarifadoService service = new AlmoxarifadoService();
+public class CreateCompraController implements Initializable {
+    CompraService service = new CompraService();
     FuncionarioService funcionarioService = new FuncionarioService();
     ProdutoService produtoService = new ProdutoService();
 
@@ -40,10 +40,10 @@ public class CreateAlmoxarifadoController implements Initializable {
     ComboBox<String> produtoValues;
 
     @FXML
-    TextField quantidadeAdcionadaValue;
+    TextField quantidadeValue;
 
     @FXML
-    TextField quantidadeRemovidaValue;
+    TextField valorUnitarioValue;
 
     @FXML
     DatePicker dataValue;
@@ -87,12 +87,12 @@ public class CreateAlmoxarifadoController implements Initializable {
         Instant instant = Instant.from(dataValue.getValue().atStartOfDay(ZoneId.of("GMT")));
 
         // Criando novo produto
-        Almoxarifado item = new Almoxarifado(
+        Compra item = new Compra(
             produtos.get(produtoIdx),
+            Integer.valueOf(quantidadeValue.getText()),
+            Date.from(instant),
             funcionarios.get(funcionarioIdx),
-            Integer.valueOf(quantidadeAdcionadaValue.getText()),
-            Integer.valueOf(quantidadeRemovidaValue.getText()),
-            Date.from(instant)
+            Double.valueOf(valorUnitarioValue.getText())
         );
 
         try {

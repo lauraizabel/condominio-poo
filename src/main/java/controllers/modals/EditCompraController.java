@@ -1,11 +1,12 @@
 package controllers.modals;
 
 import business.AlmoxarifadoService;
+import business.CompraService;
 import business.FuncionarioService;
 import business.ProdutoService;
 import controllers.views.ProdutoController;
 import dados.Almoxarifado;
-import dados.Fornecedor;
+import dados.Compra;
 import dados.Funcionario;
 import dados.Produto;
 import javafx.collections.FXCollections;
@@ -21,23 +22,19 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class EditAlmoxarifadoController implements Initializable {
-
-    AlmoxarifadoService service = new AlmoxarifadoService();
-    ProdutoService produtoService = new ProdutoService();
+public class EditCompraController implements Initializable {
+    CompraService service = new CompraService();
     FuncionarioService funcionarioService = new FuncionarioService();
+    ProdutoService produtoService = new ProdutoService();
+    Compra itemSelected;
 
     static ArrayList<Funcionario> funcionarios;
     static ArrayList<Produto> produtos;
-
-    static Almoxarifado itemSelected;
 
     @FXML
     ComboBox<String> funcionarioValues;
@@ -46,30 +43,29 @@ public class EditAlmoxarifadoController implements Initializable {
     ComboBox<String> produtoValues;
 
     @FXML
-    TextField quantidadeAdcionadaValue;
+    TextField quantidadeValue;
 
     @FXML
-    TextField quantidadeRemovidaValue;
+    TextField valorUnitarioValue;
 
     @FXML
     DatePicker dataValue;
 
-    public EditAlmoxarifadoController(Almoxarifado itemSelected) {
-        this.itemSelected = itemSelected;
-    }
-
     @FXML
     private Button submitButton;
 
+    public EditCompraController(Compra itemSelected) {
+        this.itemSelected = itemSelected;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.funcionarioValues.setItems(FXCollections.observableArrayList(getFuncionarios()));
-        this.produtoValues.setItems(FXCollections.observableArrayList(getProdutos()));
+        funcionarioValues.setItems(FXCollections.observableArrayList(getFuncionarios()));
+        produtoValues.setItems(FXCollections.observableArrayList(getProdutos()));
 
-        // setting existing values
         this.dataValue.setValue(itemSelected.getDataAlteracao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        this.quantidadeRemovidaValue.setText(itemSelected.getQuantidadeRemovida().toString());
-        this.quantidadeAdcionadaValue.setText(itemSelected.getQuantidadeAdicionada().toString());
+        this.quantidadeValue.setText(itemSelected.getQuantidade().toString());
+        this.valorUnitarioValue.setText(itemSelected.getValorUnitario().toString());
 
         Integer funcionarioIndex = getFuncionarioIndex(itemSelected.getFuncionario());
         if ( funcionarioIndex >= 0 ) {
@@ -103,11 +99,12 @@ public class EditAlmoxarifadoController implements Initializable {
     private ObservableList<String> getFuncionarios() {
         funcionarios = this.funcionarioService.getAll();
 
-        ArrayList<String> funcionariosList = new ArrayList<String>();
+        ArrayList<String> funcionarioList = new ArrayList<String>();
         for ( Funcionario funcionario: funcionarios) {
-            funcionariosList.add(funcionario.getNome());
+            funcionarioList.add(funcionario.getNome());
         }
-        return FXCollections.observableArrayList(funcionariosList);
+
+        return FXCollections.observableArrayList(funcionarioList);
     }
 
     private ObservableList<String> getProdutos() {
@@ -123,9 +120,8 @@ public class EditAlmoxarifadoController implements Initializable {
 
     @FXML
     public void handleSubmit(ActionEvent e) {
-        // pegando campos do fxml
-        itemSelected.setQuantidadeAdicionada(Integer.valueOf(quantidadeAdcionadaValue.getText()));
-        itemSelected.setQuantidadeRemovida(Integer.valueOf(quantidadeRemovidaValue.getText()));
+        itemSelected.setQuantidade(Integer.valueOf(quantidadeValue.getText()));
+        itemSelected.setValorUnitario(Double.valueOf(valorUnitarioValue.getText()));
 
         Instant instant = Instant.from(dataValue.getValue().atStartOfDay(ZoneId.of("GMT")));
         itemSelected.setDataAlteracao(Date.from(instant));
@@ -144,11 +140,12 @@ public class EditAlmoxarifadoController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-        ProdutoController controller = new ProdutoController();
-        controller.reloadItems();
+//        AlmoxarifadoController controller = new AlmoxarifadoController();
+//        controller.reloadItems();
 
         // fecha janela
         Stage stage = (Stage) submitButton.getScene().getWindow();
         stage.close();
     }
+
 }

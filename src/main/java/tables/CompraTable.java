@@ -1,25 +1,22 @@
 package tables;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class AlmoxarifadoTable {
+public class CompraTable {
     private final SimpleIntegerProperty id;
+    private final SimpleIntegerProperty quantidade;
     private final SimpleStringProperty produto;
     private final SimpleStringProperty funcionario;
-    private final SimpleIntegerProperty quantidadeAdicionada;
-    private final SimpleIntegerProperty quantidadeRemovida;
+    private final SimpleDoubleProperty ValorUnitario;
     private final SimpleStringProperty dataAlteracao;
 
 
-    public AlmoxarifadoTable(
+    public CompraTable(
             Integer id,
-            Integer quantidadeAdicionada,
-            Integer quantidadeRemovida,
+            Integer quantidade,
+            Double valorUnitario,
             String produto,
             String funcionario,
             String dataAlteracao
@@ -27,8 +24,8 @@ public class AlmoxarifadoTable {
         this.produto = new SimpleStringProperty(produto);
         this.funcionario = new SimpleStringProperty(funcionario);
         this.id = new SimpleIntegerProperty(id);
-        this.quantidadeAdicionada = new SimpleIntegerProperty(quantidadeAdicionada);
-        this.quantidadeRemovida = new SimpleIntegerProperty(quantidadeRemovida);
+        this.quantidade = new SimpleIntegerProperty(quantidade);
+        this.ValorUnitario = new SimpleDoubleProperty(valorUnitario);
         this.dataAlteracao = new SimpleStringProperty(dataAlteracao);
     }
 
@@ -42,6 +39,18 @@ public class AlmoxarifadoTable {
 
     public void setId(int id) {
         this.id.set(id);
+    }
+
+    public int getQuantidade() {
+        return quantidade.get();
+    }
+
+    public SimpleIntegerProperty quantidadeProperty() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade.set(quantidade);
     }
 
     public String getProduto() {
@@ -68,28 +77,16 @@ public class AlmoxarifadoTable {
         this.funcionario.set(funcionario);
     }
 
-    public int getQuantidadeAdicionada() {
-        return quantidadeAdicionada.get();
+    public double getValorUnitario() {
+        return ValorUnitario.get();
     }
 
-    public SimpleIntegerProperty quantidadeAdicionadaProperty() {
-        return quantidadeAdicionada;
+    public SimpleDoubleProperty valorUnitarioProperty() {
+        return ValorUnitario;
     }
 
-    public void setQuantidadeAdicionada(int quantidadeAdicionada) {
-        this.quantidadeAdicionada.set(quantidadeAdicionada);
-    }
-
-    public int getQuantidadeRemovida() {
-        return quantidadeRemovida.get();
-    }
-
-    public SimpleIntegerProperty quantidadeRemovidaProperty() {
-        return quantidadeRemovida;
-    }
-
-    public void setQuantidadeRemovida(int quantidadeRemovida) {
-        this.quantidadeRemovida.set(quantidadeRemovida);
+    public void setValorUnitario(double valorUnitario) {
+        this.ValorUnitario.set(valorUnitario);
     }
 
     public String getDataAlteracao() {
