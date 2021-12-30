@@ -61,7 +61,7 @@ public class EditMoradorController implements Initializable {
             alert.show();
         }
         this.finish();
-    };
+    }
 
     private void finish() {
         // atualiza conteúdo
