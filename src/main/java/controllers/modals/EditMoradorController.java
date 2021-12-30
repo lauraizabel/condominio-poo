@@ -55,7 +55,7 @@ public class EditMoradorController implements Initializable {
 
         // Atualizando item;
         try {
-            service.save(itemSelected);
+            service.update(itemSelected);
         } catch (Exception error) {
             Alert alert = new Alert(Alert.AlertType.WARNING, error.getMessage(), ButtonType.CLOSE);
             alert.show();

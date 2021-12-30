@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.AlmoxarifadoTable;
+import tables.PedidoDeCompraTable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +34,7 @@ import java.util.ResourceBundle;
 public class AlmoxarifadoController implements Initializable {
     AlmoxarifadoService service = new AlmoxarifadoService();
     private static ArrayList<Almoxarifado> items;
+    private static ObservableList<AlmoxarifadoTable> tableItems;
     private static AlmoxarifadoTable itemSelecionado;
 
     @FXML
@@ -75,7 +77,9 @@ public class AlmoxarifadoController implements Initializable {
             @Override
             public void onChanged(Change<? extends AlmoxarifadoTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -108,6 +112,8 @@ public class AlmoxarifadoController implements Initializable {
             return true;
         } catch (Exception e) {
             return false;
+        } finally {
+            this.reloadItems();
         }
     }
 
@@ -132,6 +138,26 @@ public class AlmoxarifadoController implements Initializable {
         stage.setTitle(title);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
+    }
+
+    public void reloadItems() {
+        this.cleanTableContent();
+        this.populateTableContent();
+    }
+
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
+        }
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        for (AlmoxarifadoTable item: this.listaDeItems()) {
+            tableItems.add(item);
+        }
     }
 
 }

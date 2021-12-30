@@ -3,6 +3,7 @@ package controllers.modals;
 import business.AlmoxarifadoService;
 import business.FuncionarioService;
 import business.ProdutoService;
+import controllers.views.AlmoxarifadoController;
 import controllers.views.ProdutoController;
 import dados.Almoxarifado;
 import dados.Fornecedor;
@@ -144,7 +145,7 @@ public class EditAlmoxarifadoController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-        ProdutoController controller = new ProdutoController();
+        AlmoxarifadoController controller = new AlmoxarifadoController();
         controller.reloadItems();
 
         // fecha janela

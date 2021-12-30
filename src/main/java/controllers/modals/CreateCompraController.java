@@ -3,6 +3,8 @@ package controllers.modals;
 import business.CompraService;
 import business.FuncionarioService;
 import business.ProdutoService;
+import controllers.views.AlmoxarifadoController;
+import controllers.views.CompraController;
 import dados.Almoxarifado;
 import dados.Compra;
 import dados.Funcionario;
@@ -106,8 +108,8 @@ public class CreateCompraController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-//        AlmoxarifadoController controller = new AlmoxarifadoController();
-//        controller.reloadItems();
+        CompraController controller = new CompraController();
+        controller.reloadItems();
 
         // fecha janela
         Stage stage = (Stage) submitButton.getScene().getWindow();

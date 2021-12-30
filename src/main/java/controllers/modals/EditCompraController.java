@@ -4,6 +4,8 @@ import business.AlmoxarifadoService;
 import business.CompraService;
 import business.FuncionarioService;
 import business.ProdutoService;
+import controllers.views.AlmoxarifadoController;
+import controllers.views.CompraController;
 import controllers.views.ProdutoController;
 import dados.Almoxarifado;
 import dados.Compra;
@@ -140,8 +142,8 @@ public class EditCompraController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-//        AlmoxarifadoController controller = new AlmoxarifadoController();
-//        controller.reloadItems();
+        CompraController controller = new CompraController();
+        controller.reloadItems();
 
         // fecha janela
         Stage stage = (Stage) submitButton.getScene().getWindow();

@@ -2,6 +2,7 @@ package controllers.modals;
 
 import business.PedidoDeCompraService;
 import business.ProdutoService;
+import controllers.views.PedidoDeCompraController;
 import controllers.views.ProdutoController;
 import dados.PedidoDeCompra;
 import dados.Produto;
@@ -59,7 +60,7 @@ public class CreatePedidoDeCompraController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-        ProdutoController controller = new ProdutoController();
+        PedidoDeCompraController controller = new PedidoDeCompraController();
         controller.reloadItems();
 
         // fecha janela

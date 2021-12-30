@@ -4,6 +4,7 @@ import business.AcessoPermitidoService;
 import business.ApartamentoService;
 import business.FornecedorService;
 import business.ProdutoService;
+import controllers.views.AcessoPermitidoController;
 import controllers.views.ProdutoController;
 import dados.AcessoPermitido;
 import dados.Apartamento;
@@ -116,7 +117,7 @@ public class EditAcessoController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-        ProdutoController controller = new ProdutoController();
+        AcessoPermitidoController controller = new AcessoPermitidoController();
         controller.reloadItems();
 
         // fecha janela

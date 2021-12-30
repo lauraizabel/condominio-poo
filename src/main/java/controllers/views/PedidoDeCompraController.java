@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tables.CarroTable;
 import tables.PedidoDeCompraTable;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ import java.util.ResourceBundle;
 public class PedidoDeCompraController implements Initializable {
     PedidoDeCompraService service = new PedidoDeCompraService();
     private static ArrayList<PedidoDeCompra> items;
+    private static ObservableList<PedidoDeCompraTable> tableItems;
     private static PedidoDeCompraTable itemSelecionado;
 
     @FXML
@@ -58,7 +60,9 @@ public class PedidoDeCompraController implements Initializable {
             @Override
             public void onChanged(Change<? extends PedidoDeCompraTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -84,6 +88,8 @@ public class PedidoDeCompraController implements Initializable {
             service.deleteById(itemCode);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            this.reloadItems();
         }
 
         return true;
@@ -114,8 +120,23 @@ public class PedidoDeCompraController implements Initializable {
     }
 
     public void reloadItems() {
-        // How to reload ?
-//        this.tabelaConteudo.setItems(this.listaDeProdutos());  -> does not work
+        this.cleanTableContent();
+        this.populateTableContent();
+    }
+
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
+        }
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        for (PedidoDeCompraTable item: this.listaDeItems()) {
+            tableItems.add(item);
+        }
     }
 
 }

@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tables.PedidoDeCompraTable;
 import tables.PedidoTable;
 
 import java.io.IOException;
@@ -32,8 +33,7 @@ import java.util.ResourceBundle;
 
 public class PedidoController implements Initializable {
     PedidoService service = new PedidoService();
-    ProdutoService produtoService = new ProdutoService();
-    FuncionarioService FuncionarioService = new FuncionarioService();
+    private static ObservableList<PedidoTable> tableItems;
 
     private static ArrayList<Pedido> items;
     private static PedidoTable itemSelecionado;
@@ -66,7 +66,9 @@ public class PedidoController implements Initializable {
             @Override
             public void onChanged(Change<? extends PedidoTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -102,6 +104,8 @@ public class PedidoController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        } finally {
+            this.reloadItems();
         }
         return true;
     }
@@ -131,8 +135,23 @@ public class PedidoController implements Initializable {
     }
 
     public void reloadItems() {
-        // How to reload ?
-//        this.tabelaConteudo.setItems(this.listaDeProdutos());  -> does not work
+        this.cleanTableContent();
+        this.populateTableContent();
+    }
+
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
+        }
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        for (PedidoTable item: this.listaDeItems()) {
+            tableItems.add(item);
+        }
     }
 
 }

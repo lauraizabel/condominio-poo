@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.CompraTable;
+import tables.PedidoDeCompraTable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +35,7 @@ import java.util.ResourceBundle;
 public class CompraController implements Initializable {
     CompraService service = new CompraService();
     private static ArrayList<Compra> items;
+    private static ObservableList<CompraTable> tableItems;
     private static CompraTable itemSelecionado;
 
     @FXML
@@ -74,7 +76,9 @@ public class CompraController implements Initializable {
             @Override
             public void onChanged(Change<? extends CompraTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -100,18 +104,16 @@ public class CompraController implements Initializable {
 
     public boolean onDelete() {
         // deletando
-        Integer itemCode = itemSelecionado.getId();
-        Compra item = this.service.getById(itemCode);
-
-        if ( item != null ) {
-            Integer itemId = item.getId();
+        Integer itemId = itemSelecionado.getId();
+        try {
             service.deleteById(itemId);
-            System.out.println("Found: " + itemId);
-        } else {
-            System.out.println("Not found.");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.reloadItems();
         }
-
-        return true;
     }
 
     public void onCreate() throws IOException  {
@@ -135,6 +137,26 @@ public class CompraController implements Initializable {
         stage.setTitle(title);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
+    }
+
+    public void reloadItems() {
+        this.cleanTableContent();
+        this.populateTableContent();
+    }
+
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
+        }
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        for (CompraTable item: this.listaDeItems()) {
+            tableItems.add(item);
+        }
     }
 
 }
