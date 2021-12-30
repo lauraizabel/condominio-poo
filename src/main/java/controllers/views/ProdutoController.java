@@ -1,5 +1,6 @@
 package controllers.views;
 
+import business.CompraService;
 import business.ProdutoService;
 import controllers.TableButtonsController;
 import controllers.modals.CreateProdutoController;
@@ -19,16 +20,21 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jdk.jshell.spi.ExecutionControl;
 import tables.ProdutoTable;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ProdutoController implements Initializable {
     ProdutoService service = new ProdutoService();
+    CompraService compraService = new CompraService();
     private static ArrayList<Produto> items;
     private static ObservableList<ProdutoTable> tableItems;
     private static ProdutoTable itemSelecionado;
@@ -54,8 +60,11 @@ public class ProdutoController implements Initializable {
         TableColumn<ProdutoTable, Integer> pontoDePedidoCol = new TableColumn<ProdutoTable, Integer>("Ponto de Pedido");
         pontoDePedidoCol.setCellValueFactory(new PropertyValueFactory("pontoDePedido"));
 
+        TableColumn<ProdutoTable, Integer> precoMedioCol = new TableColumn<ProdutoTable, Integer>("Preço médio");
+        precoMedioCol.setCellValueFactory(new PropertyValueFactory("precoMedio"));
+
         // add columns
-        this.tabelaConteudo.getColumns().setAll(codigoCol, nomeCol, fornecedorCol, quantidadeCol, pontoDePedidoCol);
+        this.tabelaConteudo.getColumns().setAll(codigoCol, nomeCol, fornecedorCol, quantidadeCol, pontoDePedidoCol, precoMedioCol);
 
         // get data from db
         tableItems = this.listaDeItems();
@@ -81,6 +90,7 @@ public class ProdutoController implements Initializable {
     public ObservableList<ProdutoTable> listaDeItems() {
         this.items = this.service.getAll();
         ArrayList<ProdutoTable> itemTableList = new ArrayList<ProdutoTable>();
+        Instant instant = Instant.from(LocalDate.parse("2015-12-22").atStartOfDay(ZoneId.of("GMT-3")));
         for ( Produto item: this.items) {
             itemTableList.add(
                 new ProdutoTable(
@@ -89,7 +99,8 @@ public class ProdutoController implements Initializable {
                     item.getQuantidade(),
                     item.getFornecedor().getNome(),
                     item.getCodigo(),
-                    item.getPontoDePedido()
+                    item.getPontoDePedido(),
+                    Math.floor(compraService.valorMedioProduto(item.getId(), Date.from(instant), new Date()))
                 )
             );
         }
