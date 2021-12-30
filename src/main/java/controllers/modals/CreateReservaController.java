@@ -1,31 +1,27 @@
 package controllers.modals;
 
-import business.EspacoService;
-import business.FornecedorService;
-import controllers.views.EspacoController;
-import dados.Espaco;
-import dados.Fornecedor;
+import business.ReservaService;
+import controllers.views.ReservaController;
+import dados.Reserva;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CreateEspacoController {
-    EspacoService service = new EspacoService();
+import java.sql.Date;
+
+public class CreateReservaController {
+    ReservaService service = new ReservaService();
 
     @FXML
-    TextField nomeValue;
+    TextField idEspacoValue;
 
     @FXML
-    TextField capacidadeValue;
+    TextField idApartamentoValue;
 
     @FXML
-    CheckBox ocupadoValue;
-
-    @FXML
-    TextField custoReservaValue;
+    TextField dataReservaValue;
 
     @FXML
     private Button submitButton;
@@ -33,11 +29,10 @@ public class CreateEspacoController {
     @FXML
     public void handleSubmit(ActionEvent e) {
         // Criando novo produto
-        Espaco item = new Espaco(
-            String.valueOf(nomeValue.getText()),
-            Integer.valueOf(capacidadeValue.getText()),
-            Boolean.valueOf(ocupadoValue.isSelected()),
-            Double.valueOf(custoReservaValue.getText())
+        Reserva item = new Reserva(
+                Integer.valueOf(idEspacoValue.getText()),
+                Integer.valueOf(idApartamentoValue.getText()),
+                Date.valueOf(dataReservaValue.getText())
         );
 
         try {
@@ -45,13 +40,12 @@ public class CreateEspacoController {
         } catch (Exception error) {
             error.printStackTrace();
         }
-
         this.finish();
-    };
+    }
 
     private void finish() {
         // atualiza conteúdo
-        EspacoController controller = new EspacoController();
+        ReservaController controller = new ReservaController();
         controller.reloadItems();
 
         // fecha janela

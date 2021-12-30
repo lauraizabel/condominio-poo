@@ -1,10 +1,10 @@
 package controllers.views;
 
-import business.ProdutoService;
+import business.AcessoPermitidoService;
 import controllers.TableButtonsController;
-import controllers.modals.CreateProdutoController;
-import controllers.modals.EditProdutoController;
-import dados.Produto;
+import controllers.modals.CreateAcessoController;
+import controllers.modals.EditAcessoController;
+import dados.AcessoPermitido;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -19,57 +19,60 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jdk.jshell.spi.ExecutionControl;
-import tables.ProdutoTable;
+import tables.AcessoTable;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ProdutoController implements Initializable {
-    ProdutoService service = new ProdutoService();
-    private static ArrayList<Produto> items;
-    private static ObservableList<ProdutoTable> tableItems;
-    private static ProdutoTable itemSelecionado;
+public class AcessoPermitidoController implements Initializable {
+    AcessoPermitidoService service = new AcessoPermitidoService();
+    private static ArrayList<AcessoPermitido> items;
+    private static ObservableList<AcessoTable> tableItems;
+    private static AcessoTable itemSelecionado;
 
     @FXML
-    public TableView<ProdutoTable> tabelaConteudo = new TableView<ProdutoTable>();;
+    public TableView<AcessoTable> tabelaConteudo = new TableView<AcessoTable>();;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // create columns
-        TableColumn<ProdutoTable, String> codigoCol = new TableColumn<ProdutoTable, String>("Código");
-        codigoCol.setCellValueFactory(new PropertyValueFactory("codigo"));
 
-        TableColumn<ProdutoTable, String> nomeCol = new TableColumn<ProdutoTable, String>("Nome");
+        TableColumn<AcessoTable, String> nomeCol = new TableColumn<AcessoTable, String>("Nome");
         nomeCol.setCellValueFactory(new PropertyValueFactory("nome"));
 
-        TableColumn<ProdutoTable, String> fornecedorCol = new TableColumn<ProdutoTable, String>("Fornecedor");
-        fornecedorCol.setCellValueFactory(new PropertyValueFactory("fornecedor"));
+        TableColumn<AcessoTable, String> cpfCol = new TableColumn<AcessoTable, String>("CPF");
+        cpfCol.setCellValueFactory(new PropertyValueFactory("cpf"));
 
-        TableColumn<ProdutoTable, Integer> quantidadeCol = new TableColumn<ProdutoTable, Integer>("Quantidade");
-        quantidadeCol.setCellValueFactory(new PropertyValueFactory("quantidade"));
+        TableColumn<AcessoTable, String> emailCol = new TableColumn<AcessoTable, String>("E-Mail");
+        emailCol.setCellValueFactory(new PropertyValueFactory("email"));
 
-        TableColumn<ProdutoTable, Integer> pontoDePedidoCol = new TableColumn<ProdutoTable, Integer>("Ponto de Pedido");
-        pontoDePedidoCol.setCellValueFactory(new PropertyValueFactory("pontoDePedido"));
+        TableColumn<AcessoTable, String> telefoneCol = new TableColumn<AcessoTable, String>("Telefone");
+        telefoneCol.setCellValueFactory(new PropertyValueFactory("telefone"));
+
+        TableColumn<AcessoTable, String> permitidoCol = new TableColumn<AcessoTable, String>("Acesso permitido");
+        permitidoCol.setCellValueFactory(new PropertyValueFactory("permitido"));
+
+        TableColumn<AcessoTable, String> apartamentoCol = new TableColumn<AcessoTable, String>("Numero do Apartamento");
+        apartamentoCol.setCellValueFactory(new PropertyValueFactory("apartamento"));
 
         // add columns
-        this.tabelaConteudo.getColumns().setAll(codigoCol, nomeCol, fornecedorCol, quantidadeCol, pontoDePedidoCol);
+        this.tabelaConteudo.getColumns().setAll(cpfCol, nomeCol, emailCol, telefoneCol, permitidoCol, apartamentoCol);
 
         // get data from db
         tableItems = this.listaDeItems();
         this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
-        TableView.TableViewSelectionModel<ProdutoTable> selectionModel = this.tabelaConteudo.getSelectionModel();
+        TableView.TableViewSelectionModel<AcessoTable> selectionModel = this.tabelaConteudo.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
 
         // escutar mudança nos selecionados
-        ObservableList<ProdutoTable> selectedItems = selectionModel.getSelectedItems();
-        selectedItems.addListener(new ListChangeListener<ProdutoTable>() {
+        ObservableList<AcessoTable> selectedItems = selectionModel.getSelectedItems();
+        selectedItems.addListener(new ListChangeListener<AcessoTable>() {
             @Override
-            public void onChanged(Change<? extends ProdutoTable> change) {
+            public void onChanged(Change<? extends AcessoTable> change) {
                 // atualizar o selecionado
                 if ( change.getList().size() > 0 ) {
                     itemSelecionado = change.getList().get(0);
@@ -78,18 +81,20 @@ public class ProdutoController implements Initializable {
         });
     }
 
-    public ObservableList<ProdutoTable> listaDeItems() {
+    public ObservableList<AcessoTable> listaDeItems() {
         this.items = this.service.getAll();
-        ArrayList<ProdutoTable> itemTableList = new ArrayList<ProdutoTable>();
-        for ( Produto item: this.items) {
+        ArrayList<AcessoTable> itemTableList = new ArrayList<AcessoTable>();
+        for ( AcessoPermitido item: this.items) {
+            String permitido = item.isPermitido() ? "Sim" : "Não";
             itemTableList.add(
-                new ProdutoTable(
+                new AcessoTable(
                     item.getId(),
                     item.getNome(),
-                    item.getQuantidade(),
-                    item.getFornecedor().getNome(),
-                    item.getCodigo(),
-                    item.getPontoDePedido()
+                    item.getCpf(),
+                    item.getEmail(),
+                    item.getTelefone(),
+                    item.getApartamento().getNumApartamento(),
+                    permitido
                 )
             );
         }
@@ -110,18 +115,18 @@ public class ProdutoController implements Initializable {
     }
 
     public void onCreate() throws IOException  {
-        CreateProdutoController controller = new CreateProdutoController();
+        CreateAcessoController controller = new CreateAcessoController();
         this.createModal("Criar novo item", controller);
     }
 
     public void onEdit() throws IOException  {
-        Produto item = this.service.getById(itemSelecionado.getId());
-        EditProdutoController controller = new EditProdutoController(item);
+        AcessoPermitido item = this.service.getById(itemSelecionado.getId());
+        EditAcessoController controller = new EditAcessoController(item);
         this.createModal("Editar item", controller);
     }
 
     private void createModal(String title, Object controller) throws IOException {
-        FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/produto-modal.fxml"));
+        FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/acessoPermitido-modal.fxml"));
         loader.setController(controller);
 
         Parent root = loader.load();
@@ -148,7 +153,7 @@ public class ProdutoController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (ProdutoTable item: this.listaDeItems()) {
+        for (AcessoTable item: this.listaDeItems()) {
             tableItems.add(item);
         }
     }

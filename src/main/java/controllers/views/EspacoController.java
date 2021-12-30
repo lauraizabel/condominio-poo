@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.EspacoTable;
+import tables.ServicoTable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +30,7 @@ import java.util.ResourceBundle;
 public class EspacoController implements Initializable {
     EspacoService service = new EspacoService();
     private static ArrayList<Espaco> items;
+    private static ObservableList<EspacoTable> tableItems;
     private static EspacoTable itemSelecionado;
 
     @FXML
@@ -55,7 +57,8 @@ public class EspacoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(nomeCol, capacidadeCol, ocupadoCol, custoReservaCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems());
+        tableItems = this.listaDeItems();
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<EspacoTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -67,7 +70,9 @@ public class EspacoController implements Initializable {
             @Override
             public void onChanged(Change<? extends EspacoTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -98,6 +103,8 @@ public class EspacoController implements Initializable {
             return true;
         } catch (Exception e) {
             return false;
+        } finally {
+            this.reloadItems();
         }
     }
 
@@ -122,5 +129,23 @@ public class EspacoController implements Initializable {
         stage.setTitle(title);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
+    }
+
+    public void reloadItems() {
+        this.cleanTableContent();
+        this.populateTableContent();
+    }
+
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
+        }
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        tableItems.addAll(this.listaDeItems());
     }
 }

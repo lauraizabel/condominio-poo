@@ -1,10 +1,12 @@
 package controllers.modals;
 
 import business.FornecedorService;
-import business.ProdutoService;
-import controllers.views.ProdutoController;
+import business.FuncionarioService;
+import business.ServicoService;
+import controllers.views.ServicoController;
 import dados.Fornecedor;
-import dados.Produto;
+import dados.Funcionario;
+import dados.Servico;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,22 +21,28 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class CreateProdutoController implements Initializable {
+public class CreateServicoController implements Initializable {
     FornecedorService fornecedorService = new FornecedorService();
-    ProdutoService service = new ProdutoService();
-    static ArrayList<Fornecedor>fornecedores;
+    FuncionarioService funcionarioService = new FuncionarioService();
+    ServicoService service = new ServicoService();
 
-    @FXML
-    TextField nomeValue;
+    static ArrayList<Fornecedor>fornecedores;
+    static ArrayList<Funcionario>funcionarios;
 
     @FXML
     TextField codigoValue;
 
     @FXML
-    TextField pontoDePedidoValue;
+    TextField descricaoValue;
 
     @FXML
-    ComboBox<String> fornecedoresValues;
+    TextField valorValue;
+
+    @FXML
+    ComboBox<String> fornecedoresValues = new ComboBox<String>();
+
+    @FXML
+    ComboBox<String> funcionariosValues = new ComboBox<String>();
 
     @FXML
     private Button submitButton;
@@ -42,6 +50,7 @@ public class CreateProdutoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fornecedoresValues.setItems(FXCollections.observableArrayList(getFornecedores()));
+        funcionariosValues.setItems(FXCollections.observableArrayList(getFuncionarios()));
     }
 
     private ObservableList<String> getFornecedores() {
@@ -51,35 +60,44 @@ public class CreateProdutoController implements Initializable {
         for ( Fornecedor fornecedor: this.fornecedores) {
             fornecedoresList.add(fornecedor.getNome());
         }
-
         return FXCollections.observableArrayList(fornecedoresList);
+    }
+
+    private ObservableList<String> getFuncionarios() {
+        this.funcionarios = this.funcionarioService.getAll();
+
+        ArrayList<String> funcionariosList = new ArrayList<String>();
+        for ( Funcionario funcinario: this.funcionarios) {
+            funcionariosList.add(funcinario.getNome());
+        }
+        return FXCollections.observableArrayList(funcionariosList);
     }
 
     @FXML
     public void handleSubmit(ActionEvent e) {
-        Integer quantidade = 0;
         Integer fornecedorIdx = Integer.valueOf(fornecedoresValues.getSelectionModel().getSelectedIndex());
+        Integer funcionarioIdx = Integer.valueOf(funcionariosValues.getSelectionModel().getSelectedIndex());
 
-        // Criando novo produto
-        Produto produto = new Produto(
-            String.valueOf(nomeValue.getText()),
-            fornecedores.get(fornecedorIdx),
-            String.valueOf(codigoValue.getText()),
-            Integer.valueOf(pontoDePedidoValue.getText()),
-            quantidade
+        // Criando novo Serviço
+        Servico servico = new Servico(
+                String.valueOf(descricaoValue.getText()),
+                Double.valueOf(valorValue.getText()),
+                String.valueOf(codigoValue.getText()),
+                funcionarios.get(funcionarioIdx),
+                fornecedores.get(fornecedorIdx)
         );
+        service.save(servico);
 
-        service.save(produto);
         this.finish();
     };
 
     private void finish() {
         // atualiza conteúdo
-        ProdutoController controller = new ProdutoController();
+        ServicoController controller = new ServicoController();
         controller.reloadItems();
 
         // fecha janela
         Stage stage = (Stage) submitButton.getScene().getWindow();
         stage.close();
-    }
+    };
 }

@@ -1,25 +1,21 @@
 package controllers.modals;
 
-import business.FornecedorService;
-import controllers.views.FornecedorController;
-import dados.Fornecedor;
+import business.MoradorService;
+import controllers.views.MoradorController;
+import dados.Morador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CreateFornecedorController {
-    FornecedorService service = new FornecedorService();
+public class CreateMoradorController {
+    MoradorService service = new MoradorService();
 
     @FXML
     TextField nomeValue;
-
-    @FXML
-    TextField cnpjValue;
-
-    @FXML
-    TextField enderecoValue;
 
     @FXML
     TextField telefoneValue;
@@ -28,31 +24,33 @@ public class CreateFornecedorController {
     TextField emailValue;
 
     @FXML
+    TextField cpfValue;
+
+    @FXML
     private Button submitButton;
 
     @FXML
     public void handleSubmit(ActionEvent e) {
         // Criando novo produto
-        Fornecedor item = new Fornecedor(
-            String.valueOf(nomeValue.getText()),
-            String.valueOf(cnpjValue.getText()),
-            String.valueOf(enderecoValue.getText()),
-            String.valueOf(telefoneValue.getText()),
-            String.valueOf(emailValue.getText())
+        Morador item = new Morador(
+                String.valueOf(nomeValue.getText()),
+                String.valueOf(telefoneValue.getText()),
+                String.valueOf(emailValue.getText()),
+                String.valueOf(cpfValue.getText())
         );
 
         try {
             service.save(item);
         } catch (Exception error) {
-            error.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING, error.getMessage(), ButtonType.CLOSE);
+            alert.show();
         }
-
         this.finish();
-    };
+    }
 
     private void finish() {
         // atualiza conteúdo
-        FornecedorController controller = new FornecedorController();
+        MoradorController controller = new MoradorController();
         controller.reloadItems();
 
         // fecha janela

@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.FornecedorTable;
+import tables.ProdutoTable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +30,7 @@ import java.util.ResourceBundle;
 public class FornecedorController implements Initializable {
     FornecedorService service = new FornecedorService();
     private static ArrayList<Fornecedor> items;
+    private static ObservableList<FornecedorTable> tableItems;
     private static FornecedorTable itemSelecionado;
 
     @FXML
@@ -57,7 +59,8 @@ public class FornecedorController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(nomeCol, cnpjCol, enderecoCol, telefoneCol, emailCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems());
+        tableItems = this.listaDeItems();
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<FornecedorTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -69,7 +72,9 @@ public class FornecedorController implements Initializable {
             @Override
             public void onChanged(Change<? extends FornecedorTable> change) {
                 // atualizar o selecionado
-                itemSelecionado = change.getList().get(0);
+                if ( change.getList().size() > 0 ) {
+                    itemSelecionado = change.getList().get(0);
+                }
             }
         });
     }
@@ -80,6 +85,7 @@ public class FornecedorController implements Initializable {
         for ( Fornecedor fornecedor: this.items) {
             fornecedorTableList.add(
                 new FornecedorTable(
+                    fornecedor.getId(),
                     fornecedor.getNome(),
                     fornecedor.getCnpj(),
                     fornecedor.getEndereco(),
@@ -93,17 +99,14 @@ public class FornecedorController implements Initializable {
 
     public boolean onDelete() {
         // deletando
-        String itemCode = itemSelecionado.getCnpj();
-        Fornecedor item = this.findItemByCnpj(itemCode);
-
-        if ( item != null ) {
-            Integer itemId = item.getId();
-            System.out.println("Found: " + itemId);
-//            service.deleteById(itemId);
-        } else {
-            System.out.println("Not found.");
+        Integer itemId = itemSelecionado.getId();
+        try {
+            service.deleteById(itemId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.reloadItems();
         }
-
         return true;
     }
 
@@ -113,7 +116,7 @@ public class FornecedorController implements Initializable {
     }
 
     public void onEdit() throws IOException  {
-        Fornecedor item = this.findItemByCnpj(itemSelecionado.getCnpj());
+        Fornecedor item = this.service.getById(itemSelecionado.getId());
         EditFornecedorController controller = new EditFornecedorController(item);
         this.createModal("Editar item", controller);
     }
@@ -130,16 +133,23 @@ public class FornecedorController implements Initializable {
         stage.show();
     }
 
-    private Fornecedor findItemByCnpj(String code) {
-        try {
-            for ( Fornecedor item : this.items ) {
-                if ( item.getCnpj() == code ) {
-                    return item;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("ERRO [DELETE]: " + e);
+    public void reloadItems() {
+        this.cleanTableContent();
+        this.populateTableContent();
+    }
+
+    public void cleanTableContent() {
+        // removendo itens de trás para frente (para a remoção não interferir no index)
+        Integer tableItemsSize = tableItems.size();
+        for (int i = tableItemsSize - 1; i >= 0; i--) {
+            tableItems.remove(i);
         }
-        return null;
+    }
+
+    private void populateTableContent() {
+        // adicionando novos itens
+        for (FornecedorTable item: this.listaDeItems()) {
+            tableItems.add(item);
+        }
     }
 }

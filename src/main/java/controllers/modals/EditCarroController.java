@@ -1,7 +1,9 @@
 package controllers.modals;
 
-import business.EspacoService;
+import business.CarroServices;
+import controllers.views.CarroController;
 import controllers.views.EspacoController;
+import dados.Carro;
 import dados.Espaco;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,45 +16,35 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EditEspacoController implements Initializable {
-    EspacoService service = new EspacoService();
-    static Espaco itemSelected;
+public class EditCarroController implements Initializable {
+    CarroServices service = new CarroServices();
+    static Carro itemSelected;
 
     @FXML
-    TextField nomeValue;
+    TextField modeloValue;
 
     @FXML
-    TextField capacidadeValue;
-
-    @FXML
-    CheckBox ocupadoValue;
-
-    @FXML
-    TextField custoReservaValue;
+    TextField placaValue;
 
     @FXML
     private Button submitButton;
 
-    public EditEspacoController(Espaco itemSelected) {
+    public EditCarroController(Carro itemSelected) {
         this.itemSelected = itemSelected;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // setting existing values
-        this.nomeValue.setText(itemSelected.getNome());
-        this.capacidadeValue.setText(String.valueOf(itemSelected.getCapacidade()));
-        this.ocupadoValue.setSelected(Boolean.valueOf(itemSelected.isOcupado()));
-        this.custoReservaValue.setText(String.valueOf(itemSelected.getCustoReserva()));
+        this.modeloValue.setText(itemSelected.getModelo());
+        this.placaValue.setText(itemSelected.getPlaca());
     }
 
     @FXML
     public void handleSubmit(ActionEvent e) {
         // alterando item usando campos
-        itemSelected.setNome(String.valueOf(nomeValue.getText()));
-        itemSelected.setOcupado(ocupadoValue.isSelected());
-        itemSelected.setCapacidade(Integer.valueOf(capacidadeValue.getText()));
-        itemSelected.setCustoReserva(Double.valueOf(custoReservaValue.getText()));
+        itemSelected.setModelo(String.valueOf(modeloValue.getText()));
+        itemSelected.setPlaca(String.valueOf(placaValue.getText()));
 
         // Atualizando item;
         service.update(itemSelected);
@@ -61,7 +53,7 @@ public class EditEspacoController implements Initializable {
 
     private void finish() {
         // atualiza conteúdo
-        EspacoController controller = new EspacoController();
+        CarroController controller = new CarroController();
         controller.reloadItems();
 
         // fecha janela
