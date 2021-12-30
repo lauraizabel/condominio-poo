@@ -332,7 +332,7 @@ public class TakeClasses {
 
   public AcessoPermitido acessoPermitido() {
     AcessoPermitido acessoPermitido = new AcessoPermitido(this.name, this.cpf, this.apartamento, this.phone,
-      this.email, this.morador, this.permitido, this.idAcesso);
+      this.email, this.permitido);
     
       this.acessoPermitido = acessoPermitido;
       return acessoPermitido;

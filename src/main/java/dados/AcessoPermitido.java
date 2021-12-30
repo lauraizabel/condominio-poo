@@ -1,12 +1,9 @@
 package dados;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class AcessoPermitido extends Pessoa {
-    private Integer idAcesso;
     @ManyToOne(targetEntity = Apartamento.class, fetch = FetchType.LAZY)
     private Apartamento apartamento;
     private Boolean permitido;
@@ -15,15 +12,10 @@ public class AcessoPermitido extends Pessoa {
     }
 
     public AcessoPermitido(String nome, String cpf, Apartamento apartamento, String telefone, String email,
-            Morador permissor, Boolean permitido, Integer idAcesso) {
+                           Boolean permitido) {
         super(nome, telefone, email, cpf);
         this.apartamento = apartamento;
         this.permitido = permitido;
-        this.idAcesso = idAcesso;
-    }
-
-    public Integer getIdAcesso() {
-        return this.idAcesso;
     }
 
     public Apartamento getApartamento() {
