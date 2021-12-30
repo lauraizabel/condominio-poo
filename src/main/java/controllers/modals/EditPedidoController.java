@@ -19,8 +19,10 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class EditPedidoController implements Initializable {
@@ -51,11 +53,43 @@ public class EditPedidoController implements Initializable {
         this.funcionarioValues.setItems(FXCollections.observableArrayList(getFuncionarios()));
         produtoValues.getItems().addAll(getProdutos());
 
+        Integer funcionarioIndex = getFuncionarioIndex(itemSelected.getRequerente());
+        if ( funcionarioIndex >= 0 ) {
+            this.funcionarioValues.getSelectionModel().select(funcionarioIndex);
+        }
+
+        ArrayList<Integer> produtoIndexes = getProdutosIndex(itemSelected.getProdutos());
+        for (Integer i: produtoIndexes) {
+            this.produtoValues.getCheckModel().check(i);
+        }
+
         produtoValues.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
             public void onChanged(Change<? extends String> c) {
                 selectedFeatures = produtoValues.getCheckModel().getCheckedItems();
             }
         });
+    }
+
+    private Integer getFuncionarioIndex(Funcionario funcionario) {
+        int i;
+        for ( i = 0; i < this.funcionarioValues.getItems().size(); i++ ) {
+            if ( this.funcionarioValues.getItems().get(i).equals(funcionario.getNome()) ) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private ArrayList<Integer> getProdutosIndex(List<Produto> produtos) {
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        for ( int i = 0; i < this.produtoValues.getItems().size(); i++ ) {
+            for (Produto produto: produtos) {
+                if ( this.produtoValues.getItems().get(i).equals(produto.getNome()) ) {
+                    indexes.add(i);
+                }
+            }
+        }
+        return indexes;
     }
 
     private ObservableList<String> getProdutos() {
@@ -83,16 +117,14 @@ public class EditPedidoController implements Initializable {
         Integer funcionarioIdx = funcionarioValues.getSelectionModel().getSelectedIndex();
         ObservableList<Integer> produtosIdx = produtoValues.getCheckModel().getCheckedIndices();
         ArrayList<Produto> produtos = new ArrayList<Produto>();
-
         for ( Integer produtoIdx: produtosIdx ) {
             produtos.add(itemsProduto.get(produtoIdx));
         }
 
-        Pedido pedido = new Pedido(
-            itemsFuncionario.get(funcionarioIdx),
-            produtos
-        );
-        service.save(pedido);
+        itemSelected.setProdutos(produtos);
+        itemSelected.setRequerente(itemsFuncionario.get(funcionarioIdx));
+
+        service.update(itemSelected);
 
         this.finish();
     };

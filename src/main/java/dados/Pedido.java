@@ -27,7 +27,7 @@ public class Pedido {
         return this.id;
     }
 
-    public List<Produto> getProduto() {
+    public List<Produto> getProdutos() {
         return this.produtos;
     }
 

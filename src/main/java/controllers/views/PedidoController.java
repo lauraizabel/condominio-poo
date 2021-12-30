@@ -4,10 +4,7 @@ import business.FuncionarioService;
 import business.PedidoService;
 import business.ProdutoService;
 import controllers.TableButtonsController;
-import controllers.modals.CreatePedidoController;
-import controllers.modals.CreateProdutoController;
-import controllers.modals.EditPedidoDeCompraController;
-import controllers.modals.EditProdutoController;
+import controllers.modals.*;
 import dados.Funcionario;
 import dados.Pedido;
 import dados.Produto;
@@ -82,7 +79,7 @@ public class PedidoController implements Initializable {
                 new PedidoTable(
                     item.getId(),
                     item.getRequerente().getNome(),
-                    this.ListToString(item.getProduto())
+                    this.ListToString(item.getProdutos())
                 )
             );
         }
@@ -115,9 +112,9 @@ public class PedidoController implements Initializable {
     }
 
     public void onEdit() throws IOException  {
-//        Pedido item = this.service.getById(itemSelecionado.getId());
-//        EditPedidoDeCompraController controller = new EditPedidoController(item);
-//        this.createModal("Editar item", controller);
+        Pedido item = this.service.getById(itemSelecionado.getId());
+        EditPedidoController controller = new EditPedidoController(item);
+        this.createModal("Editar item", controller);
     }
 
     private void createModal(String title, Object controller) throws IOException {

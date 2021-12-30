@@ -23,7 +23,7 @@ public class PedidoTest {
 
   @Test
   public void testGetProdutos() {
-    assertEquals(takeClasses.getPedido().getProduto(), pedido.getProduto());
+    assertEquals(takeClasses.getPedido().getProdutos(), pedido.getProdutos());
   }
 
   @Test
@@ -41,6 +41,6 @@ public class PedidoTest {
     produtos.add(p1);
     produtos.add(p2);
     pedido.setProdutos(produtos);
-    assertEquals(produtos, pedido.getProduto());
+    assertEquals(produtos, pedido.getProdutos());
   }
 }
