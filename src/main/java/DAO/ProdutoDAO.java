@@ -16,7 +16,7 @@ public class ProdutoDAO extends EntityDAO<Produto> {
     // capturar todos pelo nome do produto -> para contagem
     public ArrayList<Produto> getByName (String produtctName) {
         Session session = em.unwrap(Session.class);
-        Query query = session.createQuery("from produto where name =:name ")
+        Query query = session.createQuery("from Produto where name=:name ")
                 .setParameter("name ", produtctName);
 
         // convertendo para ArrayList para ser um tipo aceito pelo hibernate

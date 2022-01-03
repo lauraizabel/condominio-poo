@@ -1,5 +1,6 @@
 package tables;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -10,6 +11,7 @@ public class ProdutoTable {
     private final SimpleStringProperty codigo;
     private final SimpleStringProperty fornecedor;
     private final SimpleIntegerProperty pontoDePedido;
+    private final SimpleDoubleProperty precoMedio;
 
     public ProdutoTable(
             Integer id,
@@ -17,7 +19,8 @@ public class ProdutoTable {
             Integer quantidade,
             String fornecedor,
             String codigo,
-            Integer pontoDePedido
+            Integer pontoDePedido,
+            Double precoMedio
     ) {
         this.id = new SimpleIntegerProperty(id);
         this.nome = new SimpleStringProperty(nome);
@@ -25,6 +28,7 @@ public class ProdutoTable {
         this.codigo = new SimpleStringProperty(codigo);
         this.fornecedor = new SimpleStringProperty(fornecedor);
         this.pontoDePedido =  new SimpleIntegerProperty(pontoDePedido);
+        this.precoMedio =  new SimpleDoubleProperty(precoMedio);
     }
 
     public String getNome() {
@@ -93,5 +97,17 @@ public class ProdutoTable {
 
     public SimpleIntegerProperty idProperty() {
         return id;
+    }
+
+    public double getPrecoMedio() {
+        return precoMedio.get();
+    }
+
+    public SimpleDoubleProperty precoMedioProperty() {
+        return precoMedio;
+    }
+
+    public void setPrecoMedio(double precoMedio) {
+        this.precoMedio.set(precoMedio);
     }
 }

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,9 +13,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.CheckBox?>
-<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../styles/styles.css">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
@@ -37,61 +37,60 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label text="Nome:">
+                  <Label text="Funcionário:">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="nomeValue">
+                  <ComboBox fx:id="funcionarioValues">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Label text="Produto:">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="produtoValues">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Label text="Quantidade:">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="quantidadeValue">
                      <VBox.margin>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label text="CPF:">
+                  <Label text="Valor Unitário:">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="cpfValue">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label text="E-Mail:">
-                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <TextField fx:id="emailValue">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label text="Telefone:">
-                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                   <TextField fx:id="telefoneValue">
+                   <TextField fx:id="valorUnitarioValue">
                        <VBox.margin>
                            <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
                        </VBox.margin>
                    </TextField>
-                   <CheckBox fx:id="permitidoValue" mnemonicParsing="false" text="Acesso permitido">
-                       <VBox.margin>
-                           <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                       </VBox.margin>
-                   </CheckBox>
-                   <Label text="Apartamento:">
+                   <Label text="Data:">
                        <VBox.margin>
                            <Insets left="20.0" right="20.0" top="10.0" />
                        </VBox.margin>
                    </Label>
-                   <ComboBox fx:id="apartamentosValues" prefWidth="150.0">
+                   <DatePicker fx:id="dataValue">
+                       <opaqueInsets>
+                           <Insets />
+                       </opaqueInsets>
                        <VBox.margin>
                            <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
                        </VBox.margin>
-                   </ComboBox>
+                   </DatePicker>
+
                   <GridPane>
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

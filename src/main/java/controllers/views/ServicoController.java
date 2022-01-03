@@ -20,7 +20,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import tables.ProdutoTable;
 import tables.ServicoTable;
 
 import java.io.IOException;

@@ -24,7 +24,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.CarroTable;
-import tables.EspacoTable;
 
 import java.io.IOException;
 import java.lang.reflect.Array;

@@ -37,7 +37,8 @@ public class MainController {
                 Constructor<?> constructor = clazz.getConstructor();
                 loaderView.setController(constructor.newInstance());
             } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                System.out.println("ERRO [MAIN - on create controller ]: " + e);
+//                System.out.println("ERRO [MAIN - on create controller ]: " + e);
+                e.printStackTrace();
             }
 
             conteudoView.getChildren().add((Node) loaderView.load());
