@@ -4,6 +4,7 @@ import business.ReservaService;
 import controllers.TableButtonsController;
 import controllers.modals.CreateReservaController;
 import controllers.modals.EditReservaController;
+import dados.Produto;
 import dados.Reserva;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -19,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tables.PedidoDeCompraTable;
 import tables.ReservaTable;
 
 import java.io.IOException;
@@ -50,7 +53,7 @@ public class ReservaController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(idEspacoCol, idApartamentoCol, dataReservaCol);
 
         // get data from db
-        tableItems = this.listaDeItems();
+        tableItems = this.listaDeItems(this.service.getAll());
         this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
@@ -70,8 +73,8 @@ public class ReservaController implements Initializable {
         });
     }
 
-    public ObservableList<ReservaTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<ReservaTable> listaDeItems(ArrayList<Reserva> reservaArrayList) {
+        this.items = reservaArrayList;
         ArrayList<ReservaTable> reservaTableList = new ArrayList<ReservaTable>();
         for ( Reserva reserva: this.items) {
             reservaTableList.add(
@@ -110,6 +113,41 @@ public class ReservaController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
+    public void onAuditory() throws IOException {
+        this.createModalAuditory();
+    }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<ReservaTable> reservas = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn<ReservaTable, Integer> idEspacoCol = new TableColumn<>("ID Espaco");
+        idEspacoCol.setCellValueFactory(new PropertyValueFactory("idEspaco"));
+
+        TableColumn<ReservaTable, Integer> idApartamentoCol = new TableColumn<>("ID Apartamento");
+        idApartamentoCol .setCellValueFactory(new PropertyValueFactory("idApartamento"));
+
+        TableColumn<ReservaTable, String> dataReservaCol = new TableColumn<>("Data Reserva");
+        dataReservaCol .setCellValueFactory(new PropertyValueFactory("dataReserva"));
+
+        // add columns
+        table.getColumns().setAll(idEspacoCol, idApartamentoCol, dataReservaCol);
+        table.setItems(reservas);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
+
+
+
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/reserva-modal.fxml"));
         loader.setController(controller);
@@ -137,7 +175,7 @@ public class ReservaController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (ReservaTable item: this.listaDeItems()) {
+        for (ReservaTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -19,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tables.AcessoTable;
 import tables.AlmoxarifadoTable;
 import tables.PedidoDeCompraTable;
 
@@ -65,7 +67,7 @@ public class AlmoxarifadoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(produtoCol, funcionarioCol, quantidadeAdicionadaCol, quantidadeRemovidaCol, dataAlteracaoCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems());
+        this.tabelaConteudo.setItems(this.listaDeItems(this.service.getAll()));
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<AlmoxarifadoTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -84,8 +86,8 @@ public class AlmoxarifadoController implements Initializable {
         });
     }
 
-    public ObservableList<AlmoxarifadoTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<AlmoxarifadoTable> listaDeItems(ArrayList<Almoxarifado> almoxarifadoArrayList) {
+        this.items = almoxarifadoArrayList;
         ArrayList<AlmoxarifadoTable> almoxarifadoTableList = new ArrayList<AlmoxarifadoTable>();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         for ( Almoxarifado almoxarifado: this.items) {
@@ -128,6 +130,46 @@ public class AlmoxarifadoController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
+    public void onAuditory() throws IOException {
+        this.createModalAuditory();
+    }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<AlmoxarifadoTable> almoxarifadoArray = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn<AlmoxarifadoTable, String> produtoCol = new TableColumn<AlmoxarifadoTable, String>("Produto");
+        produtoCol.setCellValueFactory(new PropertyValueFactory("produto"));
+
+        TableColumn<AlmoxarifadoTable, String> funcionarioCol = new TableColumn<AlmoxarifadoTable, String>("Funcionário");
+        funcionarioCol.setCellValueFactory(new PropertyValueFactory("funcionario"));
+
+        TableColumn<AlmoxarifadoTable, Integer> quantidadeAdicionadaCol = new TableColumn<AlmoxarifadoTable, Integer>("Quantidade Adcionada");
+        quantidadeAdicionadaCol.setCellValueFactory(new PropertyValueFactory("quantidadeAdicionada"));
+
+        TableColumn<AlmoxarifadoTable, Integer> quantidadeRemovidaCol = new TableColumn<AlmoxarifadoTable, Integer>("Quantidade Removida");
+        quantidadeRemovidaCol.setCellValueFactory(new PropertyValueFactory("quantidadeRemovida"));
+
+        TableColumn<AlmoxarifadoTable, Date> dataAlteracaoCol = new TableColumn<AlmoxarifadoTable, Date>("Data");
+        dataAlteracaoCol.setCellValueFactory(new PropertyValueFactory("dataAlteracao"));
+
+
+        // add columns
+        table.getColumns().setAll(produtoCol, funcionarioCol, quantidadeAdicionadaCol, quantidadeRemovidaCol, dataAlteracaoCol);
+        table.setItems(almoxarifadoArray);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
+
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/almoxarifado-modal.fxml"));
         loader.setController(controller);
@@ -155,7 +197,7 @@ public class AlmoxarifadoController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (AlmoxarifadoTable item: this.listaDeItems()) {
+        for (AlmoxarifadoTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }

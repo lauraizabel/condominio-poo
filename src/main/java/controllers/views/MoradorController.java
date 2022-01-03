@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -55,7 +56,7 @@ public class MoradorController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(nomeCol, telefoneCol, emailCol, cpfCol);
 
         // get data from db
-        tableItems = this.listaDeItems();
+        tableItems = this.listaDeItems(this.service.getAll());
         this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
@@ -75,8 +76,8 @@ public class MoradorController implements Initializable {
         });
     }
 
-    public ObservableList<MoradorTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<MoradorTable> listaDeItems(ArrayList<Morador> moradorArrayList) {
+        this.items = moradorArrayList;
         ArrayList<MoradorTable> moradorTableList = new ArrayList<MoradorTable>();
         for ( Morador morador: this.items) {
             moradorTableList.add(
@@ -116,6 +117,42 @@ public class MoradorController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
+    public void onAuditory() throws IOException {
+        this.createModalAuditory();
+    }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<MoradorTable> morador = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn<MoradorTable, String> nomeCol = new TableColumn<>("Nome");
+        nomeCol.setCellValueFactory(new PropertyValueFactory("nome"));
+
+        TableColumn<MoradorTable, String> telefoneCol = new TableColumn<>("Telefone");
+        telefoneCol.setCellValueFactory(new PropertyValueFactory("telefone"));
+
+        TableColumn<MoradorTable, String> emailCol = new TableColumn<>("Email");
+        emailCol.setCellValueFactory(new PropertyValueFactory("email"));
+
+        TableColumn<MoradorTable, String> cpfCol = new TableColumn<>("CPF");
+        cpfCol.setCellValueFactory(new PropertyValueFactory("cpf"));
+
+        table.getColumns().setAll(nomeCol, telefoneCol, emailCol, cpfCol);
+        table.setItems(morador);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
+
+
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/morador-modal.fxml"));
         loader.setController(controller);
@@ -143,7 +180,7 @@ public class MoradorController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (MoradorTable item: this.listaDeItems()) {
+        for (MoradorTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }

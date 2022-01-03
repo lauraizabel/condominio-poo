@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -21,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tables.AlmoxarifadoTable;
 import tables.CompraTable;
 import tables.PedidoDeCompraTable;
 
@@ -64,7 +66,7 @@ public class CompraController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(produtoCol, funcionarioCol, valorUnitarioCol, dataAlteracaoCol, quantidadeCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems());
+        this.tabelaConteudo.setItems(this.listaDeItems(this.service.getAll()));
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<CompraTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -83,8 +85,8 @@ public class CompraController implements Initializable {
         });
     }
 
-    public ObservableList<CompraTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<CompraTable> listaDeItems(ArrayList<Compra> compraArrayList) {
+        this.items = compraArrayList;
         ArrayList<CompraTable> almoxarifadoTableList = new ArrayList<CompraTable>();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         for ( Compra almoxarifado: this.items) {
@@ -127,6 +129,45 @@ public class CompraController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
+    public void onAuditory() throws IOException {
+        this.createModalAuditory();
+    }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<CompraTable> compraTable = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn<CompraTable, String> produtoCol = new TableColumn<CompraTable, String>("Produto");
+        produtoCol.setCellValueFactory(new PropertyValueFactory("produto"));
+
+        TableColumn<CompraTable, String> funcionarioCol = new TableColumn<CompraTable, String>("Funcionário");
+        funcionarioCol.setCellValueFactory(new PropertyValueFactory("funcionario"));
+
+        TableColumn<CompraTable, Integer> quantidadeCol = new TableColumn<CompraTable, Integer>("Quantidade");
+        quantidadeCol.setCellValueFactory(new PropertyValueFactory("quantidade"));
+
+        TableColumn<CompraTable, Integer> valorUnitarioCol = new TableColumn<CompraTable, Integer>("Valor Unitário");
+        valorUnitarioCol.setCellValueFactory(new PropertyValueFactory("valorUnitario"));
+
+        TableColumn<CompraTable, Date> dataAlteracaoCol = new TableColumn<CompraTable, Date>("Data");
+        dataAlteracaoCol.setCellValueFactory(new PropertyValueFactory("dataAlteracao"));
+
+
+        // add columns
+        table.getColumns().setAll(produtoCol, funcionarioCol, valorUnitarioCol, dataAlteracaoCol, quantidadeCol);
+        table.setItems(compraTable);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/compra-modal.fxml"));
         loader.setController(controller);
@@ -154,7 +195,7 @@ public class CompraController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (CompraTable item: this.listaDeItems()) {
+        for (CompraTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }

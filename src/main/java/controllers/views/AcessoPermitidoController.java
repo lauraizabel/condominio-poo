@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -20,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.AcessoTable;
+import tables.CarroTable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,7 +63,7 @@ public class AcessoPermitidoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(cpfCol, nomeCol, emailCol, telefoneCol, permitidoCol, apartamentoCol);
 
         // get data from db
-        tableItems = this.listaDeItems();
+        tableItems = this.listaDeItems(this.service.getAll());
         this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
@@ -81,8 +83,8 @@ public class AcessoPermitidoController implements Initializable {
         });
     }
 
-    public ObservableList<AcessoTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<AcessoTable> listaDeItems(ArrayList<AcessoPermitido> arrayList) {
+        this.items = arrayList;
         ArrayList<AcessoTable> itemTableList = new ArrayList<AcessoTable>();
         for ( AcessoPermitido item: this.items) {
             String permitido = item.isPermitido() ? "Sim" : "Não";
@@ -125,6 +127,46 @@ public class AcessoPermitidoController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
+    public void onAuditory() throws IOException {
+        this.createModalAuditory();
+    }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<AcessoTable> acessoArray = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn<AcessoTable, String> nomeCol = new TableColumn<AcessoTable, String>("Nome");
+        nomeCol.setCellValueFactory(new PropertyValueFactory("nome"));
+
+        TableColumn<AcessoTable, String> cpfCol = new TableColumn<AcessoTable, String>("CPF");
+        cpfCol.setCellValueFactory(new PropertyValueFactory("cpf"));
+
+        TableColumn<AcessoTable, String> emailCol = new TableColumn<AcessoTable, String>("E-Mail");
+        emailCol.setCellValueFactory(new PropertyValueFactory("email"));
+
+        TableColumn<AcessoTable, String> telefoneCol = new TableColumn<AcessoTable, String>("Telefone");
+        telefoneCol.setCellValueFactory(new PropertyValueFactory("telefone"));
+
+        TableColumn<AcessoTable, String> permitidoCol = new TableColumn<AcessoTable, String>("Acesso permitido");
+        permitidoCol.setCellValueFactory(new PropertyValueFactory("permitido"));
+
+        TableColumn<AcessoTable, String> apartamentoCol = new TableColumn<AcessoTable, String>("Numero do Apartamento");
+        apartamentoCol.setCellValueFactory(new PropertyValueFactory("apartamento"));
+
+        table.getColumns().addAll(nomeCol, cpfCol, emailCol, telefoneCol, permitidoCol, apartamentoCol);
+        table.setItems(acessoArray);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/acessoPermitido-modal.fxml"));
         loader.setController(controller);
@@ -153,7 +195,7 @@ public class AcessoPermitidoController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (AcessoTable item: this.listaDeItems()) {
+        for (AcessoTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }

@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -23,6 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.CarroTable;
 import tables.PedidoDeCompraTable;
+import tables.PedidoTable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,7 +50,7 @@ public class PedidoDeCompraController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(produtoCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems());
+        this.tabelaConteudo.setItems(this.listaDeItems(this.service.getAll()));
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<PedidoDeCompraTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -67,8 +69,8 @@ public class PedidoDeCompraController implements Initializable {
         });
     }
 
-    public ObservableList<PedidoDeCompraTable> listaDeItems() {
-        this.items = this.service.getAll();
+    public ObservableList<PedidoDeCompraTable> listaDeItems(ArrayList<PedidoDeCompra> pedidoDeCompraArrayList) {
+        this.items = pedidoDeCompraArrayList;
         ArrayList<PedidoDeCompraTable> itemTableList = new ArrayList<PedidoDeCompraTable>();
         for ( PedidoDeCompra item: this.items) {
             itemTableList.add(
@@ -106,6 +108,31 @@ public class PedidoDeCompraController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
+    public void onAuditory() throws IOException {
+        this.createModalAuditory();
+    }
+
+    private void createModalAuditory () throws IOException {
+        ObservableList<PedidoDeCompraTable> moradorArray = listaDeItems(this.service.getAllAuditory());
+
+        TableView table = new TableView();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(new Group());
+
+        TableColumn<PedidoDeCompraTable, Produto> produtoCol = new TableColumn<PedidoDeCompraTable, Produto>("Produto");
+        produtoCol.setCellValueFactory(new PropertyValueFactory("produto"));
+
+        table.getColumns().setAll(produtoCol);
+        table.setItems(moradorArray);
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.setTitle("Auditoria");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.show();
+    }
+
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/pedidoDeCompra-modal.fxml"));
         loader.setController(controller);
@@ -134,7 +161,7 @@ public class PedidoDeCompraController implements Initializable {
 
     private void populateTableContent() {
         // adicionando novos itens
-        for (PedidoDeCompraTable item: this.listaDeItems()) {
+        for (PedidoDeCompraTable item: this.listaDeItems(this.service.getAll())) {
             tableItems.add(item);
         }
     }
