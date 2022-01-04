@@ -34,7 +34,7 @@ public class MainApplication extends Application {
         //stage.setMaximized(true);
         stage.setResizable(false);
         //TODO - trocar para login depois
-        stage.setScene(mainScene);
+        stage.setScene(loginScene);
         stage.show();
     }
 
