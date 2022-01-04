@@ -8,7 +8,7 @@ import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
 
 @Entity
 @Audited(targetAuditMode = NOT_AUDITED)
-public class Servico {
+public class Servico extends CustomAuditory<Servico> {
 
     @Id
     @GeneratedValue
@@ -16,9 +16,9 @@ public class Servico {
     private String descricao;
     private Double valor;
     private String codigo;
-    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.EAGER)
     private Funcionario requerente;
-    @ManyToOne(targetEntity = Fornecedor.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Fornecedor.class, fetch = FetchType.EAGER)
     private Fornecedor fornecedor;
 
     public Servico() {

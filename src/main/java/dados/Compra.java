@@ -7,14 +7,14 @@ import java.util.Date;
 
 @Entity
 @Audited
-public class Compra {
+public class Compra extends CustomAuditory<Compra> {
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.EAGER)
     private Produto produto;
     private Integer quantidade;
-    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.EAGER)
     private Funcionario funcionario;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;
@@ -51,6 +51,14 @@ public class Compra {
         this.quantidade = quantidade;
     }
 
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
     public Date getDataAlteracao() {
         return dataAlteracao;
     }
@@ -59,11 +67,11 @@ public class Compra {
         this.dataAlteracao = dataAlteracao;
     }
 
-    public Funcionario getFuncionario() {
-        return this.funcionario;
-    }
-
     public Double getValorUnitario() {
         return valorUnitario;
+    }
+
+    public void setValorUnitario(Double valorUnitario) {
+        this.valorUnitario = valorUnitario;
     }
 }

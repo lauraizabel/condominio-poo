@@ -7,7 +7,7 @@ import validation.validacao;
 
 import java.util.ArrayList;
 
-public class AcessooPermitidoService implements IService <AcessoPermitido>{
+public class AcessoPermitidoService implements IService <AcessoPermitido>{
     private AcessoPermitidoDAO AcessoPermitidoDAO = new AcessoPermitidoDAO();
     
     @Override

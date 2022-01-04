@@ -7,13 +7,13 @@ import java.util.Date;
 
 @Entity
 @Audited
-public class Almoxarifado {
+public class Almoxarifado extends CustomAuditory<Almoxarifado> {
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.EAGER)
     private Produto produto;
-    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.EAGER)
     private Funcionario funcionario;
     private Integer quantidadeAdicionada;
     private Integer quantidadeRemovida;

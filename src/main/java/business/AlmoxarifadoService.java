@@ -31,16 +31,51 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
 
     @Override
     public boolean save(Almoxarifado almoxarifado) {
-        return almoxarifadoDAO.save(almoxarifado);
+        Integer quantidade = almoxarifado.getQuantidadeAdicionada() - almoxarifado.getQuantidadeRemovida();
+        if ( quantidade < 0 ) {
+            quantidade = -quantidade;
+            return this.removerProduto(almoxarifado.getProduto(), almoxarifado.getFuncionario(), quantidade);
+        } else {
+            Produto produto = almoxarifado.getProduto();
+            produto.setQuantidade(produto.getQuantidade() + quantidade);
+            produtoService.update(produto);
+            if ( !checkPontoDePedido(produto) ) {
+                // Deletando pedido de compra
+                PedidoDeCompra pedidoDeCompra = pedidoDeCompraService.getByProductId(produto.getId());
+                pedidoDeCompraService.deleteById(pedidoDeCompra.getId());
+            }
+            return almoxarifadoDAO.save(almoxarifado);
+        }
     }
 
     @Override
     public Almoxarifado update(Almoxarifado almoxarifado) {
-        return almoxarifadoDAO.update(almoxarifado);
+        Almoxarifado almoxarifadoUpdated = almoxarifadoDAO.update(almoxarifado);
+//        if ( almoxarifadoUpdated != null ) {
+//            // Atualizar valor do produto
+//            Integer quantidade = almoxarifado.getQuantidadeAdicionada() - almoxarifado.getQuantidadeRemovida();
+//            Produto produto = produtoService.getById(almoxarifado.getProduto().getId());
+//            if ( quantidade < 0 ) {
+//                produto.setQuantidade(produto.getQuantidade() - quantidade);
+//            } else {
+//                produto.setQuantidade(produto.getQuantidade() + quantidade);
+//            }
+//            produtoService.update(produto);
+//        }
+        return almoxarifadoUpdated;
     }
 
-    // testado
-    public ArrayList<Almoxarifado> findByProductId(Integer productId) {
+    public List<Almoxarifado> findByProductId(Integer productId) {
+        List<Almoxarifado> almoxarifados = almoxarifadoDAO.findByProductId(productId);
+
+        if (almoxarifados.isEmpty()) {
+            return null;
+        }
+
+        return almoxarifados;
+    }
+
+    public List<Almoxarifado> getAllAlmoxarifadosByProduct(Integer productId) {
         ArrayList<Almoxarifado> almoxarifados = almoxarifadoDAO.findByProductId(productId);
 
         if (almoxarifados.isEmpty()) {
@@ -63,7 +98,6 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
         return save(almoxarifado);
     }
 
-    // testado
     public boolean removerProduto(Produto produto, Funcionario funcionario, Integer quantidade) {
         if ( produto.getQuantidade() >= quantidade ) {
             // removendo quantidade do estoque
@@ -78,10 +112,12 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
                 // adicionar registro de remoção de produto no almoxarifado
                 Date dataRegistro = new Date();
                 Almoxarifado almoxarifado = new Almoxarifado(produto, funcionario, 0, quantidade, dataRegistro);
-                return save(almoxarifado);
+                return almoxarifadoDAO.save(almoxarifado);
             }
+            System.out.println("not updated");
             return false;
         }
+        System.out.println("não possui suficiente");
         return false;
     }
 

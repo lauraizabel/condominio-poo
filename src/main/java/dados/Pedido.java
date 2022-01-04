@@ -3,20 +3,19 @@ package dados;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Audited
-public class Pedido {
+public class Pedido extends CustomAuditory<Pedido> {
 
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.EAGER)
     private Funcionario requerente;
-    @ManyToMany(targetEntity = Produto.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Produto.class, fetch = FetchType.EAGER)
     private List<Produto> produtos;
 
     public Pedido() {
@@ -31,7 +30,7 @@ public class Pedido {
         return this.id;
     }
 
-    public List<Produto> getProduto() {
+    public List<Produto> getProdutos() {
         return this.produtos;
     }
 

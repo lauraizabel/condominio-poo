@@ -3,12 +3,14 @@ package dados;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Audited
 public class AcessoPermitido extends Pessoa {
-    private Integer idAcesso;
-    @ManyToOne(targetEntity = Apartamento.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Apartamento.class, fetch = FetchType.EAGER)
     private Apartamento apartamento;
     private Boolean permitido;
 
@@ -16,15 +18,10 @@ public class AcessoPermitido extends Pessoa {
     }
 
     public AcessoPermitido(String nome, String cpf, Apartamento apartamento, String telefone, String email,
-            Morador permissor, Boolean permitido, Integer idAcesso) {
+                           Boolean permitido) {
         super(nome, telefone, email, cpf);
         this.apartamento = apartamento;
         this.permitido = permitido;
-        this.idAcesso = idAcesso;
-    }
-
-    public Integer getIdAcesso() {
-        return this.idAcesso;
     }
 
     public Apartamento getApartamento() {

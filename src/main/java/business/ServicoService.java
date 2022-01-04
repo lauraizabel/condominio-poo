@@ -25,9 +25,7 @@ public class ServicoService implements IService<Servico> {
     }
 
     @Override
-    public boolean save(Servico servico) {
-        return servicoDAO.save(servico);
-    }
+    public boolean save(Servico servico) { return servicoDAO.save(servico); }
 
     @Override
     public Servico update(Servico servico) {
