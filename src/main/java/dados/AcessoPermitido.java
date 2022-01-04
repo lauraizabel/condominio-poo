@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 @Entity
 @Audited
 public class AcessoPermitido extends Pessoa {
-    @ManyToOne(targetEntity = Apartamento.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Apartamento.class, fetch = FetchType.EAGER)
     private Apartamento apartamento;
     private Boolean permitido;
 

@@ -11,10 +11,10 @@ public class Compra extends CustomAuditory<Compra> {
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.EAGER)
     private Produto produto;
     private Integer quantidade;
-    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.EAGER)
     private Funcionario funcionario;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;

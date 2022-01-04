@@ -10,7 +10,7 @@ public class PedidoDeCompra extends CustomAuditory<PedidoDeCompra> {
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Produto.class, fetch = FetchType.EAGER)
     private Produto produto;
 
     public PedidoDeCompra() {}

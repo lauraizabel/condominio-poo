@@ -18,29 +18,35 @@ public class EntityDAO<T> implements IEntityDAO<T> {
 
   private Class<T> persistedClass;
 
-  protected EntityManager em;
   public EntityDAO() {}
 
   protected EntityDAO(Class<T> persistedClass) {
     this();
-    em = getEntityManager();
     this.persistedClass = persistedClass;
   }
 
   @Override
   public EntityManager getEntityManager() {
     var factory = Persistence.createEntityManagerFactory("default");
-    if (em == null) { em = factory.createEntityManager(); }
-    return em;
+    return factory.createEntityManager();
   }
 
   @Override
   public T getById(Integer id) {
-    return em.find(persistedClass, id);
+    EntityManager em = getEntityManager();
+    try {
+      return em.find(persistedClass, id);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    } finally {
+      em.close();
+    }
   }
 
   @Override
   public boolean save(T object) {
+    EntityManager em = getEntityManager();
     try {
       em.getTransaction().begin();
       em.persist(object);
@@ -50,34 +56,52 @@ public class EntityDAO<T> implements IEntityDAO<T> {
       e.printStackTrace();
       em.getTransaction().rollback();
       return false;
+    } finally {
+      em.close();
     }
   }
 
   @Override
   public ArrayList<T> getAll() {
-    CriteriaBuilder builder = em.getCriteriaBuilder();
-    CriteriaQuery<T> query = builder.createQuery(persistedClass);
-    query.from(persistedClass);
+    EntityManager em = getEntityManager();
+    try {
+      CriteriaBuilder builder = em.getCriteriaBuilder();
+      CriteriaQuery<T> query = builder.createQuery(persistedClass);
+      query.from(persistedClass);
 
-    // convertendo para ArrayList para ser um tipo aceito pelo hibernate
-    List<T> result = em.createQuery(query).getResultList();
-    ArrayList<T> arrayListResult = new ArrayList<T>(result);
+      // convertendo para ArrayList para ser um tipo aceito pelo hibernate
+      List<T> result = em.createQuery(query).getResultList();
+      ArrayList<T> arrayListResult = new ArrayList<T>(result);
 
-    return arrayListResult;
+      return arrayListResult;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new ArrayList<T>();
+    } finally {
+      em.close();
+    }
   }
 
   @Override
   public T update(T object) {
-    EntityTransaction t = em.getTransaction();
-    t.begin();
-    em.merge(object);
-    em.flush();
-    t.commit();
-    return object;
+    EntityManager em = getEntityManager();
+    try {
+      em.getTransaction().begin();
+      em.merge(object);
+      em.flush();
+      em.getTransaction().commit();
+      return object;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    } finally {
+      em.close();
+    }
   }
 
   @Override
   public boolean deleteById(Integer id) {
+    EntityManager em = getEntityManager();
     try {
       T entity = em.find(persistedClass, id);
       EntityTransaction t = em.getTransaction();
@@ -89,15 +113,25 @@ public class EntityDAO<T> implements IEntityDAO<T> {
       return true;
     } catch (Exception e) {
       return false;
+    } finally {
+      em.close();
     }
   }
 
   public AuditReader getAuditReader() {
-    return AuditReaderFactory.get(em);
+    EntityManager em = getEntityManager();
+    try {
+      return AuditReaderFactory.get(em);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    } finally {
+      em.close();
+    }
   }
 
   public ArrayList<T> getAllAuditory () {
-    AuditReader reader = getAuditReader();
+    AuditReader reader = AuditReaderFactory.get( getEntityManager() );
     AuditQuery query = reader.createQuery().forRevisionsOfEntity(persistedClass, false, true);
     ArrayList<T> newObjects = new ArrayList<T>();
 
