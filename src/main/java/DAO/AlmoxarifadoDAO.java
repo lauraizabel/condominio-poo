@@ -24,7 +24,7 @@ public class AlmoxarifadoDAO extends EntityDAO<Almoxarifado> {
 
             return result;
         } finally {
-            em.close();
+            this.closeConnection(em);
         }
     }
 }

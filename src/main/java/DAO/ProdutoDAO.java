@@ -28,7 +28,7 @@ public class ProdutoDAO extends EntityDAO<Produto> {
 
             return produtos;
         } finally {
-            em.close();
+            this.closeConnection(em);
         }
     }
 }

@@ -23,7 +23,7 @@ public class PedidoDeCompraDAO extends EntityDAO<PedidoDeCompra> {
             ArrayList<PedidoDeCompra> result = new ArrayList<PedidoDeCompra>(query.getResultList());
             return result.get(0);
         } finally {
-            em.close();
+            this.closeConnection(em);
         }
     }
 }

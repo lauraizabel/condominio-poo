@@ -21,7 +21,7 @@ public class UsuarioDAO extends EntityDAO<Usuario> {
             ArrayList<Usuario> usuarios = new ArrayList<Usuario>(query.getResultList());
             return usuarios.get(0);
         } finally {
-            em.close();
+            this.closeConnection(em);
         }
     }
 }

@@ -20,7 +20,7 @@ public class CompraDAO extends EntityDAO<Compra> {
             ArrayList<Compra> compras = new ArrayList<Compra>(query.getResultList());
             return compras;
         } finally {
-            em.close();
+            this.closeConnection(em);
         }
     }
 }
