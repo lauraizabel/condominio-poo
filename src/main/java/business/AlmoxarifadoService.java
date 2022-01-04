@@ -41,7 +41,7 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
             produtoService.update(produto);
             if ( !checkPontoDePedido(produto) ) {
                 // Deletando pedido de compra
-                PedidoDeCompra pedidoDeCompra = pedidoDeCompraService.getByProductId(produto.getId()).get(0);
+                PedidoDeCompra pedidoDeCompra = pedidoDeCompraService.getByProductId(produto.getId());
                 pedidoDeCompraService.deleteById(pedidoDeCompra.getId());
             }
             return almoxarifadoDAO.save(almoxarifado);

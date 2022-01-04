@@ -12,7 +12,7 @@ public class PedidoDeCompraDAO extends EntityDAO<PedidoDeCompra> {
         super(PedidoDeCompra.class);
     }
 
-    public ArrayList<PedidoDeCompra> getByProductId(Integer produtoId) {
+    public PedidoDeCompra getByProductId(Integer produtoId) {
         Query query = this.em.createQuery("from PedidoDeCompra WHERE produto_id=:id");
         query.setParameter("id", produtoId);
 
