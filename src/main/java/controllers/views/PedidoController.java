@@ -56,7 +56,8 @@ public class PedidoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(funcionarioCol, produtoCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems(this.service.getAll()));
+        tableItems = this.listaDeItems(this.service.getAll());
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<PedidoTable> selectionModel = this.tabelaConteudo.getSelectionModel();

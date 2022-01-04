@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
+import java.util.Locale;
+
 public class LoginController {
     UsuarioService usuarioService = new UsuarioService();
 
@@ -24,7 +26,7 @@ public class LoginController {
     @FXML
     protected void submit() {
         String pass = password.getText();
-        String em = email.getText();
+        String em = email.getText().toLowerCase();
 
         boolean correctFields = usuarioService.login(em, pass);
 

@@ -6,7 +6,9 @@ import dados.Fornecedor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -59,7 +61,12 @@ public class EditFornecedorController implements Initializable {
         itemSelected.setEmail(String.valueOf(emailValue.getText()));
 
         // Atualizando item;
-        service.update(itemSelected);
+        try {
+            service.update(itemSelected);
+        } catch (Exception error) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, error.getMessage(), ButtonType.CLOSE);
+            alert.show();
+        }
         this.finish();
     };
 

@@ -50,7 +50,8 @@ public class PedidoDeCompraController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(produtoCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems(this.service.getAll()));
+        tableItems = this.listaDeItems(this.service.getAll());
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<PedidoDeCompraTable> selectionModel = this.tabelaConteudo.getSelectionModel();

@@ -66,7 +66,8 @@ public class CompraController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(produtoCol, funcionarioCol, valorUnitarioCol, dataAlteracaoCol, quantidadeCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems(this.service.getAll()));
+        tableItems = this.listaDeItems(this.service.getAll());
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<CompraTable> selectionModel = this.tabelaConteudo.getSelectionModel();
@@ -87,21 +88,21 @@ public class CompraController implements Initializable {
 
     public ObservableList<CompraTable> listaDeItems(ArrayList<Compra> compraArrayList) {
         this.items = compraArrayList;
-        ArrayList<CompraTable> almoxarifadoTableList = new ArrayList<CompraTable>();
+        ArrayList<CompraTable> compraTableList = new ArrayList<CompraTable>();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        for ( Compra almoxarifado: this.items) {
-            almoxarifadoTableList.add(
+        for ( Compra compra: this.items) {
+            compraTableList.add(
                 new CompraTable(
-                        almoxarifado.getId(),
-                        almoxarifado.getQuantidade(),
-                        almoxarifado.getValorUnitario(),
-                        almoxarifado.getProduto().getNome(),
-                        almoxarifado.getFuncionario().getNome(),
-                        df.format(almoxarifado.getDataAlteracao())
+                        compra.getId(),
+                        compra.getQuantidade(),
+                        compra.getValorUnitario(),
+                        compra.getProduto().getNome(),
+                        compra.getFuncionario().getNome(),
+                        df.format(compra.getDataAlteracao())
                 )
             );
         }
-        return FXCollections.observableArrayList(almoxarifadoTableList);
+        return FXCollections.observableArrayList(compraTableList);
     }
 
     public boolean onDelete() {

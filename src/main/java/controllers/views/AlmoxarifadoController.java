@@ -67,7 +67,8 @@ public class AlmoxarifadoController implements Initializable {
         this.tabelaConteudo.getColumns().setAll(produtoCol, funcionarioCol, quantidadeAdicionadaCol, quantidadeRemovidaCol, dataAlteracaoCol);
 
         // get data from db
-        this.tabelaConteudo.setItems(this.listaDeItems(this.service.getAll()));
+        tableItems = this.listaDeItems(this.service.getAll());
+        this.tabelaConteudo.setItems(tableItems);
 
         // setando configurações de seleção
         TableView.TableViewSelectionModel<AlmoxarifadoTable> selectionModel = this.tabelaConteudo.getSelectionModel();

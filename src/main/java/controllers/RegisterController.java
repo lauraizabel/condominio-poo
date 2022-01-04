@@ -37,6 +37,10 @@ public class RegisterController {
                 throw new Exception("SENHAS NÃO CONFEREM");
             }
 
+            if(pass.length() < 4) {
+                throw new Exception("INSIRA UMA SENHA COM MAIS DE 4 CARACTERES");
+            }
+
             validacao.validaEmail(email.getText());
             Usuario usuario = new Usuario(nome.getText(), email.getText(), pass);
             usuarioService.save(usuario);

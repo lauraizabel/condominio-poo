@@ -34,7 +34,7 @@ public class MainApplication extends Application {
         //stage.setMaximized(true);
         stage.setResizable(false);
         //TODO - trocar para login depois
-        stage.setScene(loginScene);
+        stage.setScene(mainScene);
         stage.show();
     }
 
@@ -53,8 +53,6 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-        CarroServices carro = new CarroServices();
-        carro.getAllAuditory().get(0).getRev();
         launch();
     }
 }

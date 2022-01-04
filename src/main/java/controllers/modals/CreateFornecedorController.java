@@ -5,7 +5,9 @@ import controllers.views.FornecedorController;
 import dados.Fornecedor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -44,7 +46,8 @@ public class CreateFornecedorController {
         try {
             service.save(item);
         } catch (Exception error) {
-            error.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING, error.getMessage(), ButtonType.CLOSE);
+            alert.show();
         }
 
         this.finish();
