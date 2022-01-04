@@ -1,22 +1,18 @@
 package DAO.implementation;
 
 import DAO.IEntityDAO;
-import dados.Fornecedor;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
-import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class EntityDAO<T> implements IEntityDAO<T> {
 
