@@ -42,14 +42,25 @@ public class ApartamentoController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     // create columns
-    TableColumn<ApartamentoTable, String> funcionarioCol = new TableColumn<>("Funcionário");
-    funcionarioCol.setCellValueFactory(new PropertyValueFactory("funcionario"));
+    TableColumn<ApartamentoTable, String> blocoColumn = new TableColumn<>("Bloco");
+    blocoColumn.setCellValueFactory(new PropertyValueFactory("bloco"));
   
-    TableColumn<ApartamentoTable, String> produtoCol = new TableColumn<>("Produto");
-    produtoCol.setCellValueFactory(new PropertyValueFactory("produtos"));
+    TableColumn<ApartamentoTable, Integer> andarColumn = new TableColumn<>("Andar");
+    andarColumn.setCellValueFactory(new PropertyValueFactory("andar"));
+    
+    TableColumn<ApartamentoTable, Integer> numeroColumn = new TableColumn<>("Número");
+    numeroColumn.setCellValueFactory(new PropertyValueFactory("numero"));
+  
+    TableColumn<ApartamentoTable, String> moradoresColumn = new TableColumn<>("Morador");
+    moradoresColumn.setCellValueFactory(new PropertyValueFactory("moradores"));
+  
+    TableColumn<ApartamentoTable, String> carrosColumn = new TableColumn<>("Carro");
+    carrosColumn.setCellValueFactory(new PropertyValueFactory("carros"));
+  
   
     // add columns
-    this.tabelaConteudo.getColumns().setAll(funcionarioCol, produtoCol);
+    this.tabelaConteudo.getColumns().setAll(blocoColumn,andarColumn, numeroColumn,
+        moradoresColumn, carrosColumn);
   
     // get data from db
     tableItems = this.listaDeItems(this.service.getAll());
@@ -124,6 +135,15 @@ public class ApartamentoController implements Initializable {
     Stage stage = new Stage();
     Scene scene = new Scene(new Group());
   
+    TableColumn<ApartamentoTable, String> blocoColumn = new TableColumn<>("Bloco");
+    blocoColumn.setCellValueFactory(new PropertyValueFactory("bloco"));
+  
+    TableColumn<ApartamentoTable, Integer> andarColumn = new TableColumn<>("Andar");
+    andarColumn.setCellValueFactory(new PropertyValueFactory("andar"));
+  
+    TableColumn<ApartamentoTable, Integer> numeroColumn = new TableColumn<>("Número");
+    numeroColumn.setCellValueFactory(new PropertyValueFactory("numero"));
+  
     TableColumn<ApartamentoTable, String> apartamentoColumn = new TableColumn<>("Morador");
     apartamentoColumn.setCellValueFactory(new PropertyValueFactory("moradores"));
   
@@ -131,7 +151,8 @@ public class ApartamentoController implements Initializable {
     carroColumn.setCellValueFactory(new PropertyValueFactory("carros"));
   
     // add columns
-    table.getColumns().setAll(apartamentoColumn, carroColumn);
+    table.getColumns().setAll(blocoColumn, andarColumn, numeroColumn, apartamentoColumn,
+        carroColumn);
     table.setItems(apartamentos);
     ((Group) scene.getRoot()).getChildren().addAll(table);
   
