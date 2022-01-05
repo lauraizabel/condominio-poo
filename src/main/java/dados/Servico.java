@@ -7,7 +7,7 @@ import javax.persistence.*;
 import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
 
 @Entity
-@Audited(targetAuditMode = NOT_AUDITED)
+@Audited
 public class Servico extends CustomAuditory<Servico> {
 
     @Id

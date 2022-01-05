@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Audited
 public class Almoxarifado extends CustomAuditory<Almoxarifado> {
     @Id
     @GeneratedValue

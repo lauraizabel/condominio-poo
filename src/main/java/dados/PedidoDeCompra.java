@@ -5,7 +5,6 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Audited
 public class PedidoDeCompra extends CustomAuditory<PedidoDeCompra> {
     @Id
     @GeneratedValue

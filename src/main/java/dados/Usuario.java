@@ -5,7 +5,6 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Audited
 @Table(name = "usuario")
 public class Usuario extends CustomAuditory<Servico> {
     @Id
