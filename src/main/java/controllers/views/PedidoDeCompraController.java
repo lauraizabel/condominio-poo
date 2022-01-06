@@ -109,31 +109,6 @@ public class PedidoDeCompraController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
-    public void onAuditory() throws IOException {
-        this.createModalAuditory();
-    }
-
-    private void createModalAuditory () throws IOException {
-        ObservableList<PedidoDeCompraTable> moradorArray = listaDeItems(this.service.getAllAuditory());
-
-        TableView table = new TableView();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-
-        TableColumn<PedidoDeCompraTable, Produto> produtoCol = new TableColumn<PedidoDeCompraTable, Produto>("Produto");
-        produtoCol.setCellValueFactory(new PropertyValueFactory("produto"));
-
-        table.getColumns().setAll(produtoCol);
-        table.setItems(moradorArray);
-        ((Group) scene.getRoot()).getChildren().addAll(table);
-
-        stage.setScene(scene);
-        stage.setTitle("Auditoria");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
-    }
-
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/pedidoDeCompra-modal.fxml"));
         loader.setController(controller);

@@ -1,6 +1,7 @@
 package business;
 
 import DAO.PedidoDAO;
+import dados.Auditoria;
 import dados.Pedido;
 import dados.PedidoDeCompra;
 
@@ -35,7 +36,7 @@ public class PedidoService  implements IService<Pedido>{
     }
 
     @Override
-    public ArrayList<Pedido> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return pedidoDAO.getAllAuditory();
     }
 }

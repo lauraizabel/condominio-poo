@@ -1,5 +1,7 @@
 package DAO;
 
+import dados.Auditoria;
+
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 
@@ -16,5 +18,5 @@ public interface IEntityDAO<T> {
 
     boolean deleteById(Integer id);
 
-    ArrayList<T> getAllAuditory();
+    ArrayList<Auditoria> getAllAuditory();
 }

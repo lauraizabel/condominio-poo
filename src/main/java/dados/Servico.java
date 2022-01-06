@@ -4,11 +4,8 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
-import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
-
 @Entity
-@Audited
-public class Servico extends CustomAuditory<Servico> {
+public class Servico {
 
     @Id
     @GeneratedValue

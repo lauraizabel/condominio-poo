@@ -5,7 +5,13 @@ public enum TipoAuditoria {
     EDITADO("EDITANDO"),
     DELETADO("DELETANDO");
 
+    private String auditoria;
 
     TipoAuditoria(String auditoria) {
+        this.auditoria = auditoria;
+    }
+
+    public String getAuditoria() {
+        return auditoria;
     }
 }

@@ -131,42 +131,6 @@ public class CompraController implements Initializable {
     }
 
     public void onAuditory() throws IOException {
-        this.createModalAuditory();
-    }
-
-    private void createModalAuditory () throws IOException {
-        ObservableList<CompraTable> compraTable = listaDeItems(this.service.getAllAuditory());
-
-        TableView table = new TableView();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-
-        TableColumn<CompraTable, String> produtoCol = new TableColumn<CompraTable, String>("Produto");
-        produtoCol.setCellValueFactory(new PropertyValueFactory("produto"));
-
-        TableColumn<CompraTable, String> funcionarioCol = new TableColumn<CompraTable, String>("Funcionário");
-        funcionarioCol.setCellValueFactory(new PropertyValueFactory("funcionario"));
-
-        TableColumn<CompraTable, Integer> quantidadeCol = new TableColumn<CompraTable, Integer>("Quantidade");
-        quantidadeCol.setCellValueFactory(new PropertyValueFactory("quantidade"));
-
-        TableColumn<CompraTable, Integer> valorUnitarioCol = new TableColumn<CompraTable, Integer>("Valor Unitário");
-        valorUnitarioCol.setCellValueFactory(new PropertyValueFactory("valorUnitario"));
-
-        TableColumn<CompraTable, Date> dataAlteracaoCol = new TableColumn<CompraTable, Date>("Data");
-        dataAlteracaoCol.setCellValueFactory(new PropertyValueFactory("dataAlteracao"));
-
-
-        // add columns
-        table.getColumns().setAll(produtoCol, funcionarioCol, valorUnitarioCol, dataAlteracaoCol, quantidadeCol);
-        table.setItems(compraTable);
-        ((Group) scene.getRoot()).getChildren().addAll(table);
-
-        stage.setScene(scene);
-        stage.setTitle("Auditoria");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
     }
 
     private void createModal(String title, Object controller) throws IOException {

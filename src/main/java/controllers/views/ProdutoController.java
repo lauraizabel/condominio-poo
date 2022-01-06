@@ -134,47 +134,6 @@ public class ProdutoController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
-    public void onAuditory() throws IOException {
-        this.createModalAuditory();
-    }
-
-    private void createModalAuditory () throws IOException {
-        ObservableList<ProdutoTable> produtoTable = listaDeItems(this.service.getAllAuditory());
-
-        TableView table = new TableView();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-
-        TableColumn id = new TableColumn("ID");
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-        TableColumn codigo = new TableColumn("Código");
-        codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-
-        TableColumn pontodepedido = new TableColumn("Ponto de Pedido");
-        pontodepedido.setCellValueFactory(new PropertyValueFactory<>("pontodepedido"));
-
-        TableColumn nome = new TableColumn("Nome");
-        nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-
-        TableColumn quantidade = new TableColumn("Quantidade");
-        quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-
-        TableColumn fornecedor = new TableColumn("Fornecedor");
-        fornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
-
-        table.getColumns().addAll(id, codigo, nome, pontodepedido, fornecedor);
-        table.setItems(produtoTable);
-        ((Group) scene.getRoot()).getChildren().addAll(table);
-
-        stage.setScene(scene);
-        stage.setTitle("Auditoria");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
-    }
-
-
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/produto-modal.fxml"));
         loader.setController(controller);

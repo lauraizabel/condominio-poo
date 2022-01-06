@@ -117,42 +117,6 @@ public class MoradorController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
-    public void onAuditory() throws IOException {
-        this.createModalAuditory();
-    }
-
-    private void createModalAuditory () throws IOException {
-        ObservableList<MoradorTable> morador = listaDeItems(this.service.getAllAuditory());
-
-        TableView table = new TableView();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-
-        TableColumn<MoradorTable, String> nomeCol = new TableColumn<>("Nome");
-        nomeCol.setCellValueFactory(new PropertyValueFactory("nome"));
-
-        TableColumn<MoradorTable, String> telefoneCol = new TableColumn<>("Telefone");
-        telefoneCol.setCellValueFactory(new PropertyValueFactory("telefone"));
-
-        TableColumn<MoradorTable, String> emailCol = new TableColumn<>("Email");
-        emailCol.setCellValueFactory(new PropertyValueFactory("email"));
-
-        TableColumn<MoradorTable, String> cpfCol = new TableColumn<>("CPF");
-        cpfCol.setCellValueFactory(new PropertyValueFactory("cpf"));
-
-        table.getColumns().setAll(nomeCol, telefoneCol, emailCol, cpfCol);
-        table.setItems(morador);
-        ((Group) scene.getRoot()).getChildren().addAll(table);
-
-        stage.setScene(scene);
-        stage.setTitle("Auditoria");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
-    }
-
-
-
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/morador-modal.fxml"));
         loader.setController(controller);

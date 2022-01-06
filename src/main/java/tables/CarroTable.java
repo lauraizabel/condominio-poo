@@ -3,7 +3,7 @@ package tables;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class CarroTable {
+public class CarroTable extends AuditoriaTable {
     private final SimpleIntegerProperty id;
     private final SimpleStringProperty modelo;
     private final SimpleStringProperty placa;
@@ -11,8 +11,11 @@ public class CarroTable {
     public CarroTable(
             Integer id,
             String modelo,
-            String placa
+            String placa,
+            String dataAlteracao,
+            String tipoAlteracao
     ) {
+        super(dataAlteracao, tipoAlteracao);
         this.id = new SimpleIntegerProperty(id);
         this.modelo = new SimpleStringProperty(modelo);
         this.placa = new SimpleStringProperty(placa);

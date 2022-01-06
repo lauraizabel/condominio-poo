@@ -1,13 +1,17 @@
 package business;
 
 import DAO.CarroDAO;
-import dados.Apartamento;
+import dados.Auditoria;
 import dados.Carro;
+import enums.TipoAuditoria;
+import validation.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public class CarroServices implements IService<Carro>{
+public class CarroServices implements IService<Carro> {
     private CarroDAO carroDAO = new CarroDAO();
+    private AuditoriaService auditoriaService = new AuditoriaService();
 
     @Override
     public Carro getById(Integer id) {
@@ -26,16 +30,33 @@ public class CarroServices implements IService<Carro>{
 
     @Override
     public boolean save(Carro carro) {
-        return carroDAO.save(carro);
+        try {
+            String carString = utils.createObjectMapper().writeValueAsString(carro);
+            Auditoria auditoria = new Auditoria(new Date(), carString, TipoAuditoria.CRIADO, Carro.class.getName());
+            this.auditoriaService.save(auditoria);
+            return carroDAO.save(carro);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public Carro update(Carro carro) {
-        return carroDAO.update(carro);
+        try {
+            String carString = utils.createObjectMapper().writeValueAsString(carro);
+            Auditoria auditoria = new Auditoria(new Date(), carString, TipoAuditoria.CRIADO, Carro.class.getName());
+            this.auditoriaService.save(auditoria);
+            carroDAO.update(carro);
+            return carro;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return carro;
+        }
     }
 
     @Override
-    public ArrayList<Carro> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return carroDAO.getAllAuditory();
     }
 }

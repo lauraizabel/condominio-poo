@@ -3,6 +3,7 @@ package business;
 import DAO.ApartamentoDAO;
 import dados.Almoxarifado;
 import dados.Apartamento;
+import dados.Auditoria;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ApartamentoService  implements IService<Apartamento>{
     }
 
     @Override
-    public ArrayList<Apartamento> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return apartamentoDAO.getAllAuditory();
     }
 }

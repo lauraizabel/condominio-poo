@@ -123,43 +123,6 @@ public class EspacoController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
-    public void onAuditory() throws IOException {
-        this.createModalAuditory();
-    }
-
-    private void createModalAuditory () throws IOException {
-        ObservableList<EspacoTable> espacoArrayList = listaDeItems(this.service.getAllAuditory());
-
-        TableView table = new TableView();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-
-        TableColumn id = new TableColumn("ID");
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-        TableColumn capacidade = new TableColumn("Capacidade");
-        capacidade.setCellValueFactory(new PropertyValueFactory<>("capacidade"));
-
-        TableColumn custoreserva = new TableColumn("Custo Reserva");
-        custoreserva.setCellValueFactory(new PropertyValueFactory<>("custoreserva"));
-
-        TableColumn nome = new TableColumn("Nome");
-        nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-
-        TableColumn ocupado = new TableColumn("Ocupado");
-        ocupado.setCellValueFactory(new PropertyValueFactory<>("ocupado"));
-
-        table.getColumns().addAll(id, capacidade, custoreserva, nome, ocupado);
-        table.setItems(espacoArrayList);
-        ((Group) scene.getRoot()).getChildren().addAll(table);
-
-        stage.setScene(scene);
-        stage.setTitle("Auditoria");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
-    }
-
 
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/espaco-modal.fxml"));

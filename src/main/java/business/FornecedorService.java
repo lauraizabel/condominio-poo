@@ -3,6 +3,7 @@ package business;
 import DAO.FornecedorDAO;
 import DAO.IEntityDAO;
 import DAO.implementation.EntityDAO;
+import dados.Auditoria;
 import dados.Fornecedor;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.query.AuditEntity;
@@ -50,7 +51,7 @@ public class FornecedorService implements IService<Fornecedor> {
     }
 
     @Override
-    public ArrayList<Fornecedor> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return fornecedorDAO.getAllAuditory();
     }
 }

@@ -1,6 +1,7 @@
 package business;
 
 import DAO.ReservaDAO;
+import dados.Auditoria;
 import dados.PedidoDeCompra;
 import dados.Reserva;
 
@@ -35,7 +36,7 @@ public class ReservaService implements IService<Reserva> {
     }
 
     @Override
-    public ArrayList<Reserva> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return reservaDAO.getAllAuditory();
     }
 }

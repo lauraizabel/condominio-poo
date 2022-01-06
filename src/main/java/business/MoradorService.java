@@ -3,6 +3,7 @@ package business;
 import java.util.ArrayList;
 
 import DAO.MoradorDAO;
+import dados.Auditoria;
 import dados.Espaco;
 import dados.Morador;
 import validation.validacao;
@@ -39,7 +40,7 @@ public class MoradorService implements IService<Morador> {
     }
 
     @Override
-    public ArrayList<Morador> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return moradorDAO.getAllAuditory();
     }
 }

@@ -1,6 +1,7 @@
 package application;
 
 import business.CarroServices;
+import dados.Auditoria;
 import dados.Carro;
 import enums.Screens;
 import javafx.application.Application;

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class Carro extends CustomAuditory<Carro> implements Serializable {
+public class Carro implements Serializable {
     @Id @GeneratedValue
     private Integer id;
     private String modelo;
