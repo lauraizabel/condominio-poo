@@ -7,28 +7,28 @@ import controllers.views.ApartamentoController;
 import dados.Apartamento;
 import dados.Carro;
 import dados.Morador;
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
 public class CreateApartamentoController implements Initializable {
-  
   ApartamentoService service = new ApartamentoService();
   MoradorService moradorService = new MoradorService();
   CarroServices carroService = new CarroServices();
-  
+
   private static ArrayList<Morador> moradores;
-  private static ArrayList<Carro>   carros;
-  private static ObservableList<String> selected;
-  private static ObservableList<String> carsSelected;
+  private static ArrayList<Carro> carros;
+  private static ObservableList<String> moradorSelected;
+  private static ObservableList<String> carroSelected;
   
   @FXML
   TextField blocoValue;
@@ -40,50 +40,45 @@ public class CreateApartamentoController implements Initializable {
   TextField numeroValue;
   
   @FXML
-  CheckComboBox<String> moradoresValue;
+  CheckComboBox<String> moradorValues;
   
   @FXML
-  CheckComboBox<String> carrosValue;
+  CheckComboBox<String> carroValues;
   
   @FXML
   private javafx.scene.control.Button submitButton;
   
-  
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    this.carrosValue.getItems().addAll(FXCollections.observableList(getCarros()));
-    carrosValue.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c ->
-        carsSelected = carrosValue.getCheckModel().getCheckedItems()
+    this.carroValues.getItems().addAll(FXCollections.observableList(getCarros()));
+    carroValues.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c ->
+        carroSelected = carroValues.getCheckModel().getCheckedItems()
     );
     
-    this.moradoresValue.getItems().addAll(getMoradores());
-    moradoresValue.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c ->
-        selected = moradoresValue.getCheckModel().getCheckedItems()
+    this.moradorValues.getItems().addAll(FXCollections.observableList(getMoradores()));
+    moradorValues.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c ->
+        moradorSelected = moradorValues.getCheckModel().getCheckedItems()
     );
   }
   
   private ObservableList<String> getMoradores() {
    moradores = this.moradorService.getAll();
    ArrayList<String> moradoresList = new ArrayList<>();
-   
    moradores.forEach(morador -> moradoresList.add(morador.getNome()));
-   
    return FXCollections.observableArrayList(moradoresList);
   }
   
   private ObservableList<String> getCarros() {
     carros = this.carroService.getAll();
-    
     ArrayList<String> carrosList = new ArrayList<>();
-    carros.forEach(carro -> carrosList.add(carro.getModelo()));
-    
+    carros.forEach(carro -> carrosList.add(carro.getPlaca()));
     return FXCollections.observableArrayList(carrosList);
   }
   
   @FXML
-  public void handleSubmit(ActiveEvent e) {
-    ObservableList<Integer> carrosIdx = carrosValue.getCheckModel().getCheckedIndices();
-    ObservableList<Integer> moradoresIdx = moradoresValue.getCheckModel().getCheckedIndices();
+  public void handleSubmit(ActionEvent e) {
+    ObservableList<Integer> carrosIdx = carroValues.getCheckModel().getCheckedIndices();
+    ObservableList<Integer> moradoresIdx = moradorValues.getCheckModel().getCheckedIndices();
     ArrayList<Carro> carroList = new ArrayList<>();
     ArrayList<Morador> moradorList = new ArrayList<>();
     

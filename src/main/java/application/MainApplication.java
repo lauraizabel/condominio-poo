@@ -32,7 +32,7 @@ public class MainApplication extends Application {
 
         stage.setTitle("Condomínio POO");
         //TODO - trocar para login depois
-        stage.setScene(loginScene);
+        stage.setScene(mainScene);
         stage.setResizable(false);
         stage.show();
     }
