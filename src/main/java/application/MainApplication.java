@@ -31,10 +31,9 @@ public class MainApplication extends Application {
         //stage.initStyle(StageStyle.UNDECORATED);
 
         stage.setTitle("Condomínio POO");
-        //stage.setMaximized(true);
-        stage.setResizable(false);
         //TODO - trocar para login depois
-        stage.setScene(mainScene);
+        stage.setScene(loginScene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -42,12 +41,15 @@ public class MainApplication extends Application {
         switch (screen){
             case REGISTER:
                 stage.setScene(registerScene);
+                stage.setResizable(false);
                 break;
             case MAIN:
                 stage.setScene(mainScene);
+                stage.setMaximized(true);
                 break;
             case LOGIN:
                 stage.setScene(loginScene);
+                stage.setResizable(false);
                 break;
         }
     }

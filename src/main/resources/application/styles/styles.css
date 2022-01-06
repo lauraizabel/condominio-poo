@@ -1,27 +1,8 @@
-*{
-
-    -fx-border-color: rgba(0, 0, 0, 0);
-    -fx-text-fill: #D5D8DC ;
-    -fx-background-color: #34495E;
-}
-
 .text-field {
     -fx-border-color: #fff;
     -fx-border-radius: 5;
 }
 
-.combo-box {
-    -fx-background-color: #273746;
-    -fx-text-fill: #D5D8DC;
-}
-.combo-box:hover {
-    -fx-background-color: #17202A;
-}
-
-.table-view {
-    -fx-background-color: #fff;
-    -fx-border-color: #000;
-}
 .table-view.cell{
     -fx-border-color: #000;
 }
