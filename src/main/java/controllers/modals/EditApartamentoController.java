@@ -7,7 +7,6 @@ import controllers.views.ApartamentoController;
 import dados.Apartamento;
 import dados.Carro;
 import dados.Morador;
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +14,11 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
@@ -29,8 +30,8 @@ public class EditApartamentoController implements Initializable {
   private static ArrayList<Morador> moradores;
   private static ArrayList<Carro>   carros;
   private static Apartamento        apartamento;
-  private static ObservableList<String> selected;
-  private static ObservableList<String> carsSelected;
+  private static ObservableList<String> moradorSelected;
+  private static ObservableList<String> carroSelected;
   
   @FXML
   TextField blocoValue;
@@ -42,10 +43,11 @@ public class EditApartamentoController implements Initializable {
   TextField numeroValue;
   
   @FXML
-  CheckComboBox<String> moradoresValue;
+  CheckComboBox<String> moradorValues
+          ;
   
   @FXML
-  CheckComboBox<String> carrosValue;
+  CheckComboBox<String> carroValues;
   
   @FXML
   private Button submitButton;
@@ -56,33 +58,34 @@ public class EditApartamentoController implements Initializable {
   
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    this.carrosValue.getItems().addAll(FXCollections.observableList(getCarros()));
-    carrosValue.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c ->
-        carsSelected = carrosValue.getCheckModel().getCheckedItems()
+    this.carroValues.getItems().addAll(FXCollections.observableList(getCarros()));
+    carroValues.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c ->
+        carroSelected = carroValues.getCheckModel().getCheckedItems()
+    );
+
+    this.moradorValues.getItems().addAll(FXCollections.observableList(getMoradores()));
+    moradorValues.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c ->
+        moradorSelected = moradorValues.getCheckModel().getCheckedItems()
     );
     
     ArrayList<Integer> moradorIndexes = getMoradoresIndex(apartamento.getMoradores());
     for (Integer i: moradorIndexes) {
-      this.moradoresValue.getCheckModel().check(i);
+      this.moradorValues.getCheckModel().check(i);
     }
     
     ArrayList<Integer> carroIndexes = getCarrosIndex(apartamento.getCarros());
     for (Integer i: carroIndexes) {
-      this.carrosValue.getCheckModel().check(i);
+      this.carroValues.getCheckModel().check(i);
     }
-    
-    this.moradoresValue.getItems().addAll(getMoradores());
-    moradoresValue.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c ->
-        selected = moradoresValue.getCheckModel().getCheckedItems()
-    );
   }
   
   private ArrayList<Integer> getMoradoresIndex(List<Morador> moradores) {
     ArrayList<Integer> indexes = new ArrayList<>();
-    
-    for(int i = 0; i < this.moradoresValue.getItems().size(); i++) {
+    for(int i = 0; i < this.moradorValues
+            .getItems().size(); i++) {
       for (Morador morador: moradores) {
-        if (this.moradoresValue.getItems().get(i).equals(morador.getNome())) {
+        if (this.moradorValues
+                .getItems().get(i).equals(morador.getNome())) {
           indexes.add(i);
         }
       }
@@ -93,9 +96,9 @@ public class EditApartamentoController implements Initializable {
   private ArrayList<Integer> getCarrosIndex(List<Carro> carros) {
     ArrayList<Integer> indexes = new ArrayList<>();
     
-    for (int i = 0; i < this.carrosValue.getItems().size(); i++) {
+    for (int i = 0; i < this.carroValues.getItems().size(); i++) {
       for (Carro carro: carros) {
-        if (this.carrosValue.getItems().get(i).equals(carro.getModelo())) {
+        if (this.carroValues.getItems().get(i).equals(carro.getModelo())) {
           indexes.add(i);
         }
       }
@@ -122,9 +125,9 @@ public class EditApartamentoController implements Initializable {
   }
   
   @FXML
-  public void handleSubmit(ActiveEvent e) {
-    ObservableList<Integer> carrosIdx = carrosValue.getCheckModel().getCheckedIndices();
-    ObservableList<Integer> moradoresIdx = moradoresValue.getCheckModel().getCheckedIndices();
+  public void handleSubmit(ActionEvent e) {
+    ObservableList<Integer> carrosIdx = carroValues.getCheckModel().getCheckedIndices();
+    ObservableList<Integer> moradoresIdx = moradorValues.getCheckModel().getCheckedIndices();
     ArrayList<Carro> carroList = new ArrayList<>();
     ArrayList<Morador> moradorList = new ArrayList<>();
     
@@ -136,7 +139,7 @@ public class EditApartamentoController implements Initializable {
       moradorList.add(moradores.get(i));
     }
     
-    apartamento.setBloco(andarValue.getText());
+    apartamento.setBloco(blocoValue.getText());
     apartamento.setAndar(Integer.parseInt(andarValue.getText()));
     apartamento.setNumApartamento(Integer.parseInt(numeroValue.getText()));
     apartamento.setCarros(carroList);
@@ -154,5 +157,4 @@ public class EditApartamentoController implements Initializable {
     Stage stage = (Stage) submitButton.getScene().getWindow();
     stage.close();
   }
-  
 }

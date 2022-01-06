@@ -4,14 +4,15 @@ import business.ApartamentoService;
 import controllers.TableButtonsController;
 import controllers.modals.CreateApartamentoController;
 import controllers.modals.EditApartamentoController;
-import dados.Apartamento;
-import dados.Carro;
-import dados.Pessoa;
+import dados.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -27,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tables.ApartamentoTable;
-
+import tables.CarroTable;
 
 
 public class ApartamentoController implements Initializable {
@@ -59,8 +60,7 @@ public class ApartamentoController implements Initializable {
   
   
     // add columns
-    this.tabelaConteudo.getColumns().setAll(blocoColumn,andarColumn, numeroColumn,
-        moradoresColumn, carrosColumn);
+    this.tabelaConteudo.getColumns().setAll(blocoColumn, andarColumn, numeroColumn, moradoresColumn, carrosColumn);
   
     // get data from db
     tableItems = this.listaDeItems(this.service.getAll());
@@ -69,13 +69,15 @@ public class ApartamentoController implements Initializable {
     // setando configurações de seleção
     TableView.TableViewSelectionModel<ApartamentoTable> selectionModel = this.tabelaConteudo.getSelectionModel();
     selectionModel.setSelectionMode(SelectionMode.SINGLE);
-  
-    // escutar mudança nos selecionados
+
     ObservableList<ApartamentoTable> selectedItems = selectionModel.getSelectedItems();
-    selectedItems.addListener((ListChangeListener<ApartamentoTable>) change -> {
-      // atualizar o selecionado
-      if (change.getList().size() > 0) {
-        itemSelecionado = change.getList().get(0);
+    selectedItems.addListener(new ListChangeListener<ApartamentoTable>() {
+      @Override
+      public void onChanged(Change<? extends ApartamentoTable> change) {
+        // atualizar o selecionado
+        if ( change.getList().size() > 0 ) {
+          itemSelecionado = change.getList().get(0);
+        }
       }
     });
   }
@@ -90,12 +92,28 @@ public class ApartamentoController implements Initializable {
               item.getBloco(),
               item.getAndar(),
               item.getNumApartamento(),
-              item.getMoradores().stream().map(Pessoa::getNome).collect(Collectors.joining(", ")),
-              item.getCarros().stream().map(Carro::getModelo).collect(Collectors.joining(", "))
+              this.ListToStringMoradores(item.getMoradores()),
+              this.ListToStringCarros(item.getCarros())
           )
       );
     }
     return FXCollections.observableArrayList(itemTableList);
+  }
+
+  public String ListToStringMoradores(List<Morador> list) {
+    String result = new String();
+    for (Morador item: list) {
+      result += item.getNome() + ", " ;
+    }
+    return result.substring(0, result.length() - 2);
+  }
+
+  public String ListToStringCarros(List<Carro> list) {
+    String result = new String();
+    for (Carro item: list) {
+      result += item.getPlaca() + ", " ;
+    }
+    return result.substring(0, result.length() - 2);
   }
   
   public boolean onDelete() {
@@ -151,8 +169,7 @@ public class ApartamentoController implements Initializable {
     carroColumn.setCellValueFactory(new PropertyValueFactory("carros"));
   
     // add columns
-    table.getColumns().setAll(blocoColumn, andarColumn, numeroColumn, apartamentoColumn,
-        carroColumn);
+    table.getColumns().addAll(blocoColumn, andarColumn, numeroColumn, apartamentoColumn, carroColumn);
     table.setItems(apartamentos);
     ((Group) scene.getRoot()).getChildren().addAll(table);
   
@@ -180,15 +197,18 @@ public class ApartamentoController implements Initializable {
     this.cleanTableContent();
     this.populateTableContent();
   }
-  
-  private void cleanTableContent() {
-    int tableItemsSize = tableItems.size();
-    if (tableItemsSize > 0) {
-      tableItems.subList(0, tableItemsSize).clear();
+
+  public void cleanTableContent() {
+    // removendo itens de trás para frente (para a remoção não interferir no index)
+    Integer tableItemsSize = tableItems.size();
+    for (int i = tableItemsSize - 1; i >= 0; i--) {
+      tableItems.remove(i);
     }
   }
-  
   private void populateTableContent() {
-    tableItems.addAll(this.listaDeItems(this.service.getAll()));
+    // adicionando novos itens
+    for (ApartamentoTable item: this.listaDeItems(this.service.getAll())) {
+      tableItems.add(item);
+    }
   }
 }
