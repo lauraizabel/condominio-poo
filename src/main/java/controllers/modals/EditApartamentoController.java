@@ -33,6 +33,15 @@ public class EditApartamentoController implements Initializable {
   private static ObservableList<String> carsSelected;
   
   @FXML
+  TextField blocoValue;
+  
+  @FXML
+  TextField andarValue;
+  
+  @FXML
+  TextField numeroValue;
+  
+  @FXML
   CheckComboBox<String> moradoresValue;
   
   @FXML
@@ -127,6 +136,9 @@ public class EditApartamentoController implements Initializable {
       moradorList.add(moradores.get(i));
     }
     
+    apartamento.setBloco(andarValue.getText());
+    apartamento.setAndar(Integer.parseInt(andarValue.getText()));
+    apartamento.setNumApartamento(Integer.parseInt(numeroValue.getText()));
     apartamento.setCarros(carroList);
     apartamento.setMoradores(moradorList);
     

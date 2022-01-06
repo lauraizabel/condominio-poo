@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
-<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../styles/styles.css">
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane prefHeight="400.0" prefWidth="600.0">
             <columnConstraints>
@@ -63,28 +65,27 @@
                                 <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="Moradores:">
-                            <VBox.margin>
-                                <Insets left="20.0" right="20.0" top="10.0" />
-                            </VBox.margin>
-                        </Label>
-                        <CheckComboBox fx:id="moradoresValue" prefHeight="25.0"
-                                       prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <VBox.margin>
-                                <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
-                            </VBox.margin>
-                        </CheckComboBox>
-                        <Label text="Carros:">
-                            <VBox.margin>
-                                <Insets left="20.0" right="20.0" top="10.0" />
-                            </VBox.margin>
-                        </Label>
-                        <CheckComboBox fx:id="carrosValue" prefHeight="25.0"
-                                       prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <VBox.margin>
-                                <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
-                            </VBox.margin>
-                        </CheckComboBox>
+                  <Label layoutX="31.0" layoutY="175.0" text="Moradores:">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </Label>
+                  <CheckComboBox prefHeight="28.0" prefWidth="198.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </CheckComboBox>
+                  <Label layoutX="11.0" layoutY="232.0" text="Carros:">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </Label>
+                  <CheckComboBox layoutX="11.0" layoutY="250.0" prefHeight="28.0" prefWidth="198.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </CheckComboBox>
+
                         <GridPane>
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -93,7 +94,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button fx:id="submitButton" onAction="#handleSubmit" minWidth="-Infinity" mnemonicParsing="false" prefWidth="150.0" text="Salvar" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="submitButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSubmit" prefWidth="150.0" text="Salvar" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                             </children>
                             <VBox.margin>
                                 <Insets top="20.0" />
