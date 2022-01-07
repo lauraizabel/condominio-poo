@@ -57,13 +57,13 @@ public class FuncionarioController implements Initializable {
     salarioColumn.setCellValueFactory(new PropertyValueFactory("salario"));
   
     TableColumn<FuncionarioTable, String> enderecoColumn = new TableColumn<>("Endereço");
-    enderecoColumn.setCellValueFactory(new PropertyValueFactory("endereço"));
+    enderecoColumn.setCellValueFactory(new PropertyValueFactory("endereco"));
   
     TableColumn<FuncionarioTable, Date> dataAdmissaoColumn = new TableColumn<>("Data de Admissão");
-    dataAdmissaoColumn.setCellValueFactory(new PropertyValueFactory("data admissao"));
+    dataAdmissaoColumn.setCellValueFactory(new PropertyValueFactory("dataAdmissao"));
   
     TableColumn<FuncionarioTable, Date> dataDemissaoColumn = new TableColumn<>("Data de Demissão");
-    dataDemissaoColumn.setCellValueFactory(new PropertyValueFactory("data demissao"));
+    dataDemissaoColumn.setCellValueFactory(new PropertyValueFactory("dataDemissao"));
   
     this.tabelaConteudo.getColumns().setAll(nomeCol, cpfCol, emailCol, telefoneCol, cargoColumn,
         salarioColumn, enderecoColumn, dataAdmissaoColumn, dataDemissaoColumn);

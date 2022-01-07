@@ -5,14 +5,13 @@ import controllers.views.FuncionarioController;
 import dados.Funcionario;
 import java.net.URL;
 import java.sql.Date;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class EditFuncionarioController implements Initializable {
@@ -41,10 +40,10 @@ public class EditFuncionarioController implements Initializable {
   TextField enderecoValue;
   
   @FXML
-  TextField dataAdmissaoValue;
+  DatePicker dataAdmissaoValue;
   
   @FXML
-  TextField dataDemissaoValue;
+  DatePicker dataDemissaoValue;
   
   @FXML
   private Button submitButton;
@@ -62,22 +61,27 @@ public class EditFuncionarioController implements Initializable {
     this.cargoValue.setText(itemSelected.getCargo());
     this.salarioValue.setText(itemSelected.getSalario().toString());
     this.enderecoValue.setText(itemSelected.getEndereco());
-    this.dataAdmissaoValue.setText(itemSelected.getDataAdmissao().toString());
-    this.dataDemissaoValue.setText(itemSelected.getDataDemissao().toString());
+
+    this.dataAdmissaoValue.setValue(itemSelected.getDataAdmissao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    this.dataDemissaoValue.setValue(itemSelected.getDataDemissao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
   }
   
   @FXML
   public void handleSubmit(ActionEvent e) {
     // alterando item usando campos
+    Instant instantAdimissao = Instant.from(dataAdmissaoValue.getValue().atStartOfDay(ZoneId.of("GMT-3")));
+    itemSelected.setDataAdmissao(java.util.Date.from(instantAdimissao));
+
+    Instant instantDemissao = Instant.from(dataDemissaoValue.getValue().atStartOfDay(ZoneId.of("GMT-3")));
+    itemSelected.setDataDemissao(java.util.Date.from(instantDemissao));
+
     itemSelected.setNome(String.valueOf(nomeValue.getText()));
     itemSelected.setTelefone(String.valueOf(telefoneValue.getText()));
     itemSelected.setEmail(String.valueOf(emailValue.getText()));
     itemSelected.setCpf(String.valueOf(cpfValue.getText()));
-    itemSelected.setCargo(String.valueOf(cargoValue));
+    itemSelected.setCargo(String.valueOf(cargoValue.getText()));
     itemSelected.setSalario(Double.valueOf(salarioValue.getText()));
-    itemSelected.setEndereco(String.valueOf(enderecoValue));
-    itemSelected.setDataAdmissao(Date.valueOf(dataAdmissaoValue.getText()));
-    itemSelected.setDataDemissao(Date.valueOf(dataDemissaoValue.getText()));
+    itemSelected.setEndereco(String.valueOf(enderecoValue.getText()));
     
     // Atualizando item;
     try {

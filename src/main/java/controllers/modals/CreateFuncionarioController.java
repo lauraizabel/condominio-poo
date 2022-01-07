@@ -4,6 +4,9 @@ import business.FuncionarioService;
 import controllers.views.FuncionarioController;
 import dados.Funcionario;
 import java.sql.Date;
+import java.time.Instant;
+import java.time.ZoneId;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,10 +39,10 @@ public class CreateFuncionarioController {
   TextField enderecoValue;
   
   @FXML
-  TextField dataAdmissaoValue;
+  DatePicker dataAdmissaoValue;
   
   @FXML
-  TextField dataDemissaoValue;
+  DatePicker dataDemissaoValue;
   
   @FXML
   private Button submitButton;
@@ -47,24 +50,31 @@ public class CreateFuncionarioController {
   @FXML
   public void handleSubmit(ActionEvent e) {
     // Criando novo produto
+
+    Instant instantAdmissao = Instant.from(dataAdmissaoValue.getValue().atStartOfDay(ZoneId.of("GMT-3")));
+    Instant instantDemissao = Instant.from(dataDemissaoValue.getValue().atStartOfDay(ZoneId.of("GMT-3")));
     
     Funcionario item = new Funcionario(
-        String.valueOf(nomeValue),
-        String.valueOf(telefoneValue),
-        String.valueOf(emailValue),
-        String.valueOf(cpfValue),
-        String.valueOf(cargoValue),
+        String.valueOf(nomeValue.getText()),
+        String.valueOf(telefoneValue.getText()),
+        String.valueOf(emailValue.getText()),
+        String.valueOf(cpfValue.getText()),
+        String.valueOf(cargoValue.getText()),
         Double.valueOf(salarioValue.getText()),
-        String.valueOf(enderecoValue),
-        Date.valueOf(dataAdmissaoValue.getText()),
-        Date.valueOf(dataDemissaoValue.getText())
+        String.valueOf(enderecoValue.getText()),
+        java.util.Date.from(instantAdmissao),
+        java.util.Date.from(instantDemissao)
     );
-    
+
+    System.out.println(item.getNome());
+    System.out.println(item.getDataAdmissao());
+
     try {
       service.save(item);
     } catch (Exception error) {
       error.printStackTrace();
     }
+
     this.finish();
   }
   
@@ -77,5 +87,4 @@ public class CreateFuncionarioController {
     Stage stage = (Stage) submitButton.getScene().getWindow();
     stage.close();
   }
-  
 }
