@@ -141,44 +141,7 @@ public class ApartamentoController implements Initializable {
     this.createModal("Editar item", controller);
   }
   
-  public void onAuditory() throws IOException {
-    this.createModalAuditory();
-  }
-  
-  private void createModalAuditory() {
-    ObservableList<ApartamentoTable> apartamentos = listaDeItems(this.service.getAllAuditory());
-  
-    TableView table = new TableView();
-  
-    Stage stage = new Stage();
-    Scene scene = new Scene(new Group());
-  
-    TableColumn<ApartamentoTable, String> blocoColumn = new TableColumn<>("Bloco");
-    blocoColumn.setCellValueFactory(new PropertyValueFactory("bloco"));
-  
-    TableColumn<ApartamentoTable, Integer> andarColumn = new TableColumn<>("Andar");
-    andarColumn.setCellValueFactory(new PropertyValueFactory("andar"));
-  
-    TableColumn<ApartamentoTable, Integer> numeroColumn = new TableColumn<>("Número");
-    numeroColumn.setCellValueFactory(new PropertyValueFactory("numero"));
-  
-    TableColumn<ApartamentoTable, String> apartamentoColumn = new TableColumn<>("Morador");
-    apartamentoColumn.setCellValueFactory(new PropertyValueFactory("moradores"));
-  
-    TableColumn<ApartamentoTable, String> carroColumn = new TableColumn<>("Carro");
-    carroColumn.setCellValueFactory(new PropertyValueFactory("carros"));
-  
-    // add columns
-    table.getColumns().addAll(blocoColumn, andarColumn, numeroColumn, apartamentoColumn, carroColumn);
-    table.setItems(apartamentos);
-    ((Group) scene.getRoot()).getChildren().addAll(table);
-  
-    stage.setScene(scene);
-    stage.setTitle("Auditoria");
-    stage.initModality(Modality.WINDOW_MODAL);
-    stage.show();
-  }
-  
+
   private void createModal(String title, Object controller) throws IOException {
     FXMLLoader loader = new FXMLLoader(
         TableButtonsController.class.getResource("/application/modals/apartamento-modal.fxml"));
