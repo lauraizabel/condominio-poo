@@ -25,7 +25,16 @@ public class CarroServices implements IService<Carro> {
 
     @Override
     public boolean deleteById(Integer id) {
-        return carroDAO.deleteById(id);
+        try {
+            Carro carro = this.getById(id);
+            String carString = utils.createObjectMapper().writeValueAsString(carro);
+            Auditoria auditoria = new Auditoria(new Date(), carString, TipoAuditoria.DELETADO, Carro.class.getName());
+            this.auditoriaService.save(auditoria);
+            return carroDAO.deleteById(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     @Override
@@ -45,7 +54,7 @@ public class CarroServices implements IService<Carro> {
     public Carro update(Carro carro) {
         try {
             String carString = utils.createObjectMapper().writeValueAsString(carro);
-            Auditoria auditoria = new Auditoria(new Date(), carString, TipoAuditoria.CRIADO, Carro.class.getName());
+            Auditoria auditoria = new Auditoria(new Date(), carString, TipoAuditoria.EDITADO, Carro.class.getName());
             this.auditoriaService.save(auditoria);
             carroDAO.update(carro);
             return carro;
