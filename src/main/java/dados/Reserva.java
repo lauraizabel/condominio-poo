@@ -6,8 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Audited
-public class Reserva extends CustomAuditory<Reserva> {
+public class Reserva {
 
     @Id
     @GeneratedValue

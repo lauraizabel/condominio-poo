@@ -1,6 +1,7 @@
 package business;
 
 import DAO.ProdutoDAO;
+import dados.Auditoria;
 import dados.PedidoDeCompra;
 import dados.Produto;
 
@@ -40,7 +41,7 @@ public class ProdutoService implements IService<Produto> {
     }
 
     @Override
-    public ArrayList<Produto> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return produtoDAO.getAllAuditory();
     }
 }

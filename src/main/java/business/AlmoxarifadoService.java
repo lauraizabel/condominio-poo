@@ -148,7 +148,7 @@ public class AlmoxarifadoService implements IService<Almoxarifado> {
     }
 
     @Override
-    public ArrayList<Almoxarifado> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return almoxarifadoDAO.getAllAuditory();
     }
 }

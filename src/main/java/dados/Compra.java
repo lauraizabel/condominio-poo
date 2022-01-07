@@ -6,8 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Audited
-public class Compra extends CustomAuditory<Compra> {
+public class Compra {
     @Id
     @GeneratedValue
     private Integer id;

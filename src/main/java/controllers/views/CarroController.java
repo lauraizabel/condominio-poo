@@ -1,11 +1,13 @@
 package controllers.views;
 
 import business.CarroServices;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.TableButtonsController;
 import controllers.modals.CreateCarroController;
 import controllers.modals.CreateFornecedorController;
 import controllers.modals.EditCarroController;
 import controllers.modals.EditFornecedorController;
+import dados.Auditoria;
 import dados.Carro;
 import dados.Fornecedor;
 import javafx.collections.FXCollections;
@@ -23,11 +25,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tables.AuditoriaTable;
 import tables.CarroTable;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -79,10 +84,36 @@ public class CarroController implements Initializable  {
         ArrayList<CarroTable> carroTableList = new ArrayList<CarroTable>();
         for ( Carro carro: this.items) {
             carroTableList.add(
+                    //gambiarra que pode ser alterada pra quem quiser e tiver paciência
                     new CarroTable(
                             carro.getId(),
                             carro.getModelo(),
-                            carro.getPlaca()
+                            carro.getPlaca(),
+                            "",
+                            ""
+                    )
+            );
+        }
+        return FXCollections.observableArrayList(carroTableList);
+    }
+
+    public ObservableList<CarroTable> listaItemsAuditoria (ArrayList<Carro> carroArrayList,  ArrayList<Auditoria> dadosAuditoria) {
+        ArrayList<CarroTable> carroTableList = new ArrayList<CarroTable>();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        for (int i = 0; i < carroArrayList.size(); i++) {
+            Integer t;
+            if(carroArrayList.get(i).getId() == null) {
+                t = 0;
+            } else {
+                t = carroArrayList.get(i).getId();
+            }
+            carroTableList.add(
+                    new CarroTable(
+                            t,
+                            carroArrayList.get(i).getModelo(),
+                            carroArrayList.get(i).getPlaca(),
+                            df.format(dadosAuditoria.get(i).getDataAlteracao()),
+                            dadosAuditoria.get(i).getTipoAuditoria().getAuditoria()
                     )
             );
         }
@@ -114,11 +145,20 @@ public class CarroController implements Initializable  {
     }
 
     public void onAuditory() throws IOException {
-        this.createModalAuditory();
+        createModalAuditory();
     }
 
     private void createModalAuditory () throws IOException {
-        ObservableList<CarroTable> carroArrayList = listaDeItems(this.service.getAllAuditory());
+        ArrayList<Carro> carroList = new ArrayList<>();
+        ArrayList<Auditoria> dadosAuditoria = this.service.getAllAuditory();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        for (Auditoria dados: dadosAuditoria) {
+            Carro carro = objectMapper.readValue(dados.getCamposAlterados(), Carro.class);
+            carroList.add(carro);
+        }
+
+        ObservableList<CarroTable> carroArrayList = listaItemsAuditoria(carroList, dadosAuditoria);
 
         TableView table = new TableView();
 
@@ -131,9 +171,15 @@ public class CarroController implements Initializable  {
         TableColumn placa = new TableColumn("Placa");
         placa.setCellValueFactory(new PropertyValueFactory<>("placa"));
 
-        table.getColumns().addAll(modelo, placa);
+        TableColumn dataAlteracao = new TableColumn("Data de Alteração");
+        dataAlteracao.setCellValueFactory(new PropertyValueFactory<>("dataAlteracao"));
+
+        TableColumn tipoAlteracao = new TableColumn("Tipo da Alteração");
+        tipoAlteracao.setCellValueFactory(new PropertyValueFactory<>("tipoAlteracao"));
+
+        table.getColumns().addAll(modelo, placa, dataAlteracao, tipoAlteracao);
         table.setItems(carroArrayList);
-        System.out.println(carroArrayList.size());
+
         ((Group) scene.getRoot()).getChildren().addAll(table);
 
         stage.setScene(scene);
@@ -141,6 +187,7 @@ public class CarroController implements Initializable  {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
     }
+
 
 
     private void createModal(String title, Object controller) throws IOException {

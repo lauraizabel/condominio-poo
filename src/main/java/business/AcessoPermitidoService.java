@@ -2,6 +2,7 @@ package business;
 
 import DAO.AcessoPermitidoDAO;
 import dados.AcessoPermitido;
+import dados.Auditoria;
 import dados.Fornecedor;
 import validation.validacao;
 
@@ -38,7 +39,7 @@ public class AcessoPermitidoService implements IService <AcessoPermitido>{
     }
 
     @Override
-    public ArrayList<AcessoPermitido> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return AcessoPermitidoDAO.getAllAuditory();
     }
 }

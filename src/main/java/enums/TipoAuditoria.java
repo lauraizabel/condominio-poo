@@ -1,11 +1,17 @@
 package enums;
 
 public enum TipoAuditoria {
-    CRIADO("0"),
-    EDITADO("1"),
-    DELETADO("2");
+    CRIADO("CRIANDO"),
+    EDITADO("EDITANDO"),
+    DELETADO("DELETANDO");
 
+    private String auditoria;
 
     TipoAuditoria(String auditoria) {
+        this.auditoria = auditoria;
+    }
+
+    public String getAuditoria() {
+        return auditoria;
     }
 }

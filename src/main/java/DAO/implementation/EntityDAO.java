@@ -1,14 +1,20 @@
 package DAO.implementation;
 
 import DAO.IEntityDAO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import dados.Almoxarifado;
+import dados.Auditoria;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.query.AuditQuery;
+import validation.utils;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,24 +134,23 @@ public class EntityDAO<T> implements IEntityDAO<T> {
     }
   }
 
-  public ArrayList<T> getAllAuditory () {
+  public ArrayList<Auditoria> getAllAuditory () {
     EntityManager em = null;
     try {
       em = getEntityManager();
-      AuditReader reader = AuditReaderFactory.get( em );
-      AuditQuery query = reader.createQuery().forRevisionsOfEntity(persistedClass, false, true);
-      ArrayList<T> newObjects = new ArrayList<T>();
+      String q = "FROM Auditoria WHERE nomeTabela = :nomeTabela";
+      Query query = em.createQuery(q).setParameter("nomeTabela",  persistedClass.getName());
 
-      List<Object[]> result = query.getResultList();
+      List<Auditoria> list = query.getResultList();
+      ArrayList<Auditoria> arrayList = new ArrayList<>(list);
 
-      for (Object[] o : result) {
-        T typeObject = (T) o[0];
-        newObjects.add(typeObject);
-      }
-      return newObjects;
+      return arrayList;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     } finally {
       this.closeConnection(em);
     }
+    return null;
   }
 
   public void closeConnection(EntityManager em) {

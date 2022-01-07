@@ -2,6 +2,7 @@ package business;
 
 import DAO.ReservaDAO;
 import DAO.UsuarioDAO;
+import dados.Auditoria;
 import dados.Reserva;
 import dados.Usuario;
 import validation.bcrypt;
@@ -38,7 +39,7 @@ public class UsuarioService implements IService<Usuario>{
     }
 
     @Override
-    public ArrayList<Usuario> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return usuarioDAO.getAllAuditory();
     }
 

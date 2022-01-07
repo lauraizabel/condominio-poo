@@ -134,11 +134,7 @@ public class FuncionarioController implements Initializable {
     EditFuncionarioController controller = new EditFuncionarioController(item);
     this.createModal("Editar item", controller);
   }
-  
-  public void onAuditory() throws IOException {
-    this.createModalAuditory();
-  }
-  
+
   private void createModal(String title, Object controller) throws IOException {
     FXMLLoader loader =
         new FXMLLoader(TableButtonsController.class.getResource("/application/modals/funcionario-modal.fxml"));
@@ -153,51 +149,7 @@ public class FuncionarioController implements Initializable {
     stage.show();
   }
   
-  private void createModalAuditory () throws IOException {
-    ObservableList<FuncionarioTable> acessoArray = listaDeItems(this.service.getAllAuditory());
-    
-    TableView table = new TableView();
-    
-    Stage stage = new Stage();
-    Scene scene = new Scene(new Group());
-    TableColumn<FuncionarioTable, String> nomeCol = new TableColumn<>("Nome");
-    nomeCol.setCellValueFactory(new PropertyValueFactory("nome"));
-  
-    TableColumn<FuncionarioTable, String> cpfCol = new TableColumn<>("CPF");
-    cpfCol.setCellValueFactory(new PropertyValueFactory("cpf"));
-  
-    TableColumn<FuncionarioTable, String> emailCol = new TableColumn<>("E-Mail");
-    emailCol.setCellValueFactory(new PropertyValueFactory("email"));
-  
-    TableColumn<FuncionarioTable, String> telefoneCol = new TableColumn<>("Telefone");
-    telefoneCol.setCellValueFactory(new PropertyValueFactory("telefone"));
-  
-    TableColumn<FuncionarioTable, String> cargoColumn = new TableColumn<>("Cargo");
-    cargoColumn.setCellValueFactory(new PropertyValueFactory("cargo"));
-  
-    TableColumn<FuncionarioTable, Double> salarioColumn = new TableColumn<>("Salário");
-    salarioColumn.setCellValueFactory(new PropertyValueFactory("salario"));
-  
-    TableColumn<FuncionarioTable, String> enderecoColumn = new TableColumn<>("Endereço");
-    enderecoColumn.setCellValueFactory(new PropertyValueFactory("endereço"));
-  
-    TableColumn<FuncionarioTable, Date> dataAdmissaoColumn = new TableColumn<>("Data de Admissão");
-    dataAdmissaoColumn.setCellValueFactory(new PropertyValueFactory("data admissao"));
-  
-    TableColumn<FuncionarioTable, Date> dataDemissaoColumn = new TableColumn<>("Data de Demissão");
-    dataDemissaoColumn.setCellValueFactory(new PropertyValueFactory("data demissao"));
-  
-    table.getColumns().addAll(nomeCol, cpfCol, emailCol, telefoneCol, cargoColumn, salarioColumn,
-        enderecoColumn, dataAdmissaoColumn, dataDemissaoColumn);
-    table.setItems(acessoArray);
-    ((Group) scene.getRoot()).getChildren().addAll(table);
-    
-    stage.setScene(scene);
-    stage.setTitle("Auditoria");
-    stage.initModality(Modality.WINDOW_MODAL);
-    stage.show();
-  }
-  
+
   public void reloadItems() {
     this.cleanTableContent();
     this.populateTableContent();

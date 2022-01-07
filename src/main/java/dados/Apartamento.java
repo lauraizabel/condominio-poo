@@ -10,8 +10,7 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 
 @Entity
-@Audited
-public class Apartamento extends CustomAuditory<Apartamento> {
+public class Apartamento {
     
     @Id @GeneratedValue
     private Integer id;

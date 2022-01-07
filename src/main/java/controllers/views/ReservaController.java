@@ -113,41 +113,6 @@ public class ReservaController implements Initializable {
         this.createModal("Editar item", controller);
     }
 
-    public void onAuditory() throws IOException {
-        this.createModalAuditory();
-    }
-
-    private void createModalAuditory () throws IOException {
-        ObservableList<ReservaTable> reservas = listaDeItems(this.service.getAllAuditory());
-
-        TableView table = new TableView();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-
-        TableColumn<ReservaTable, Integer> idEspacoCol = new TableColumn<>("ID Espaco");
-        idEspacoCol.setCellValueFactory(new PropertyValueFactory("idEspaco"));
-
-        TableColumn<ReservaTable, Integer> idApartamentoCol = new TableColumn<>("ID Apartamento");
-        idApartamentoCol .setCellValueFactory(new PropertyValueFactory("idApartamento"));
-
-        TableColumn<ReservaTable, String> dataReservaCol = new TableColumn<>("Data Reserva");
-        dataReservaCol .setCellValueFactory(new PropertyValueFactory("dataReserva"));
-
-        // add columns
-        table.getColumns().setAll(idEspacoCol, idApartamentoCol, dataReservaCol);
-        table.setItems(reservas);
-        ((Group) scene.getRoot()).getChildren().addAll(table);
-
-        stage.setScene(scene);
-        stage.setTitle("Auditoria");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
-    }
-
-
-
-
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/reserva-modal.fxml"));
         loader.setController(controller);

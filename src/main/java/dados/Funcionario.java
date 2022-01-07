@@ -10,7 +10,6 @@ import java.util.Date;
 
 
 @Entity
-@Audited
 public class Funcionario extends Pessoa {
     private String cargo;
     private Double salario;

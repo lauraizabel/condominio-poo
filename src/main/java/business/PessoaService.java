@@ -3,6 +3,7 @@ package business;
 import java.util.ArrayList;
 
 import DAO.PessoaDAO;
+import dados.Auditoria;
 import dados.PedidoDeCompra;
 import dados.Pessoa;
 
@@ -35,7 +36,7 @@ public class PessoaService implements IService<Pessoa> {
     }
 
     @Override
-    public ArrayList<Pessoa> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return pessoaDAO.getAllAuditory();
     }
 }

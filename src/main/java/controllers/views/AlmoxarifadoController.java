@@ -132,44 +132,7 @@ public class AlmoxarifadoController implements Initializable {
     }
 
     public void onAuditory() throws IOException {
-        this.createModalAuditory();
     }
-
-    private void createModalAuditory () throws IOException {
-        ObservableList<AlmoxarifadoTable> almoxarifadoArray = listaDeItems(this.service.getAllAuditory());
-
-        TableView table = new TableView();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-
-        TableColumn<AlmoxarifadoTable, String> produtoCol = new TableColumn<AlmoxarifadoTable, String>("Produto");
-        produtoCol.setCellValueFactory(new PropertyValueFactory("produto"));
-
-        TableColumn<AlmoxarifadoTable, String> funcionarioCol = new TableColumn<AlmoxarifadoTable, String>("Funcionário");
-        funcionarioCol.setCellValueFactory(new PropertyValueFactory("funcionario"));
-
-        TableColumn<AlmoxarifadoTable, Integer> quantidadeAdicionadaCol = new TableColumn<AlmoxarifadoTable, Integer>("Quantidade Adcionada");
-        quantidadeAdicionadaCol.setCellValueFactory(new PropertyValueFactory("quantidadeAdicionada"));
-
-        TableColumn<AlmoxarifadoTable, Integer> quantidadeRemovidaCol = new TableColumn<AlmoxarifadoTable, Integer>("Quantidade Removida");
-        quantidadeRemovidaCol.setCellValueFactory(new PropertyValueFactory("quantidadeRemovida"));
-
-        TableColumn<AlmoxarifadoTable, Date> dataAlteracaoCol = new TableColumn<AlmoxarifadoTable, Date>("Data");
-        dataAlteracaoCol.setCellValueFactory(new PropertyValueFactory("dataAlteracao"));
-
-
-        // add columns
-        table.getColumns().setAll(produtoCol, funcionarioCol, quantidadeAdicionadaCol, quantidadeRemovidaCol, dataAlteracaoCol);
-        table.setItems(almoxarifadoArray);
-        ((Group) scene.getRoot()).getChildren().addAll(table);
-
-        stage.setScene(scene);
-        stage.setTitle("Auditoria");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
-    }
-
 
     private void createModal(String title, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(TableButtonsController.class.getResource("/application/modals/almoxarifado-modal.fxml"));

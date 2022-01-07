@@ -1,5 +1,7 @@
 package business;
 
+import dados.Auditoria;
+
 import java.util.ArrayList;
 
 public interface IService<T> {
@@ -14,5 +16,5 @@ public interface IService<T> {
 
     T update(T object);
 
-    ArrayList<T> getAllAuditory();
+    ArrayList<Auditoria> getAllAuditory();
 }

@@ -8,9 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Audited
-@Table
-public class Fornecedor extends CustomAuditory<Fornecedor> {
+public class Fornecedor {
 
     @Id @GeneratedValue
     private Integer id;

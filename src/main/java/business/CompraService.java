@@ -1,10 +1,7 @@
 package business;
 
 import DAO.CompraDAO;
-import dados.Apartamento;
-import dados.Compra;
-import dados.PedidoDeCompra;
-import dados.Produto;
+import dados.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,7 +67,7 @@ public class CompraService implements IService<Compra> {
     }
 
     @Override
-    public ArrayList<Compra> getAllAuditory() {
+    public ArrayList<Auditoria> getAllAuditory() {
         return compraDAO.getAllAuditory();
     }
 }

@@ -7,8 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@Audited
-public class Espaco extends CustomAuditory<Espaco> {
+public class Espaco{
     @Id @GeneratedValue
     private Integer id;
     private String nome;
