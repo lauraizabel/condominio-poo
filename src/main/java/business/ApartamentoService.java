@@ -26,8 +26,8 @@ public class ApartamentoService  implements IService<Apartamento>{
     }
 
     @Override
-    public boolean save(Apartamento reserva) {
-        return apartamentoDAO.save(reserva);
+    public boolean save(Apartamento apartamento) {
+        return apartamentoDAO.save(apartamento);
     }
 
     @Override

@@ -37,7 +37,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../styles/styles.css" >
     <center>
         <Label fx:id="tabelaConteudo" alignment="CENTER" prefHeight="200.0" prefWidth="244.0" text="BEM VINDO!" textAlignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" xmlns:fx="http://javafx.com/fxml/1">
          <font>

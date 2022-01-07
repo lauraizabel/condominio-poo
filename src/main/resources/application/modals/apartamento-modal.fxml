@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../styles/styles.css" >
+<?import org.controlsfx.control.CheckComboBox?>
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane prefHeight="400.0" prefWidth="600.0">
             <columnConstraints>
@@ -32,46 +35,56 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label text="Nome:">
+                        <Label text="Bloco:">
                             <VBox.margin>
                                 <Insets left="20.0" right="20.0" top="10.0" />
                             </VBox.margin>
                         </Label>
-                        <TextField fx:id="nomeValue">
+                        <TextField fx:id="blocoValue">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="Telefone:">
+                        <Label text="Andar:">
                             <VBox.margin>
                                 <Insets left="20.0" right="20.0" top="10.0" />
                             </VBox.margin>
                         </Label>
-                        <TextField fx:id="telefoneValue">
+                        <TextField fx:id="andarValue">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="Email:">
+                        <Label text="Número:">
                             <VBox.margin>
                                 <Insets left="20.0" right="20.0" top="10.0" />
                             </VBox.margin>
                         </Label>
-                        <TextField fx:id="emailValue">
+                        <TextField fx:id="numeroValue">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="CPF:">
-                            <VBox.margin>
-                                <Insets left="20.0" right="20.0" top="10.0" />
-                            </VBox.margin>
-                        </Label>
-                        <TextField fx:id="cpfValue">
-                            <VBox.margin>
-                                <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
-                            </VBox.margin>
-                        </TextField>
+                  <Label layoutX="31.0" layoutY="175.0" text="Moradores:">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </Label>
+                  <CheckComboBox fx:id="moradorValues" prefHeight="28.0" prefWidth="198.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </CheckComboBox>
+                  <Label layoutX="11.0" layoutY="232.0" text="Carros:">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </Label>
+                  <CheckComboBox fx:id="carroValues" layoutX="11.0" layoutY="250.0" prefHeight="28.0" prefWidth="198.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />
+                     </VBox.margin>
+                  </CheckComboBox>
                         <GridPane>
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
