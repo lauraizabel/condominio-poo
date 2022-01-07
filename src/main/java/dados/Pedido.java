@@ -1,24 +1,27 @@
 package dados;
 
-import javax.persistence.*;
+import org.hibernate.envers.Audited;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Pedido {
+@Audited
+public class Pedido extends CustomAuditory<Pedido> {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer id;
-    @ManyToOne(targetEntity=Funcionario.class, fetch= FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.EAGER)
     private Funcionario requerente;
-    @OneToMany(targetEntity=Produto.class, fetch= FetchType.LAZY)
+    @ManyToMany(targetEntity = Produto.class, fetch = FetchType.EAGER)
     private List<Produto> produtos;
 
-    public Pedido() {}
-    
-    public Pedido(Integer id, Funcionario requerente, ArrayList<Produto> produtos) {
-        this.id = id;
+    public Pedido() {
+    }
+
+    public Pedido(Funcionario requerente, ArrayList<Produto> produtos) {
         this.requerente = requerente;
         this.produtos = produtos;
     }
@@ -27,7 +30,7 @@ public class Pedido {
         return this.id;
     }
 
-    public List<Produto> getProduto() {
+    public List<Produto> getProdutos() {
         return this.produtos;
     }
 

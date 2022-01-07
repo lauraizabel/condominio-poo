@@ -1,12 +1,16 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.util.Date;
 
 
 @Entity
+@Audited
 public class Funcionario extends Pessoa {
     private String cargo;
     private Double salario;
@@ -19,7 +23,6 @@ public class Funcionario extends Pessoa {
     public Funcionario() {}
 
     public Funcionario(
-            Integer id,
             String nome,
             String telefone,
             String email,
@@ -30,7 +33,7 @@ public class Funcionario extends Pessoa {
             Date dataAdmissao,
             Date dataEmissao
     ){
-        super(id, nome, telefone, email, cpf);
+        super(nome, telefone, email, cpf);
         this.cargo = cargo;
         this.salario = salario;
         this.endereco = endereco;

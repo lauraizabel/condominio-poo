@@ -1,11 +1,14 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Espaco {
+@Audited
+public class Espaco extends CustomAuditory<Espaco> {
     @Id @GeneratedValue
     private Integer id;
     private String nome;
@@ -15,8 +18,7 @@ public class Espaco {
 
     public Espaco() {}
 
-    public Espaco(Integer id, String nome, int capacidade, boolean ocupado, Double custoReserva) {
-        this.id = id;
+    public Espaco(String nome, int capacidade, boolean ocupado, Double custoReserva) {
         this.nome = nome;
         this.capacidade = capacidade;
         this.ocupado = ocupado;
@@ -55,7 +57,7 @@ public class Espaco {
         return this.custoReserva;
     }
 
-    public void setOcupado(Double custoReserva) {
+    public void setCustoReserva(Double custoReserva) {
         this.custoReserva = custoReserva;
     }
 }

@@ -1,11 +1,17 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Carro {
+@Audited
+public class Carro extends CustomAuditory<Carro> implements Serializable {
     @Id @GeneratedValue
     private Integer id;
     private String modelo;
@@ -13,8 +19,7 @@ public class Carro {
 
     public Carro() {}
 
-    public Carro(Integer id, String modelo, String placa){
-        this.id = id;
+    public Carro(String modelo, String placa){
         this.modelo = modelo;
         this.placa = placa;
     }
@@ -38,6 +43,4 @@ public class Carro {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-
-       
 }

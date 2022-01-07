@@ -1,11 +1,16 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Fornecedor {
+@Audited
+@Table
+public class Fornecedor extends CustomAuditory<Fornecedor> {
 
     @Id @GeneratedValue
     private Integer id;
@@ -17,8 +22,7 @@ public class Fornecedor {
 
     public Fornecedor() {}
 
-    public Fornecedor(Integer id, String nome, String cnpj, String endereco, String telefone, String email) {
-        this.id = id;
+    public Fornecedor(String nome, String cnpj, String endereco, String telefone, String email) {
         this.nome = nome;
         this.cnpj = cnpj;
         this.endereco = endereco;
@@ -29,7 +33,7 @@ public class Fornecedor {
     public Integer getId() {
         return this.id;
     }
-
+    public void setId(Integer id) {this.id = id;}
     public String getNome() {
         return this.nome;
     }
@@ -40,6 +44,10 @@ public class Fornecedor {
 
     public String getCnpj() {
         return this.cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public String getEndereco() {

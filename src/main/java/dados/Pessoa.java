@@ -1,8 +1,11 @@
 package dados;
-import javax.persistence.*;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Pessoa {
+public abstract class Pessoa extends CustomAuditory<Pessoa> {
     @Id @GeneratedValue
     private Integer id;
     private String nome;
@@ -12,8 +15,7 @@ public abstract class Pessoa {
 
     public Pessoa() {}
 
-    public Pessoa(Integer id, String nome, String telefone, String email, String cpf) {
-        this.id = id;
+    public Pessoa(String nome, String telefone, String email, String cpf) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;

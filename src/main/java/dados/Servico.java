@@ -1,24 +1,30 @@
 package dados;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 
+import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
+
 @Entity
-public class Servico {
-    
-    @Id @GeneratedValue
+@Audited(targetAuditMode = NOT_AUDITED)
+public class Servico extends CustomAuditory<Servico> {
+
+    @Id
+    @GeneratedValue
     private Integer id;
     private String descricao;
-    private Float valor;
+    private Double valor;
     private String codigo;
-    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.EAGER)
     private Funcionario requerente;
-    @ManyToOne(targetEntity=Fornecedor.class, fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity = Fornecedor.class, fetch = FetchType.EAGER)
     private Fornecedor fornecedor;
 
-    public Servico() {}
+    public Servico() {
+    }
 
-    public Servico(Integer id, String descricao, Float valor, String codigo, Funcionario requerente, Fornecedor fornecedor) {
-        this.id = id;
+    public Servico(String descricao, Double valor, String codigo, Funcionario requerente, Fornecedor fornecedor) {
         this.descricao = descricao;
         this.valor = valor;
         this.codigo = codigo;
@@ -26,11 +32,11 @@ public class Servico {
         this.fornecedor = fornecedor;
     }
 
-    public Integer getId(){
+    public Integer getId() {
         return this.id;
     }
 
-    public String getDescricao(){
+    public String getDescricao() {
         return this.descricao;
     }
 
@@ -38,11 +44,11 @@ public class Servico {
         this.descricao = descricao;
     }
 
-    public Float getValor() {
+    public Double getValor() {
         return this.valor;
     }
 
-    public void setValor(Float valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
@@ -69,6 +75,5 @@ public class Servico {
     public void SetFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
-
 
 }
