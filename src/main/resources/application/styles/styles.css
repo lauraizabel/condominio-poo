@@ -3,10 +3,6 @@
     -fx-border-radius: 5;
 }
 
-.table-view.cell{
-    -fx-border-color: #000;
-}
-
 .button {
     -fx-font-family: 'sans-serif';
     -fx-background-color: #273746;
